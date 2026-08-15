@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <title>Terms of Service | Boojee Cafe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="header inner-header">
+  <header class="header inner-header" style="position: fixed; background: rgba(32, 28, 24, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
     <a class="wordmark" href="index.html">Boojee <span>CAFE</span></a>
     <nav class="nav">
       <a href="menu.html">Menu</a>
@@ -17,34 +18,107 @@
     </nav>
   </header>
 
-  <main class="section" style="padding-top: 150px; max-width: 800px; margin: 0 auto;">
-    <h1 style="font-family: var(--serif); font-size: 3rem; margin-bottom: 2rem;">Terms of Service</h1>
-    
-    <div style="color: #514b45; font-size: 1.1rem; line-height: 1.8;">
-        <p>Last updated: August 2026</p>
+  <main>
+    <section class="editorial-hero">
+      <h1>Terms of Service</h1>
+      <p>Last updated: August 2026</p>
+    </section>
+
+    <section class="editorial-content">
+        <p>These Terms of Service outline the rules and regulations for the use of Boojee Cafe's digital platforms and services. By accessing this website we assume you accept these terms and conditions. Do not continue to use our services if you do not agree to all of the terms and conditions stated on this page.</p>
         
-        <h3 style="color: var(--ink); margin-top: 2rem;">1. Acceptance of Terms</h3>
-        <p>By accessing or using our services, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, then you may not access our services.</p>
+        <h3>1. Acceptance of Terms</h3>
+        <p>By accessing or using our services, whether in-person or digitally, you agree to be bound by these Terms of Service. This includes all future amendments and operational changes. If you disagree with any part of the terms, then you may not access our services.</p>
         
-        <h3 style="color: var(--ink); margin-top: 2rem;">2. Account Registration</h3>
-        <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms.</p>
+        <h3>2. Account Registration</h3>
+        <p>When you create an account with us, you must provide information that is accurate, complete, and current at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account on our Service. You are responsible for safeguarding the password that you use to access the Service.</p>
         
-        <h3 style="color: var(--ink); margin-top: 2rem;">3. Online Orders and Payments</h3>
-        <p>All online orders are subject to acceptance and availability. Prices are subject to change without notice. We use secure third-party payment gateways (Stripe, Razorpay) and do not store your raw credit card information on our servers.</p>
-    </div>
+        <h3>3. Online Orders and Payments</h3>
+        <p>All online orders are subject to acceptance and product availability. Our patisserie items are small-batch and subject to daily changes. Prices are subject to change without notice. We use secure third-party payment gateways and do not store your raw credit card information on our servers. All transactions are legally binding once confirmed.</p>
+
+        <h3>4. Intellectual Property</h3>
+        <p>The Service and its original content (excluding content provided by users), features, and functionality are and will remain the exclusive property of Boojee Cafe and its licensors. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of Boojee Cafe.</p>
+    </section>
   </main>
 
-  <footer style="background: var(--ink); color: #f7f3ed; margin-top: 80px;">
-    <div class="enhanced-footer">
+  <footer class="premium-footer">
+    <div class="footer-watermark">Boojee</div>
+    <div class="premium-footer-inner">
+      <div class="footer-brand">
+        <h2>Boojee <span>CAFE</span></h2>
+        <p>Specialty coffee and small-batch patisserie, prepared with quiet care from first light until late afternoon. Established 2016, London.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Visit Us</h4>
+        <div class="footer-nav">
+          <a href="visit.html">Location & Hours</a>
+          <a href="menu.html">Current Menu</a>
+          <a href="about.html">Our Craft</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <div class="footer-nav">
+          <a href="#">Instagram</a>
+          <a href="blog.html">Journal</a>
+          <a href="#">Wholesale</a>
+          <a href="careers.html">Careers</a>
+        </div>
+      </div>
+
+      <div class="footer-newsletter">
         <div>
-            <p>&copy; 2026 Boojee Cafe.</p>
+          <h3>Subscribe to Boojee</h3>
+          <p>Get the latest updates on new seasonal roasts, events, and cafe news.</p>
         </div>
-        <div class="footer-links">
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms.html">Terms of Service</a>
-            <a href="blog.html">Blog</a>
+        <div style="position: relative;">
+          <form class="newsletter-form-premium" id="newsletterForm">
+            <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
+          <p id="newsletterMsg" class="newsletter-msg" style="position: absolute; bottom: -30px; left: 0; font-size: 13px;"></p>
         </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div>&copy; 2026 Boojee Cafe. All rights reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html" style="color: #fff;">Terms of Service</a>
+      </div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('newsletterForm');
+        if(form) {
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('newsletterEmail').value;
+                const msg = document.getElementById('newsletterMsg');
+                
+                try {
+                    const res = await fetch('/api/newsletter', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    const data = await res.json();
+                    msg.textContent = data.message;
+                    msg.style.color = res.ok ? '#4caf50' : '#f44336';
+                    if(res.ok) document.getElementById('newsletterEmail').value = '';
+                } catch (err) {
+                    msg.textContent = 'An error occurred. Please try again later.';
+                    msg.style.color = '#f44336';
+                }
+            };
+        }
+    });
+  </script>
 </body>
 </html>
