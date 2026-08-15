@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | Boojee Cafe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <style>
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); margin: 0; padding: 0; }
+    .admin-container { display: flex; min-height: 100vh; }
+    .sidebar { width: 250px; background: var(--bone); padding: 2rem 1rem; border-right: 1px solid var(--line); }
+    .sidebar h1 { font-size: 1.5rem; margin-bottom: 2rem; font-family: var(--serif); font-style: italic; }
+    .sidebar button { display: block; width: 100%; text-align: left; padding: 0.75rem; background: none; border: none; font-size: 1rem; cursor: pointer; border-radius: 4px; margin-bottom: 0.5rem; }
+    .sidebar button.active, .sidebar button:hover { background: var(--line); }
+    .main-content { flex: 1; padding: 2rem; }
+    .section { display: none; }
+    .section.active { display: block; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid var(--line); }
+    th { font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; }
+    .badge { padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem; background: var(--ink); color: #fff; }
+    .badge.pending { background: #eab308; color: #fff; }
+    .badge.success { background: #22c55e; }
+    html.dark-mode body { background: #1a1614; color: #e5dbd2; }
+    html.dark-mode .sidebar { background: #221d19; border-color: #332b25; }
+    html.dark-mode th, html.dark-mode td { border-color: #332b25; }
+    html.dark-mode .sidebar button.active, html.dark-mode .sidebar button:hover { background: #332b25; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <nav class="sidebar">
+      <h1>Boojee Admin</h1>
+      <button class="active" data-target="dashboard">Dashboard</button>
+      <button data-target="orders">Orders</button>
+      <button data-target="employees">Employees</button>
+      <button data-target="tables">Tables</button>
+      <button data-target="blog">Blog Manager</button>
+      <div style="margin-top: 2rem;">
+        <a href="index.html" style="color: inherit; text-decoration: none; font-size: 0.9rem; padding: 0.75rem;">&larr; Back to Cafe</a>
+      </div>
+    </nav>
+    <main class="main-content">
+      <div id="dashboard" class="section active">
+        <h2>Real-Time Analytics</h2>
+        <div style="display:flex; gap:1rem; margin-bottom: 2rem;">
+            <div style="background:var(--bone); padding:1.5rem; border-radius:8px; flex:1;">
+                <h3 style="margin-top:0;">Total Orders</h3>
+                <p id="totalOrders" style="font-size:2rem; font-weight:bold; margin:0;">0</p>
+            </div>
+            <div style="background:var(--bone); padding:1.5rem; border-radius:8px; flex:1;">
+                <h3 style="margin-top:0;">Total Revenue</h3>
+                <p id="totalRevenue" style="font-size:2rem; font-weight:bold; margin:0;">₹0</p>
+            </div>
+            <div style="background:var(--bone); padding:1.5rem; border-radius:8px; flex:1;">
+                <h3 style="margin-top:0;">Live Users (Est)</h3>
+                <p style="font-size:2rem; font-weight:bold; margin:0; color:#22c55e;">&bull; <span id="liveUsers">1</span></p>
+            </div>
+        </div>
+        <div style="background:var(--bone); padding:1.5rem; border-radius:8px;">
+            <canvas id="revenueChart" height="100"></canvas>
+        </div>
+      </div>
+
+      <div id="orders" class="section">
+        <h2>Recent Orders</h2>
+        <table id="ordersTable">
+          <thead><tr><th>ID</th><th>Customer</th><th>Total</th><th>Time</th><th>Payment</th><th>Table</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      
+      <div id="employees" class="section">
+        <h2>Staff Directory</h2>
+        <table id="employeesTable">
+          <thead><tr><th>ID</th><th>Email</th><th>Role</th><th>Position</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      
+      <div id="tables" class="section">
+        <h2>Restaurant Seating</h2>
+        <table id="tablesTable">
+          <thead><tr><th>Table No</th><th>Capacity</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div id="blog" class="section">
+        <h2>Blog Manager</h2>
+        <div style="background:var(--bone); padding:1.5rem; border-radius:8px; margin-bottom:2rem;">
+            <h3>Create New Post</h3>
+            <form id="createPostForm" style="display:flex; flex-direction:column; gap:1rem; max-width:500px;">
+                <input type="text" id="postTitle" placeholder="Post Title" required style="padding:10px;">
+                <input type="text" id="postImage" placeholder="Image URL (optional)" style="padding:10px;">
+                <textarea id="postContent" rows="5" placeholder="Write your post here..." required style="padding:10px;"></textarea>
+                <button type="submit" style="background:var(--ink); color:#fff; border:none; padding:10px; cursor:pointer;">Publish Post</button>
+            </form>
+        </div>
+        <table id="blogTable">
+          <thead><tr><th>ID</th><th>Title</th><th>Date</th><th>Action</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loggedIn = localStorage.getItem('boojee_logged_in');
+      const role = localStorage.getItem('boojee_role');
+      if (loggedIn !== 'true' || role !== 'admin') {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const loadData = async (endpoint, tbodyId, renderFn) => {
+        try {
+          const res = await fetch(endpoint, { credentials: 'include' });
+          if (res.status === 401 || res.status === 403) {
+            alert('Admin access required.');
+            location.replace('index.html');
+            return;
+          }
+          const data = await res.json();
+          document.getElementById(tbodyId).innerHTML = renderFn(data);
+        } catch (e) { console.error(e); }
+      };
+
+      const renderOrders = data => {
+        return (data.orders || []).map(o => `<tr>
+          <td>#${o.id}</td>
+          <td>${o.customer_name}</td>
+          <td>₹${o.total.toLocaleString('en-IN')}</td>
+          <td>${new Date(o.created_at).toLocaleString()}</td>
+          <td><span class="badge ${o.payment_status === 'pending' ? 'pending' : 'success'}">${o.payment_method || 'mock'}</span></td>
+          <td>${o.table_id || 'Takeaway'}</td>
+          <td><span class="badge ${o.status === 'confirmed' ? 'success' : ''}">${o.status}</span></td>
+        </tr>`).join('');
+      };
+
+      const renderEmployees = data => {
+        return (data.employees || []).map(e => `<tr>
+          <td>${e.id}</td>
+          <td>${e.email}</td>
+          <td>${e.role}</td>
+          <td>${e.position || 'Staff'}</td>
+        </tr>`).join('');
+      };
+
+      const renderTables = data => {
+        return (data.tables || []).map(t => `<tr>
+          <td>Table ${t.table_number}</td>
+          <td>${t.capacity}</td>
+          <td><span class="badge ${t.status === 'available' ? 'success' : 'pending'}">${t.status}</span></td>
+        </tr>`).join('');
+      };
+
+      const renderBlog = data => {
+        return (data.posts || []).map(p => `<tr>
+          <td>${p.id}</td>
+          <td>${p.title}</td>
+          <td>${new Date(p.created_at).toLocaleDateString()}</td>
+          <td><button onclick="deletePost(${p.id})" style="color:red; background:none; border:none; cursor:pointer;">Delete</button></td>
+        </tr>`).join('');
+      };
+
+      window.deletePost = async (id) => {
+          if(!confirm('Delete this post?')) return;
+          try {
+              await fetch('/api/blog/' + id, { method: 'DELETE', credentials: 'include' });
+              refreshAll();
+          } catch(e) { alert('Error deleting post'); }
+      };
+
+      document.getElementById('createPostForm').onsubmit = async (e) => {
+          e.preventDefault();
+          const title = document.getElementById('postTitle').value;
+          const image_url = document.getElementById('postImage').value;
+          const content = document.getElementById('postContent').value;
+          try {
+              const res = await fetch('/api/blog', {
+                  method: 'POST',
+                  headers: {'Content-Type': 'application/json'},
+                  credentials: 'include',
+                  body: JSON.stringify({title, image_url, content})
+              });
+              if(res.ok) {
+                  e.target.reset();
+                  refreshAll();
+              } else {
+                  alert('Error publishing post');
+              }
+          } catch(err) { alert('Error publishing post'); }
+      };
+
+      const refreshAll = () => {
+        loadData('/api/admin/orders', 'ordersTable tbody', renderOrders);
+        loadData('/api/admin/employees', 'employeesTable tbody', renderEmployees);
+        loadData('/api/admin/tables', 'tablesTable tbody', renderTables);
+        loadData('/api/blog', 'blogTable tbody', renderBlog);
+      };
+
+      document.querySelectorAll('.sidebar button[data-target]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById(btn.dataset.target).classList.add('active');
+        });
+      });
+
+      refreshAll();
+
+      // Real-Time Analytics WebSocket
+      const socket = io('http://localhost:5001');
+      let revenueChart;
+      
+      socket.on('metrics_update', (metrics) => {
+          document.getElementById('totalOrders').textContent = metrics.total_orders;
+          document.getElementById('totalRevenue').textContent = '₹' + Number(metrics.total_revenue).toLocaleString('en-IN');
+          document.getElementById('liveUsers').textContent = Math.floor(Math.random() * 5) + 1; // mock live visitors
+          
+          if (!revenueChart) {
+              const ctx = document.getElementById('revenueChart').getContext('2d');
+              revenueChart = new Chart(ctx, {
+                  type: 'line',
+                  data: metrics.chart_data,
+                  options: {
+                      responsive: true,
+                      plugins: {
+                          legend: { display: false }
+                      }
+                  }
+              });
+          } else {
+              revenueChart.data = metrics.chart_data;
+              revenueChart.update();
+          }
+      });
+      
+    });
+  </script>
+</body>
+</html>

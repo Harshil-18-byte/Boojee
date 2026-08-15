@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Visit | Boojee Cafe</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/><link href="css/style.css" rel="stylesheet"/></head><body><header class="header inner-header"><a class="wordmark" href="index.html">Boojee <span>CAFE</span></a><button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button><nav class="nav" id="nav"><a href="menu.html">Menu</a><a href="about.html">Our craft</a><a href="visit.html">Visit</a></nav><a class="order-button" href="menu.html">Order ahead</a></header><main><section class="page-hero"><p class="kicker">BANDRA WEST, MUMBAI</p><h1>Come in. <em>Stay awhile.</em></h1><p>A neighbourhood cafe for early starts, soft afternoons and everything in between.</p></section><section class="visit-page section"><img alt="Boojee Cafe custom logo" class="visit-brand-mark" src="images/boojee-cafe-mark.svg"/><div><p class="kicker">FIND YOUR WAY</p><h2>Visit <em>Boojee.</em></h2><p><strong>Shop No. 6, New Kantwadi Road<br/>Off Perry Cross Road, Bandra West<br/>Mumbai, Maharashtra 400050</strong></p><p>Open daily: 7am–11pm</p><div class="visit-actions"><a class="button dark" href="https://www.google.com/maps/search/?api=1&amp;query=Boojee%20Cafe%2C%20Shop%20No.%206%2C%20New%20Kantwadi%20Road%2C%20Bandra%20West%2C%20Mumbai%20400050" rel="noreferrer" target="_blank">Open in maps</a><button class="button" data-copy-address="" type="button">Copy address</button></div><div class="visit-status"><span></span><strong id="visitOpenStatus">Open daily, 7am–11pm</strong><small>Walk-ins are always welcome.</small></div></div></section><section class="visit-details section"><div><p class="kicker">A LITTLE ORIENTATION</p><h2>Make the most of <em>your visit.</em></h2></div><div class="visit-checklist"><p>— Counter seats for solo mornings</p><p>— Step-free entrance and accessible restroom</p><p>— Dogs welcome in the front room</p><p>— Complimentary Wi-Fi for the first hour</p></div></section><section class="reservation section"><div><p class="kicker">GROUPS &amp; GATHERINGS</p><h2>Planning something <em>special?</em></h2><p>For groups of six or more, we would be delighted to reserve a table and shape the perfect spread.</p></div><form id="enquiryForm"><label>Name<input name="name" placeholder="Your name" required=""/></label><label>Email<input name="email" placeholder="you@example.com" required="" type="email"/></label><label>Preferred date<input name="date" required="" type="date"/></label><label>Message<textarea name="message" placeholder="Tell us about your visit" required=""></textarea></label><button class="button dark" type="submit">Send enquiry</button></form></section>
+
+</main>
+<section aria-labelledby="bellNotifyTitle" class="bell-notify">
+<div class="bell-copy">
+<p class="kicker">FRESH DROP ALERTS</p>
+<h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
+<p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
+<form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=&gt;r.json()).then(d=&gt;{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=&gt;msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
+<input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
+<button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
+<div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
+</form>
+</div>
+<div class="bell-stage">
+<div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
+<span class="rope"></span>
+<span class="bell-top"></span>
+<span class="bell-base"></span>
+<span class="bell-base bell-base-glow"></span>
+<span class="shadow-l1"></span>
+<span class="shadow-l2"></span>
+<span class="left-glow"></span>
+<span class="left-glow2"></span>
+<span class="r-glow"></span>
+<span class="r-glow2"></span>
+<span class="mid-ring"></span>
+<span class="mid-ring small"></span>
+<span class="glow"></span>
+<span class="glow2"></span>
+<span class="bell-buff-t"></span>
+<span class="bell-buff"></span>
+<span class="bell-btm"></span>
+<span class="bell-btm2"></span>
+<span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
+<span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
+</div>
+<button class="notify-button" data-bell-button="" type="button">Notify Me</button>
+<span aria-hidden="true" class="grain"></span>
+</div>
+</section>
+<footer style="background: var(--ink); color: #f7f3ed; padding: 50px max(5vw, 28px);">
+<div class="enhanced-footer" style="display: flex; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto;">
+<div>
+<p style="margin:0; color:#cfc4b6;">© 2026 Boojee Cafe.</p>
+</div>
+<div class="footer-links" style="display: flex; gap: 30px;">
+<a href="privacy-policy.html" style="opacity: 0.7;">Privacy Policy</a>
+<a href="terms.html" style="opacity: 0.7;">Terms of Service</a>
+<a href="blog.html" style="opacity: 0.7;">Blog</a>
+</div>
+</div>
+</footer>
+<div aria-live="polite" class="toast" id="toast" role="status"></div><script src="js/script.js"></script></body></html>

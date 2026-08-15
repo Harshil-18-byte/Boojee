@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Boojee Cafe</title>
+  <desc id="desc">Custom Boojee Cafe logo on a warm cream field.</desc>
+  <rect width="900" height="1100" fill="#f4eee6"/>
+  <circle cx="450" cy="510" r="292" fill="#a44235"/>
+  <circle cx="450" cy="510" r="257" fill="none" stroke="#f4eee6" stroke-width="2" opacity=".8"/>
+  <text x="450" y="525" text-anchor="middle" fill="#f4eee6" font-family="Georgia, serif" font-size="120" font-weight="bold">Boojee</text>
+  <path d="M295 570H605" stroke="#f4eee6" stroke-width="3"/>
+  <text x="450" y="635" text-anchor="middle" fill="#f4eee6" font-family="Arial, sans-serif" font-size="34" font-weight="bold" letter-spacing="14">CAFE</text>
+  <text x="450" y="920" text-anchor="middle" fill="#33251f" font-family="Arial, sans-serif" font-size="19" letter-spacing="6">BANDRA WEST · MUMBAI</text>
+</svg>

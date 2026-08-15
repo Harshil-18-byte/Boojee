@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Checkout | Boojee Cafe</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="css/style.css" rel="stylesheet"/>
+<style>
+    .checkout{max-width:1180px;margin:0 auto;padding:145px max(5vw,28px) 105px}
+    .checkout>p:not(.kicker){max-width:620px;color:#625b54;font-size:18px}
+    .checkout-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:32px;align-items:start;margin-top:42px}
+    .checkout-panel,.order-panel{background:#fff;border:1px solid var(--line);padding:clamp(23px,4vw,34px)}
+    .checkout-panel h2,.order-panel h2{font-size:34px;margin-bottom:22px}
+    .checkout-form{display:grid;gap:18px}
+    .checkout-form label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .checkout-form input,.checkout-form select{width:100%;margin-top:7px;padding:13px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit}
+    .size-lab{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 0;margin:7px 0}
+    .cup-stage{position:relative;min-height:295px;background:var(--cream);display:grid;place-items:center;overflow:hidden}
+    .cup-stage img{width:min(260px,86%);aspect-ratio:1/1;object-fit:cover;border-radius:50%;box-shadow:0 16px 36px rgba(32,28,24,.16);transition:transform .35s ease}
+    .cup-stage[data-size="Small"] img{transform:scale(.82)}
+    .cup-stage[data-size="Regular"] img{transform:scale(.96)}
+    .cup-stage[data-size="Large"] img{transform:scale(1.08)}
+    .pour-stream{position:absolute;top:0;left:50%;width:18px;height:116px;border-radius:999px;background:linear-gradient(#70412e,#c9936b);transform:translate(-50%,-120%);opacity:0}
+    .cup-stage.pouring .pour-stream{animation:pour .95s ease both}
+    .size-copy p{color:#625b54;margin:0 0 18px}
+    .size-options{display:grid;gap:10px}
+    .size-option{display:grid;grid-template-columns:54px 1fr auto;gap:12px;align-items:center;padding:11px;border:1px solid var(--line);background:var(--paper);color:var(--ink);text-align:left}
+    .size-option img{width:54px;height:54px;object-fit:cover;border-radius:50%}
+    .size-option strong{font-family:"Playfair Display",serif;font-size:20px}
+    .size-option span{font-size:12px;color:#625b54}
+    .size-option[aria-pressed="true"]{border-color:var(--rust);box-shadow:inset 0 0 0 2px var(--rust)}
+    .swipe-wrap{margin-top:4px}
+    .swipe-track{position:relative;height:64px;border:1px solid var(--line);background:var(--cream);overflow:hidden;touch-action:none;user-select:none}
+    .swipe-progress{position:absolute;inset:0 auto 0 0;width:0;background:#397144;transition:width .15s ease}
+    .swipe-label{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#514b45;pointer-events:none}
+    .swipe-thumb{position:absolute;left:6px;top:6px;width:52px;height:52px;border:0;border-radius:50%;background:#fff url("images/Cookies.png") center/cover no-repeat;box-shadow:0 8px 18px rgba(32,28,24,.2);cursor:grab;z-index:2}
+    .swipe-thumb:active{cursor:grabbing}
+    .swipe-track.confirmed .swipe-label{color:#fff}
+    .checkout-message{min-height:26px;color:#8d3e2d;margin:15px 0 0}
+    .checkout-message.success{color:#397144}
+    .summary-row{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line);padding:14px 0}
+    .summary-row small{color:#625b54;display:block;margin-top:3px}
+    .summary-total{font-family:"Playfair Display",serif;font-size:28px;border:0}
+    .pickup-note{margin-top:24px;padding:18px;background:var(--cream);color:#514b45}
+    .pickup-note strong{display:block;font-family:"Playfair Display",serif;font-size:24px;margin-bottom:4px}
+    @keyframes pour{0%{opacity:0;transform:translate(-50%,-120%)}22%{opacity:1;transform:translate(-50%,0)}78%{opacity:1;transform:translate(-50%,48px)}100%{opacity:0;transform:translate(-50%,92px)}}
+    html.dark-mode .checkout-panel,html.dark-mode .order-panel{background:#2b251f;color:var(--ink);border-color:var(--line)}
+    html.dark-mode .checkout>p:not(.kicker),html.dark-mode .size-copy p,html.dark-mode .summary-row small,html.dark-mode .size-option span{color:#d9cdc2}
+    html.dark-mode .checkout-form input,html.dark-mode .checkout-form select,html.dark-mode .size-option{background:#211d19;color:var(--ink);border-color:var(--line)}
+    html.dark-mode .cup-stage,html.dark-mode .swipe-track,html.dark-mode .pickup-note{background:#332b25;color:#e5dbd2}
+    html.dark-mode .swipe-label{color:#e5dbd2}
+    html.dark-mode .swipe-track.confirmed .swipe-label{color:#fff}
+    @media(max-width:850px){.checkout-grid,.size-lab{grid-template-columns:1fr}.checkout{padding-top:115px}.cup-stage{min-height:235px}}
+  </style>
+</head>
+<body>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<header class="header inner-header">
+<a class="wordmark" href="index.html">Boojee <span>CAFE</span></a>
+<button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
+<nav class="nav" id="nav"><a href="menu.html">Menu</a><a href="about.html">Our craft</a><a href="visit.html">Visit</a></nav>
+<a class="order-button" href="menu.html">Order ahead</a>
+</header>
+<main class="checkout">
+<p class="kicker">CLICK &amp; COLLECT</p>
+<h1>Finish your <em>cafe order.</em></h1>
+<p>Choose your cup size, add the collection details and swipe the cookie to send the order to the cafe counter.</p>
+<div class="checkout-grid">
+<section class="checkout-panel">
+<h2>Collection details</h2>
+<form class="checkout-form" id="checkoutForm">
+<label>Your name<input autocomplete="name" id="customerName" required=""/></label>
+<label>Mobile number<input autocomplete="tel" id="phone" required="" type="tel"/></label>
+<label>Collection time<select id="pickupTime" required=""><option value="As soon as possible - 15 min">As soon as possible - 15 min</option><option value="In 30 minutes">In 30 minutes</option><option value="In 45 minutes">In 45 minutes</option><option value="In 1 hour">In 1 hour</option></select></label>
+<label>Table (If dining in)<select id="tableSelect"><option value="">I am picking up / No table</option></select></label>
+<label>Payment Method<select id="paymentMethod" required=""><option value="mock">Demo Payment (Mock)</option><option value="razorpay">Razorpay</option><option value="stripe">Stripe</option></select></label>
+<div aria-label="Choose coffee cup size" class="size-lab">
+<div class="cup-stage" data-size="Regular" id="cupStage">
+<span aria-hidden="true" class="pour-stream"></span>
+<img alt="Flat white coffee cup preview" id="cupPreview" src="images/menu-flat-white.png"/>
+</div>
+<div class="size-copy">
+<p class="kicker">CUP SIZE</p>
+<p>Pick how you want the cafe to prepare your coffee drinks in this order. Food-only orders keep the note for the counter.</p>
+<div class="size-options">
+<button aria-pressed="false" class="size-option" data-size="Small" type="button"><img alt="" src="images/menu-espresso.png"/><strong>Small</strong><span>Short cup</span></button>
+<button aria-pressed="true" class="size-option" data-size="Regular" type="button"><img alt="" src="images/menu-flat-white.png"/><strong>Regular</strong><span>House cup</span></button>
+<button aria-pressed="false" class="size-option" data-size="Large" type="button"><img alt="" src="images/menu-cappuccino.png"/><strong>Large</strong><span>Long sip</span></button>
+</div>
+</div>
+</div>
+<div class="swipe-wrap">
+<div aria-label="Swipe to confirm order" class="swipe-track" id="swipeTrack" role="group">
+<div class="swipe-progress" id="swipeProgress"></div>
+<span class="swipe-label" id="swipeLabel">Swipe cookie to confirm</span>
+<button aria-label="Swipe to confirm order" class="swipe-thumb" id="swipeThumb" type="button"></button>
+</div>
+</div>
+</form>
+<p aria-live="polite" class="checkout-message" id="checkoutMessage"></p>
+</section>
+<aside class="order-panel">
+<h2>Your order</h2>
+<div id="summaryItems"></div>
+<div class="summary-row summary-total"><span>Total</span><strong id="summaryTotal">₹0</strong></div>
+<div class="pickup-note">
+<strong id="selectedCup">Regular cup</strong>
+<span>Prepared fresh for your selected collection time.</span>
+</div>
+</aside>
+</div>
+
+</main>
+
+<section aria-labelledby="bellNotifyTitle" class="bell-notify">
+<div class="bell-copy">
+<p class="kicker">FRESH DROP ALERTS</p>
+<h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
+<p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
+<form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=&gt;r.json()).then(d=&gt;{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=&gt;msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
+<input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
+<button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
+<div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
+</form>
+</div>
+<div class="bell-stage">
+<div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
+<span class="rope"></span>
+<span class="bell-top"></span>
+<span class="bell-base"></span>
+<span class="bell-base bell-base-glow"></span>
+<span class="shadow-l1"></span>
+<span class="shadow-l2"></span>
+<span class="left-glow"></span>
+<span class="left-glow2"></span>
+<span class="r-glow"></span>
+<span class="r-glow2"></span>
+<span class="mid-ring"></span>
+<span class="mid-ring small"></span>
+<span class="glow"></span>
+<span class="glow2"></span>
+<span class="bell-buff-t"></span>
+<span class="bell-buff"></span>
+<span class="bell-btm"></span>
+<span class="bell-btm2"></span>
+<span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
+<span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
+</div>
+<button class="notify-button" data-bell-button="" type="button">Notify Me</button>
+<span aria-hidden="true" class="grain"></span>
+</div>
+</section>
+<footer style="background: var(--ink); color: #f7f3ed; padding: 50px max(5vw, 28px);">
+<div class="enhanced-footer" style="display: flex; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto;">
+<div>
+<p style="margin:0; color:#cfc4b6;">© 2026 Boojee Cafe.</p>
+</div>
+<div class="footer-links" style="display: flex; gap: 30px;">
+<a href="privacy-policy.html" style="opacity: 0.7;">Privacy Policy</a>
+<a href="terms.html" style="opacity: 0.7;">Terms of Service</a>
+<a href="blog.html" style="opacity: 0.7;">Blog</a>
+</div>
+</div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const loggedIn = localStorage.getItem('boojee_logged_in');
+      if (loggedIn !== 'true') { location.href = 'login.html'; return; }
+
+      const items = document.getElementById('summaryItems');
+      const total = document.getElementById('summaryTotal');
+      const message = document.getElementById('checkoutMessage');
+      const form = document.getElementById('checkoutForm');
+      const cupStage = document.getElementById('cupStage');
+      const cupPreview = document.getElementById('cupPreview');
+      const selectedCup = document.getElementById('selectedCup');
+      const swipeTrack = document.getElementById('swipeTrack');
+      const swipeThumb = document.getElementById('swipeThumb');
+      const swipeProgress = document.getElementById('swipeProgress');
+      const swipeLabel = document.getElementById('swipeLabel');
+      let cupSize = localStorage.getItem('boojee-cup-size') || 'Regular';
+      let submitted = false;
+
+      const sizeImages = { Small: 'images/menu-espresso.png', Regular: 'images/menu-flat-white.png', Large: 'images/menu-cappuccino.png' };
+      const readCart = () => new Map(JSON.parse(localStorage.getItem('boojee-cart') || '[]'));
+      const render = () => {
+        const cart = readCart();
+        let amount = 0;
+        items.innerHTML = '';
+        cart.forEach((item, name) => {
+          amount += item.price * item.quantity;
+          items.insertAdjacentHTML('beforeend', `<div class="summary-row"><span>${name}<small>${item.quantity} x ₹${Number(item.price).toLocaleString('en-IN')}</small></span><strong>₹${Number(item.price * item.quantity).toLocaleString('en-IN')}</strong></div>`);
+        });
+        if (!cart.size) items.innerHTML = '<p>Your order is empty. Add items from the menu before checkout.</p>';
+        total.textContent = `₹${amount.toLocaleString('en-IN')}`;
+        return cart;
+      };
+      const setCupSize = size => {
+        cupSize = size;
+        localStorage.setItem('boojee-cup-size', size);
+        cupStage.dataset.size = size;
+        cupPreview.src = sizeImages[size];
+        selectedCup.textContent = `${size} cup`;
+        document.querySelectorAll('.size-option').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.size === size)));
+        cupStage.classList.remove('pouring');
+        void cupStage.offsetWidth;
+        cupStage.classList.add('pouring');
+      };
+      document.querySelectorAll('.size-option').forEach(button => button.addEventListener('click', () => setCupSize(button.dataset.size)));
+      setCupSize(cupSize);
+
+      try {
+        const res = await fetch('/api/cart', { headers: { Authorization: `Bearer ${token}` } });
+        if (res.status === 401) throw new Error();
+        const data = await res.json();
+        if (data.cart && Object.keys(data.cart).length) localStorage.setItem('boojee-cart', JSON.stringify(Object.entries(data.cart)));
+        
+        const tablesRes = await fetch('/api/tables');
+        if(tablesRes.ok) {
+            const tData = await tablesRes.json();
+            const ts = document.getElementById('tableSelect');
+            tData.tables.forEach(t => {
+                if(t.status === 'available') ts.insertAdjacentHTML('beforeend', `<option value="${t.id}">Table ${t.table_number}</option>`);
+            });
+        }
+      } catch {
+        localStorage.removeItem('boojee_logged_in');
+        localStorage.removeItem('boojee_role');
+        location.replace('login.html');
+        return;
+      }
+      render();
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        message.textContent = 'Swipe the cookie to confirm your order.';
+        resetSwipe();
+      });
+
+      const resetSwipe = () => {
+        swipeTrack.classList.remove('confirmed');
+        swipeThumb.style.left = '6px';
+        swipeProgress.style.width = '0';
+        swipeLabel.textContent = 'Swipe cookie to confirm';
+      };
+      const confirmOrder = async () => {
+        if (submitted) return;
+        const cart = render();
+        if (!cart.size) { message.textContent = 'Your order is empty. Please add an item from the menu.'; resetSwipe(); return; }
+        if (!form.reportValidity()) { resetSwipe(); return; }
+        submitted = true;
+        swipeTrack.classList.add('confirmed');
+        swipeLabel.textContent = 'Sending order';
+        const payload = { 
+            customer_name: document.getElementById('customerName').value, 
+            phone: document.getElementById('phone').value, 
+            collection_time: document.getElementById('pickupTime').value, 
+            cup_size: cupSize,
+            payment_method: document.getElementById('paymentMethod').value,
+            table_id: document.getElementById('tableSelect').value || null
+        };
+        try {
+          await fetch('/api/cart', { method:'POST', headers:{'Content-Type':'application/json'}, credentials: 'include', body:JSON.stringify({cart:Object.fromEntries(cart)}) });
+          const res = await fetch('/api/checkout', { method:'POST', headers:{'Content-Type':'application/json'}, credentials: 'include', body:JSON.stringify(payload) });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message || 'Checkout failed.');
+          
+          const completeOrder = (providerMsg) => {
+              localStorage.setItem('boojee-cart', '[]');
+              document.cookie = `boojee_last_order=${data.order_id}; max-age=86400; path=/; SameSite=Lax`;
+              message.textContent = `${data.message} ${providerMsg} Order #${data.order_id}.`;
+              message.classList.add('success');
+              swipeLabel.textContent = 'Order confirmed';
+              render();
+              form.reset();
+              setTimeout(() => { location.href = 'profile.html'; }, 3000);
+          };
+
+          if (data.provider === 'razorpay') {
+              const options = {
+                  key: 'rzp_test_mock', // Mock key
+                  amount: amount * 100,
+                  currency: 'INR',
+                  name: 'Boojee Cafe',
+                  description: 'Cafe Order',
+                  order_id: data.order_id,
+                  handler: function (response) {
+                      completeOrder('Razorpay Payment Successful.');
+                  },
+                  prefill: { name: payload.customer_name, contact: payload.phone }
+              };
+              const rzp = new Razorpay(options);
+              rzp.open();
+          } else if (data.provider === 'stripe') {
+              // Mock Stripe Flow for demo
+              completeOrder('Stripe Payment Processing (Mock Success).');
+          } else {
+              completeOrder('Demo Payment Successful.');
+          }
+          
+        } catch (error) {
+          submitted = false;
+          message.textContent = error.message;
+          message.classList.remove('success');
+          resetSwipe();
+        }
+      };
+
+      let dragging = false;
+      const maxLeft = () => swipeTrack.clientWidth - swipeThumb.clientWidth - 6;
+      const moveThumb = clientX => {
+        const rect = swipeTrack.getBoundingClientRect();
+        const left = Math.max(6, Math.min(maxLeft(), clientX - rect.left - swipeThumb.clientWidth / 2));
+        const progress = left / maxLeft();
+        swipeThumb.style.left = `${left}px`;
+        swipeProgress.style.width = `${Math.max(0, progress * 100)}%`;
+        swipeLabel.textContent = progress > .72 ? 'Release to confirm' : 'Swipe cookie to confirm';
+        return progress;
+      };
+      swipeThumb.addEventListener('pointerdown', event => { dragging = true; swipeThumb.setPointerCapture(event.pointerId); moveThumb(event.clientX); });
+      swipeThumb.addEventListener('pointermove', event => { if (dragging) moveThumb(event.clientX); });
+      swipeThumb.addEventListener('pointerup', event => {
+        if (!dragging) return;
+        dragging = false;
+        const progress = moveThumb(event.clientX);
+        if (progress >= .78) confirmOrder(); else resetSwipe();
+      });
+      swipeThumb.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          confirmOrder();
+        }
+      });
+      window.addEventListener('resize', resetSwipe);
+    });
+  </script>
+</body>
+</html>

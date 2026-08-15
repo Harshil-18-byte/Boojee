@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Profile | Boojee Cafe</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .account{max-width:1080px;margin:auto;padding:110px 28px 90px}
+    .account-shell{background:#fff;border:1px solid var(--line);padding:clamp(25px,5vw,55px);margin-top:35px}
+    .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+    .button.dark{background:var(--ink);color:var(--paper)}
+    .profile-head{display:flex;justify-content:space-between;gap:20px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:25px}
+    .profile-card{padding:24px;background:var(--cream)}
+    .profile-card h3{margin-top:0;font-family:'Playfair Display',serif;font-size:25px}
+    .order-history{margin-top:30px}
+    .order-row{border-top:1px solid var(--line);padding:17px 0;display:flex;justify-content:space-between;gap:15px}
+    .order-row small{color:#625b54}
+    @media(max-width:720px){.profile-grid{grid-template-columns:1fr}.profile-head{display:block}.profile-head .button{margin-top:15px}}
+    html.dark-mode .account-shell{background:#2b251f;border-color:var(--line)}
+    html.dark-mode .profile-card{background:#332b25}
+    html.dark-mode .order-row small{color:#d9cdc2}
+  </style>
+</head>
+<body>
+  <header class="header inner-header">
+    <a class="wordmark" href="index.html">Boojee <span>CAFE</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav">
+      <a href="menu.html">Menu</a>
+      <a href="about.html">Our craft</a>
+      <a href="visit.html">Visit</a>
+    </nav>
+    <a class="order-button" href="menu.html">Order ahead</a>
+  </header>
+  <main class="account">
+    <p class="kicker">YOUR Boojee</p>
+    <h1>Your <em>Profile.</em></h1>
+    <div class="account-shell">
+      <section id="profile" class="profile" style="display:block;">
+        <div class="profile-head">
+          <div>
+            <p class="kicker">YOUR CAFÉ PROFILE</p>
+            <h2 id="profileGreeting">Welcome back.</h2>
+            <p id="profileDetails"></p>
+          </div>
+          <button id="logoutButton" class="button">Log out</button>
+        </div>
+        <div class="profile-grid" style="margin-top:30px">
+          <div class="profile-card">
+            <p class="kicker">READY FOR YOUR NEXT VISIT</p>
+            <h3>Order ahead</h3>
+            <p>Build a collection order and choose the time that suits your day.</p>
+            <a class="button dark" href="menu.html">Explore the menu</a>
+          </div>
+          <div class="profile-card">
+            <p class="kicker">CAFÉ NOTE</p>
+            <h3>Your favourites live here.</h3>
+            <p>Every confirmed order appears below, so the next stop can be the easy one.</p>
+          </div>
+        </div>
+        <div class="order-history">
+          <p class="kicker">RECENT ORDERS</p>
+          <div id="ordersList">
+            <p>Loading your orders…</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  
+    <section class="bell-notify" aria-labelledby="bellNotifyTitle">
+      <div class="bell-copy">
+        <p class="kicker">FRESH DROP ALERTS</p>
+        <h2 id="bellNotifyTitle">Ring in the next <em>batch.</em></h2>
+        <p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials before they sell out.</p>
+      </div>
+      <div class="bell-stage">
+        <div class="bell-container off" data-bell-toggle aria-pressed="false" aria-label="Turn cafe notifications on">
+          <span class="rope"></span>
+          <span class="bell-top"></span>
+          <span class="bell-base"></span>
+          <span class="bell-base bell-base-glow"></span>
+          <span class="shadow-l1"></span>
+          <span class="shadow-l2"></span>
+          <span class="left-glow"></span>
+          <span class="left-glow2"></span>
+          <span class="r-glow"></span>
+          <span class="r-glow2"></span>
+          <span class="mid-ring"></span>
+          <span class="mid-ring small"></span>
+          <span class="glow"></span>
+          <span class="glow2"></span>
+          <span class="bell-buff-t"></span>
+          <span class="bell-buff"></span>
+          <span class="bell-btm"></span>
+          <span class="bell-btm2"></span>
+          <span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
+          <span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
+        </div>
+        <button class="notify-button" type="button" data-bell-button>Notify Me</button>
+        <span class="grain" aria-hidden="true"></span>
+      </div>
+    </section>
+</main>
+  <footer>
+    <a class="wordmark" href="index.html">Boojee <span>CAFE</span></a>
+    <p>Considered coffee. Generous hospitality.</p>
+  </footer>
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loadProfile = async () => {
+        const loggedIn = localStorage.getItem('boojee_logged_in');
+        if (loggedIn !== 'true') {
+          window.location.href = 'login.html';
+          return;
+        }
+        try {
+          const [me, orders] = await Promise.all([
+            fetch('/api/me', { credentials: 'include' }),
+            fetch('/api/orders', { credentials: 'include' })
+          ]);
+          if (!me.ok) throw Error();
+          const user = (await me.json()).user;
+          
+          if (user.name) {
+              document.getElementById('profileGreeting').textContent = `Welcome back, ${escapeHTML(user.name)}.`;
+          }
+          
+          let details = escapeHTML(user.email);
+          if (user.phone) details += ` • ${escapeHTML(user.phone)}`;
+          if (user.address) details += `<br><small>${escapeHTML(user.address)}</small>`;
+          
+          document.getElementById('profileDetails').innerHTML = details;
+          
+          const data = await orders.json();
+          document.getElementById('ordersList').innerHTML = data.orders.length
+            ? data.orders.map(o => `<div class="order-row"><span><strong>Order #${escapeHTML(o.id)}</strong><small>${escapeHTML(o.cup_size || 'Regular')} cup · Collection: ${escapeHTML(o.collection_time)}</small></span><span><strong>₹${Number(o.total).toLocaleString('en-IN')}</strong><small>${escapeHTML(o.status)}</small></span></div>`).join('')
+            : '<p>No orders yet. Your next coffee is waiting.</p>';
+        } catch {
+          localStorage.removeItem('boojee_logged_in');
+          localStorage.removeItem('boojee_role');
+          window.location.href = 'login.html';
+        }
+      };
+      document.getElementById('logoutButton').onclick = () => {
+        localStorage.removeItem('boojee_logged_in');
+        localStorage.removeItem('boojee_role');
+        notify('You have been logged out.');
+        window.location.href = 'login.html';
+      };
+      loadProfile();
+    });
+  </script>
+</body>
+</html>

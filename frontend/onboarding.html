@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complete Profile | Boojee Cafe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: var(--sans); background: var(--paper); color: var(--ink); margin: 0; padding: 0; overflow-x: hidden; }
+    .onboarding-shell { max-width: 600px; margin: 80px auto; position: relative; min-height: 450px; padding: 20px; }
+    .step { position: absolute; top: 60px; left: 20px; right: 20px; opacity: 0; transform: translateX(50px); transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+    .step.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+    .step.completed { opacity: 0; transform: translateX(-50px); pointer-events: none; }
+    .step h2 { font-family: var(--serif); font-style: italic; font-size: 2.8rem; margin-bottom: 0.5rem; line-height: 1.1; }
+    .step p.subtitle { color: #625b54; margin-bottom: 2.5rem; font-size: 1.1rem; }
+    .input-wrapper { position: relative; margin-bottom: 2rem; }
+    .input-wrapper input, .input-wrapper textarea { width: 100%; padding: 20px 24px; font-size: 1.25rem; background: var(--paper); border: 2px solid var(--line); border-radius: 12px; transition: border-color 0.3s ease, box-shadow 0.3s ease; box-sizing: border-box; font-family: var(--sans); }
+    .input-wrapper input:focus, .input-wrapper textarea:focus { outline: none; border-color: var(--rust); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .btn-next, .btn-submit { background: var(--ink); color: var(--paper); padding: 18px 36px; border: none; font-size: 1.1rem; font-weight: bold; border-radius: 30px; cursor: pointer; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+    .btn-next:hover, .btn-submit:hover { transform: translateY(-3px); background: #333; }
+    .btn-next:disabled, .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .progress-bar { display: flex; gap: 12px; margin-bottom: 2rem; padding-left: 20px; }
+    .progress-dot { width: 40px; height: 4px; border-radius: 4px; background: var(--line); transition: background 0.4s ease; }
+    .progress-dot.active { background: var(--rust); }
+    html.dark-mode .step p.subtitle { color: #d9cdc2; }
+    html.dark-mode .input-wrapper input, html.dark-mode .input-wrapper textarea { background: #211d19; border-color: #332b25; color: var(--paper); }
+    html.dark-mode .input-wrapper input:focus, html.dark-mode .input-wrapper textarea:focus { border-color: var(--rust); }
+    html.dark-mode .btn-next:hover, html.dark-mode .btn-submit:hover { background: #555; }
+  </style>
+</head>
+<body>
+  <header class="header inner-header">
+    <a class="wordmark" href="index.html">Boojee <span>CAFE</span></a>
+  </header>
+  
+  <main class="account">
+    <div class="onboarding-shell">
+        <div class="progress-bar">
+            <div class="progress-dot active" id="dot-1"></div>
+            <div class="progress-dot" id="dot-2"></div>
+            <div class="progress-dot" id="dot-3"></div>
+        </div>
+
+        <form id="onboardingForm">
+            <!-- Step 1 -->
+            <div class="step active" id="step-1">
+                <p class="kicker">STEP 1 OF 3</p>
+                <h2>What should we call you?</h2>
+                <p class="subtitle">We'll use this on your orders and cups.</p>
+                <div class="input-wrapper">
+                    <input type="text" id="name" required placeholder="Your full name" autocomplete="name">
+                </div>
+                <button type="button" class="btn-next" onclick="nextStep(1)">Continue <span>&rarr;</span></button>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="step" id="step-2">
+                <p class="kicker">STEP 2 OF 3</p>
+                <h2>What's your number?</h2>
+                <p class="subtitle">We'll send you a text when your order is ready.</p>
+                <div class="input-wrapper">
+                    <input type="tel" id="phone" required placeholder="e.g. +1 234 567 8900" autocomplete="tel">
+                </div>
+                <button type="button" class="btn-next" onclick="nextStep(2)">Continue <span>&rarr;</span></button>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step" id="step-3">
+                <p class="kicker">STEP 3 OF 3</p>
+                <h2>Where should we deliver?</h2>
+                <p class="subtitle">Save your address for quick delivery on your next order.</p>
+                <div class="input-wrapper">
+                    <textarea id="address" rows="3" required placeholder="123 Coffee Lane..." autocomplete="street-address"></textarea>
+                </div>
+                <p id="message" style="color: #b4372b; font-weight: bold; margin-bottom: 1rem;"></p>
+                <button type="submit" class="btn-submit" id="submitBtn">Complete Profile <span>&rarr;</span></button>
+            </div>
+        </form>
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loggedIn = localStorage.getItem('boojee_logged_in');
+      if (loggedIn !== 'true') {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      // Add enter key support to advance steps
+      document.getElementById('name').addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') {
+              e.preventDefault();
+              nextStep(1);
+          }
+      });
+      document.getElementById('phone').addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') {
+              e.preventDefault();
+              nextStep(2);
+          }
+      });
+
+      document.getElementById('onboardingForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const msg = document.getElementById('message');
+        const submitBtn = document.getElementById('submitBtn');
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        
+        if (!name || !phone || !address) {
+            msg.textContent = "Please complete all fields before submitting.";
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "Saving...";
+
+        try {
+          const res = await fetch('/api/onboarding', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ name, phone, address })
+          });
+          const data = await res.json();
+          
+          if (!res.ok) throw new Error(data.message);
+          
+          // Redirect to profile
+          const role = localStorage.getItem('boojee_role');
+          window.location.href = role === 'admin' ? 'admin.html' : 'profile.html';
+        } catch (err) {
+          msg.textContent = err.message;
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = "Complete Profile <span>&rarr;</span>";
+        }
+      };
+    });
+
+    function nextStep(currentStep) {
+        // Basic validation
+        if (currentStep === 1) {
+            const nameInput = document.getElementById('name');
+            if (!nameInput.value.trim()) {
+                nameInput.focus();
+                return;
+            }
+        } else if (currentStep === 2) {
+            const phoneInput = document.getElementById('phone');
+            if (!phoneInput.value.trim()) {
+                phoneInput.focus();
+                return;
+            }
+        }
+
+        const currentDiv = document.getElementById(`step-${currentStep}`);
+        const nextDiv = document.getElementById(`step-${currentStep + 1}`);
+        const nextDot = document.getElementById(`dot-${currentStep + 1}`);
+
+        if (currentDiv && nextDiv) {
+            currentDiv.classList.remove('active');
+            currentDiv.classList.add('completed');
+            
+            nextDiv.classList.add('active');
+            if (nextDot) nextDot.classList.add('active');
+            
+            // Auto focus next input
+            setTimeout(() => {
+                const nextInput = nextDiv.querySelector('input, textarea');
+                if (nextInput) nextInput.focus();
+            }, 600); // Wait for transition
+        }
+    }
+  </script>
+</body>
+</html>
