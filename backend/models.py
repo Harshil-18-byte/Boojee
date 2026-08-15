@@ -100,3 +100,13 @@ class NewsletterSubscriber(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     subscribed_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+class RevokedToken(db.Model):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        
+    __tablename__ = 'revoked_tokens'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    jti = db.Column(db.String(120), unique=True, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
