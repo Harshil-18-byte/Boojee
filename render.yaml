@@ -1,0 +1,33 @@
+services:
+  # PostgreSQL Database
+  - type: pgo
+    name: boojee-db
+    plan: free
+    
+  # Main Flask Web Service
+  - type: web
+    name: boojee-web
+    runtime: python
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && python app.py
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: boojee-db
+          property: connectionString
+      - key: CAFE_SECRET_KEY
+        generateValue: true
+
+  # Analytics WebSocket Microservice
+  - type: web
+    name: boojee-analytics
+    runtime: python
+    buildCommand: cd analytics_service && pip install -r requirements.txt
+    startCommand: cd analytics_service && python app.py
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: boojee-db
+          property: connectionString
