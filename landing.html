@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Boojee Cafe Animation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap");
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background: #fff;
+  font-family: "Otomanopee One", sans-serif;
+  font-size: 20px;
+  color: #555;
+}
+
+div, svg, img {
+  position: absolute;
+}
+
+svg, .dust {
+  pointer-events: none;
+}
+
+.dust, .intro {
+  position:fixed;
+  width:100%;
+  height:100%;
+}
+
+.dust {
+  background:radial-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.45));
+}
+
+.preTitle {
+  left: 80px;
+  top: 20px;
+  font-size: 28px;
+  color: #f84356;
+}
+@supports (-webkit-text-stroke: 2px black) {
+  .preTitle {
+    -webkit-text-stroke: 2px black;
+  }
+}
+
+#boojeeTitle {
+  left: 50px;
+  top: 65px;
+  display: flex;
+  font-size: 100px;
+  color: #f84356;
+  text-transform: uppercase;
+  letter-spacing: -5px;
+  line-height: 1;
+}
+
+@supports (-webkit-text-stroke: 4px black) {
+  #boojeeTitle {
+    -webkit-text-stroke: 4px black;
+  }
+}
+
+.titleChar {
+  position: relative; /* override absolute */
+  text-shadow: 6px 6px 0 #000;
+}
+
+.blurb {
+  width: 80%;
+  left: 50px;
+  bottom: 50px;
+  z-index: 10;
+}
+
+.blurb a {
+  color:#222;
+  font-size:15px;
+}
+
+.homesTxt, .hutTxt, .pagodaTxt, .towerTxt, .gatesTxt, .endTxt {
+  font-size: 32px;
+  color: #f84356;
+  text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  z-index: 50;
+}
+
+@supports (-webkit-text-stroke: 2px black) {
+  .homesTxt, .hutTxt, .pagodaTxt, .towerTxt, .gatesTxt, .endTxt {
+    -webkit-text-stroke: 2px black;
+    text-shadow: 4px 4px 0 #000;
+  }
+}
+
+/* Enter cafe button */
+.enter-btn {
+  position: fixed;
+  top: 30px;
+  right: 40px;
+  background: #f84356;
+  color: #fff;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-family: "Otomanopee One", sans-serif;
+  font-size: 18px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  z-index: 100;
+  transition: transform 0.1s;
+  box-shadow: 4px 4px 0 #000;
+}
+.enter-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+
+#scene-scaler {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  transform-origin: top left;
+}
+
+@media (max-width: 800px) {
+  .preTitle { left: 20px; top: 20px; font-size: 16px; }
+  #boojeeTitle { left: 10px; top: 50px; font-size: 50px; }
+  .titleChar { text-shadow: 3px 3px 0 #000; }
+  @supports (-webkit-text-stroke: 4px black) {
+    #boojeeTitle { -webkit-text-stroke: 2px black; }
+  }
+  .blurb { left: 20px; bottom: 30px; font-size: 14px; width: auto; right: 20px; }
+  .enter-btn { top: auto; bottom: 20px; right: 20px; padding: 10px 16px; font-size: 14px; }
+  
+  .homesTxt, .hutTxt, .pagodaTxt, .towerTxt, .gatesTxt, .endTxt {
+    font-size: 40px;
+  }
+}
+</style>
+</head>
+<body>
+
+
+
+<a href="index.html" class="enter-btn">Skip to Boojee Cafe</a>
+
+<div id="scrollDist"></div>
+
+<div id="scene-scaler">
+<div id="container" style="opacity:0">
+  
+  <div id="bg">
+    <img src="https://assets.codepen.io/721952/hillside.png" alt="hillside"/>
+    <!-- generated clouds will go here  -->
+  </div>
+  
+  <img class="breakable" id="homes" src="https://assets.codepen.io/721952/homes.png" alt="homes"/>
+  <img class="breakable" id="hut" src="https://assets.codepen.io/721952/hut.png" alt="huts"/>
+  <img class="breakable" id="pagoda" src="https://assets.codepen.io/721952/pagoda.png" alt="pagoda"/>
+  <img class="breakable" id="gates" src="https://assets.codepen.io/721952/gates.png" alt="palace gates"/>
+  
+  <div class="homesTxt">Artisan Coffee</div>
+  <div class="hutTxt">Warm Ambiance</div>
+  <div class="pagodaTxt">Gourmet Breakfasts</div>
+  <div class="towerTxt">Exceptional Service</div>
+  <div class="gatesTxt">Handcrafted Pastries</div>
+  <div class="endTxt">An Unforgettable Experience</div>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    
+    <clipPath id="seqBox">
+      <rect width="550" height="270" />
+    </clipPath>
+    
+    <path class="walkPath" fill="none" stroke="none" d="M251.5,2231.5c262,0,373.7-41.5,498.5-41.8c124.5-0.2,215.8-52,247.5-76.2s164.2-113.8,225-135s141-36,262-125 c46.5-34.2,137-93,236-114s347.2-31.8,435-32s287.2-73.8,354-83s238.2-17.8,277.2-23.8s177-12,219-33s232.3-150.3,293.8-187.2" />
+    
+    <g class="kaiju">
+      <g class="seq" clip-path="url(#seqBox)">
+        <image class="walk" width="550" height="2160" href="https://assets.codepen.io/721952/walk.png" alt="walking sequence"/>
+      </g>
+      <image id="mouth" opacity="0" href="https://assets.codepen.io/721952/mouth.png" alt="giant monster's open mouth"/>
+    </g>
+    
+  </svg>
+
+  <img class="breakable" id="tower" src="https://assets.codepen.io/721952/tower.png" alt="radio tower"/>
+  
+  <!-- generated debris will go here  -->
+</div>
+</div>
+
+<div class="dust">
+    <!-- generated dust and scratches will go here  -->  
+</div>
+
+<div class="intro">
+  <div class="preTitle">A tour of our specialties with</div>
+  <div id="boojeeTitle" aria-label="Boojee Cafe"></div>
+  <div class="blurb">Scroll down to see more.</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+window.onload = ()=> {
+  
+  let povMoving, // is true when the point-of-view is currently moving
+      walkDir = 1; // 1 for walking right, -1 for walking left
+
+  let currentScale = window.innerWidth < 800 ? window.innerWidth / 800 : 1;
+  let virtualWidth = window.innerWidth / currentScale;
+  let virtualHeight = window.innerHeight / currentScale;
+  gsap.set('#scene-scaler', {scale: currentScale, width: virtualWidth, height: virtualHeight});
+
+	// set initial states
+	gsap.timeline() 
+	    .set('#scrollDist', {width:'100%', height:'750%'}) // height defines how far we'll scroll
+	    .set('#container', 	{position:'fixed', width:4100, height:3000, transformOrigin:'0 0', left:virtualWidth/2, top:virtualHeight/2 + 100})
+	    .set('.seq', 		    {xPercent:-75, yPercent:-11})
+	    .set('#mouth', 		  {x:35, y:-240})
+        
+      // position items + txt in the scene
+	    .set('#bg',			    {left:100, top:1000}) // pushed off the edges of the container, so nothing gets cropped
+
+	    .set('.breakable',	{xPercent:-50, yPercent:-100, draggable:false, cursor:'pointer'}) 
+	    .set('#tower', 		  {x:2400, y:1750})
+	    .set('.towerTxt',	  {x:2320, y:1380, xPercent:-50, textAlign:'center', width:600})
+
+	    .set('#pagoda', 	  {x:2000, y:1702})
+	    .set('.pagodaTxt',	{x:1900, y:1533, xPercent:-50, textAlign:'center', width:600})
+	    
+	    .set('#hut', 		    {x:1496, y:1860})
+	    .set('.hutTxt',		  {x:1440, y:1665, xPercent:-50, textAlign:'center', width:600})
+
+	    .set('#homes', 		  {x:1308, y:1923})
+	    .set('.homesTxt',	  {x:1210, y:1806, xPercent:-50, textAlign:'center', width:600})
+
+	    .set('#gates', 		  {x:2730, y:1584})
+	    .set('.gatesTxt',	  {x:2660, y:1404, xPercent:-50, textAlign:'center', width:600})
+
+	    .set('.endTxt',		  {x:3300, y:1500, xPercent:-50, textAlign:'center', width:600})
+
+	    .to('#container',   {opacity:1, ease:'power1.inOut', duration:1}, 0.3) // fade in the scene
+  
+  
+  // Add a continuous floating animation so the text isn't statically stable
+  gsap.to('.homesTxt, .hutTxt, .pagodaTxt, .towerTxt, .gatesTxt, .endTxt', {
+    yPercent: -20,
+    scale: 1.05,
+    rotation: 1,
+    duration: 2,
+    yoyo: true,
+    repeat: -1,
+    ease: 'sine.inOut',
+    stagger: 0.3
+  });
+
+  // re-center the container if window changes size
+  window.onresize = ()=> {
+      currentScale = window.innerWidth < 800 ? window.innerWidth / 800 : 1;
+      virtualWidth = window.innerWidth / currentScale;
+      virtualHeight = window.innerHeight / currentScale;
+      gsap.set('#scene-scaler', {scale: currentScale, width: virtualWidth, height: virtualHeight});
+      gsap.set('#container', {left:virtualWidth/2, top:virtualHeight/2 + 100});
+  };
+
+
+	// make clouds
+	const cloudPos = [ [180,960], [420,990], [970,860], [999,655], [1280,508], [1555,555], [1722,479], [1860,240], [2000,400], [2350,310], [2680,380], [2800,290], [3100,280], [3300,210], [3600,310] ]
+
+	for (let i=0; i<cloudPos.length; i++){
+		const cloud = document.createElement("div");
+
+		gsap.set(cloud, {
+			attr:{ class:'cloud' },
+			width: 440,
+			height: 120,
+			scale:0.3+0.5*Math.random(),
+			left: cloudPos[i][0],
+			top: cloudPos[i][1],
+			xPercent:-50,
+			yPercent:-100,
+			backgroundImage:'url(https://assets.codepen.io/721952/clouds.png)',
+			backgroundPosition:'0 -'+(i%15*120)+'px'
+		});
+
+		document.getElementById('bg').append(cloud);
+	}
+  
+  
+  // make debris
+	for (let i=0; i<15; i++){
+		const bit = document.createElement("div");
+
+		gsap.set(bit, {
+			attr:{ class:'debris' }, 
+			width: 70,
+			height: 70,
+			scale: 0,
+			backgroundImage:'url(https://assets.codepen.io/721952/debris.png)',
+			backgroundPosition:'-'+(i%15*70)+'px 0'
+		});
+
+		document.getElementById('container').append(bit);
+	}  
+  
+  
+  // make boojee cafe title characters
+  const titleText = "BOOJEE CAFE";
+	for (let i=0; i<titleText.length; i++){
+		const char = document.createElement("div");
+        char.textContent = titleText[i];
+        if (titleText[i] === ' ') {
+            char.style.width = '30px';
+        }
+
+		gsap.set(char, {
+			attr:{ class:'titleChar' }
+		});
+
+		document.getElementById('boojeeTitle').append(char);
+	}
+
+  // timeline w/ scrollTrigger for playing and reversing the intro text
+	gsap.timeline({
+      scrollTrigger:{
+        trigger:'#scrollDist',
+        start:300,
+        end:301, // define 'end' so the reverse toggle action knows where to trigger
+        toggleActions:"play none reverse none" // onEnter, onLeave, onEnterBack, onLeaveBack – in that order
+      }
+    })
+    .to('.titleChar', {duration:0.6, scale:0, stagger:0.05, ease:'expo.in'}, 0)
+    .to('.preTitle, .blurb', {duration:0.4, opacity:0, ease:'power1.inOut', stagger:0.3}, 0)
+    .to('.intro', {duration:0.1, autoAlpha:0}, '-=0.1') // at the very end, set autoAlpha:0 so #intro doesn't block interactivity in #container
+ 
+  
+
+	// timeline w/ scrollTrigger for moving kaiju along path + displaying breakable objects' labels
+	gsap.timeline({
+      defaults:{ ease:'none', duration:0.1 },
+      scrollTrigger:{
+        trigger:'#scrollDist',
+        start:'top top',
+        end:'bottom bottom',
+        scrub:0.5,
+        onUpdate:(s)=> walkDir = s.direction
+      }
+    })
+    .to('.kaiju', 	    {duration:10, motionPath:{path:'.walkPath', alignOrigin: [0.5, 0.5], autoRotate:true}, immediateRender:true}, 0)
+    .from('.kaiju',     {duration:2, scale:0.7}, 0)
+    .to('.kaiju', 	    {duration:2, scale:0.5}, 8)
+
+
+	// move container to follow kaiju
+	let walkSeq = gsap.fromTo('.walk', {y:0}, {y:-1890, ease:'steps(7)', duration:0.7})
+
+	gsap.ticker.add(() => {    
+    // tween container position
+		gsap.to('#container', {duration:0.5, ease:'sine', x:-gsap.getProperty('.kaiju', 'x'), y:-gsap.getProperty('.kaiju', 'y')})
+
+		// update flag for walking loop
+		povMoving = Math.abs( gsap.getProperty('#container', 'x') + gsap.getProperty('.kaiju', 'x') ) > 5 // true when x difference is more than 5
+
+		// trigger walking sequence
+    if ( povMoving && !gsap.isTweening('.walk') ) walkSeq.play(0);
+
+		// flip monster when scrolling upward
+		gsap.set('#mouth',  {transformOrigin:'-35px 0', scaleX:walkDir})
+		gsap.set('.walk',   {transformOrigin:'275px 0', scaleX:walkDir})
+		gsap.set('.seq',    {xPercent:(walkDir==1)?-75:-25})
+	});
+
+
+
+  // Dust and scratches
+	for (let i=0; i<8; i++){
+		let d = document.createElement('div');
+		document.getElementsByClassName('dust')[0].appendChild(d);
+		gsap.set(d, {
+      attr:{class:'d'},
+      width:30,
+      height:30,
+      backgroundImage:'url(https://assets.codepen.io/721952/filmDust.png)',
+      backgroundPosition:'0 -'+(8%i)*30+'px'
+    });
+	}	
+		
+	function dustLoop(){
+	  	gsap.timeline({onComplete:dustLoop})
+	        .set('.d', {
+            x:()=>window.innerWidth*Math.random(), 
+		        y:()=>window.innerHeight*Math.random(),
+		        rotation:()=>360*Math.random(),
+		        scale:()=>Math.random(),
+		        opacity:()=>Math.random()
+          }, 0.07)
+	}
+  dustLoop();
+  
+  
+  
+  // Easter eggs
+  window.onclick = (e)=>{
+		
+		// open mouth if stopped + mouth isn't already open
+		if (!gsap.isTweening('.walk') && !gsap.isTweening('#mouth')) {
+			gsap.to('#mouth', {opacity:1, duration:0.1, ease:'expo', yoyo:true, repeat:1, repeatDelay:0.3})
+		}
+
+    // breakable stuff
+		if (e.target.classList.contains('breakable')) {
+			
+			const t = e.target;
+			
+			gsap.timeline()				
+				.set('.debris', {scale:0.5, x:-40, y:-35, left:gsap.getProperty(e.target,'x'), top:gsap.getProperty(e.target,'y')}, 0)
+
+				.to('.debris', {x:()=>-150+Math.random()*300, duration:1}, 0)
+				.to('.debris', {y:()=>-200*Math.random()-150, duration:0.5, yoyo:true, repeat:1}, 0)
+				.to('.debris', {scale:0, duration:0.5, ease:'power3.in', delay:()=>0.2*Math.random()}, 0.3)
+				
+				.to([t,'.'+t.id+'Txt'], {autoAlpha:0, ease:'expo.in', duration:0.1}, 0) //hide original object
+		}
+	}
+  
+}
+</script>
+</body>
+</html>
