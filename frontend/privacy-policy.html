@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <title>Privacy Policy | Boojee Cafe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="header inner-header">
+  <header class="header inner-header" style="position: fixed; background: rgba(32, 28, 24, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
     <a class="wordmark" href="index.html">Boojee <span>CAFE</span></a>
     <nav class="nav">
       <a href="menu.html">Menu</a>
@@ -17,37 +18,107 @@
     </nav>
   </header>
 
-  <main class="section" style="padding-top: 150px; max-width: 800px; margin: 0 auto;">
-    <h1 style="font-family: var(--serif); font-size: 3rem; margin-bottom: 2rem;">Privacy Policy</h1>
-    
-    <div style="color: #514b45; font-size: 1.1rem; line-height: 1.8;">
-        <p>Last updated: August 2026</p>
+  <main>
+    <section class="editorial-hero">
+      <h1>Privacy Policy</h1>
+      <p>Last updated: August 2026</p>
+    </section>
+
+    <section class="editorial-content">
+        <p>We respect your privacy and are committed to protecting it through our compliance with this policy. This policy describes the types of information we may collect from you or that you may provide when you visit the Boojee Cafe website and our practices for collecting, using, maintaining, protecting, and disclosing that information.</p>
         
-        <h3 style="color: var(--ink); margin-top: 2rem;">1. Information We Collect</h3>
-        <p>We collect information you provide directly to us, such as when you create or modify your account, request on-demand services, contact customer support, or otherwise communicate with us. This includes your name, email address, phone number, and delivery address.</p>
+        <h3>1. Information We Collect</h3>
+        <p>We collect information you provide directly to us, such as when you create or modify your account, request on-demand services, contact customer support, or otherwise communicate with us. This includes your name, email address, phone number, and delivery address. We also collect certain information automatically as you navigate through our digital services.</p>
         
-        <h3 style="color: var(--ink); margin-top: 2rem;">2. How We Use Your Information</h3>
-        <p>We use the information we collect about you to provide, maintain, and improve our services, including to process transactions, send receipts, provide customer support, and send you technical notices.</p>
+        <h3>2. How We Use Your Information</h3>
+        <p>We use the information we collect about you to provide, maintain, and improve our services. This includes processing transactions, sending electronic receipts, providing responsive customer support, and notifying you about technical updates or changes to our operations.</p>
         
-        <h3 style="color: var(--ink); margin-top: 2rem;">3. Data Security</h3>
-        <p>We use state-of-the-art security measures to protect your data, including secure HttpOnly cookies for session management and encryption for passwords. Payments are securely processed via industry-standard providers.</p>
+        <h3>3. Data Security</h3>
+        <p>We use state-of-the-art security measures to protect your data, including secure HttpOnly cookies for session management and encryption for passwords. Payments are securely processed via industry-standard providers (Stripe, Razorpay). We do not store raw credit card details on our servers.</p>
         
-        <h3 style="color: var(--ink); margin-top: 2rem;">4. Newsletter & Communications</h3>
-        <p>If you subscribe to our newsletter, we will use your email to send you updates. You can opt-out at any time.</p>
-    </div>
+        <h3>4. Newsletter & Communications</h3>
+        <p>If you subscribe to our newsletter, we will use your email to send you updates regarding seasonal menus, small-batch releases, and cafe news. You may opt out of these communications at any time by clicking the unsubscribe link found at the bottom of every email.</p>
+    </section>
   </main>
 
-  <footer style="background: var(--ink); color: #f7f3ed; margin-top: 80px;">
-    <div class="enhanced-footer">
+  <footer class="premium-footer">
+    <div class="footer-watermark">Boojee</div>
+    <div class="premium-footer-inner">
+      <div class="footer-brand">
+        <h2>Boojee <span>CAFE</span></h2>
+        <p>Specialty coffee and small-batch patisserie, prepared with quiet care from first light until late afternoon. Established 2016, London.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Visit Us</h4>
+        <div class="footer-nav">
+          <a href="visit.html">Location & Hours</a>
+          <a href="menu.html">Current Menu</a>
+          <a href="about.html">Our Craft</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Connect</h4>
+        <div class="footer-nav">
+          <a href="#">Instagram</a>
+          <a href="blog.html">Journal</a>
+          <a href="#">Wholesale</a>
+          <a href="careers.html">Careers</a>
+        </div>
+      </div>
+
+      <div class="footer-newsletter">
         <div>
-            <p>&copy; 2026 Boojee Cafe.</p>
+          <h3>Subscribe to Boojee</h3>
+          <p>Get the latest updates on new seasonal roasts, events, and cafe news.</p>
         </div>
-        <div class="footer-links">
-            <a href="privacy-policy.html">Privacy Policy</a>
-            <a href="terms.html">Terms of Service</a>
-            <a href="blog.html">Blog</a>
+        <div style="position: relative;">
+          <form class="newsletter-form-premium" id="newsletterForm">
+            <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
+          <p id="newsletterMsg" class="newsletter-msg" style="position: absolute; bottom: -30px; left: 0; font-size: 13px;"></p>
         </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div>&copy; 2026 Boojee Cafe. All rights reserved.</div>
+      <div class="footer-bottom-links">
+        <a href="privacy-policy.html" style="color: #fff;">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
     </div>
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('newsletterForm');
+        if(form) {
+            form.onsubmit = async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('newsletterEmail').value;
+                const msg = document.getElementById('newsletterMsg');
+                
+                try {
+                    const res = await fetch('/api/newsletter', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    const data = await res.json();
+                    msg.textContent = data.message;
+                    msg.style.color = res.ok ? '#4caf50' : '#f44336';
+                    if(res.ok) document.getElementById('newsletterEmail').value = '';
+                } catch (err) {
+                    msg.textContent = 'An error occurred. Please try again later.';
+                    msg.style.color = '#f44336';
+                }
+            };
+        }
+    });
+  </script>
 </body>
 </html>
