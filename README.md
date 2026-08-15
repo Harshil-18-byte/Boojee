@@ -4,145 +4,168 @@
 
 The Boojee Cafe platform is a highly sophisticated, comprehensive, and production-ready web application specifically architected for premium coffee shops, boutique eateries, and artisanal roasteries. In a market where digital presence is just as critical as the physical cafe experience, this platform serves as a seamless extension of the brand. It has been meticulously engineered to offer a seamless, high-performance, and visually stunning user experience. 
 
-By strategically combining an elegantly crafted, dependency-free vanilla front-end with a secure, scalable, and lightweight Python-based back-end architecture, the Boojee Cafe platform ensures lighting-fast page loads and reduced server overhead. The platform is not just a digital menu; it is a full-fledged ecosystem that seamlessly supports dynamic user interactions, secure authentication, robust cross-device session management, and rich multimedia content, delivering an uninterrupted e-commerce and editorial storytelling experience to every visitor.
+By strategically combining an elegantly crafted, dependency-free vanilla front-end with a secure, scalable, and lightweight Python-based back-end architecture and dedicated microservices, the Boojee Cafe platform ensures lighting-fast page loads and reduced server overhead. The platform is not just a digital menu; it is a full-fledged ecosystem that seamlessly supports dynamic user interactions, secure authentication, role-based access control, robust cross-device session management, real-time analytics, and rich multimedia content, delivering an uninterrupted e-commerce and editorial storytelling experience to every visitor.
 
 ## Deep Dive into System Architecture
 
-The application operates on a carefully selected, lightweight, yet immensely powerful technology stack. This approach ensures minimal computational overhead, maximal execution performance, and a developer-friendly environment that is easy to scale and maintain.
+The application operates on a carefully selected, lightweight, yet immensely powerful technology stack distributed across multiple services. This microservice-oriented approach ensures minimal computational overhead, maximal execution performance, independent scalability, and a developer-friendly environment.
 
-### Advanced Front-End Infrastructure
+### Advanced Front-End Infrastructure (Static Service)
 
-The client-side architecture is built entirely without heavy front-end frameworks (like React or Angular), relying instead on native web capabilities for maximum speed.
+The client-side architecture is built entirely without heavy front-end frameworks (like React or Angular), relying instead on native web capabilities for maximum speed. It is served natively, decoupling it from back-end logic.
 
 - **Core Technologies**: The foundation is built upon semantic HTML5, modern CSS3, and Vanilla JavaScript (ES6+), ensuring that the application remains extremely fast and free from heavy bundle sizes.
-- **Design System & Layout**: The visual presentation relies on a fully responsive, multidimensional grid-based layout utilizing modern CSS variables (Custom Properties). This forms a comprehensive design token system, allowing for global thematic changes (like primary colors, typography scales, and spacing) by simply updating root CSS variables.
-- **Theming & Personalization**: The application features a native, deeply integrated implementation of light and dark mode color palettes. The user's preference is instantly captured and its persistent state is securely stored in the browser's `localStorage`. This prevents the "flash of incorrect theme" (FOIT) upon subsequent visits and ensures a tailored viewing experience.
-- **Performance Optimization Engine**: To maintain a buttery-smooth 60fps scrolling experience, the native Intersection Observer API is utilized extensively. This enables highly efficient lazy-loading of off-screen elements (like high-resolution imagery and complex DOM structures) and triggers scroll-based micro-animations asynchronously, strictly without blocking or impacting the main JavaScript execution thread.
+- **Design System & Layout**: The visual presentation relies on a fully responsive, multidimensional grid-based layout utilizing modern CSS variables (Custom Properties). This forms a comprehensive design token system, allowing for global thematic changes by simply updating root CSS variables.
+- **Theming & Personalization**: The application features a native, deeply integrated implementation of light and dark mode color palettes. The user's preference is instantly captured and its persistent state is securely stored in the browser's `localStorage`.
+- **Performance Optimization Engine**: To maintain a buttery-smooth 60fps scrolling experience, the native Intersection Observer API is utilized extensively. This enables highly efficient lazy-loading of off-screen elements and triggers scroll-based micro-animations asynchronously.
 
-### Robust Back-End Infrastructure
+### Robust Back-End API (Core Service)
 
 The server-side application is engineered to handle concurrency, maintain strict security perimeters, and serve API requests with minimal latency.
 
-- **Framework**: Powered by Python 3.x utilizing Flask, the system provides a lightweight, highly flexible WSGI (Web Server Gateway Interface) web application framework. Flask was chosen for its micro-framework philosophy, allowing us to include only the exact components necessary for the application's functionality.
-- **Authentication Strategy & Cryptography**: Authentication relies on industry-standard JSON Web Tokens (JWT), seamlessly facilitated via the `PyJWT` library. Our authentication routes are heavily protected against unauthorized access. We utilize Werkzeug's advanced security modules to implement PBKDF2 (Password-Based Key Derivation Function 2) with HMAC and SHA256 hashing algorithms, ensuring that user passwords are computationally expensive to crack and completely safe from rainbow table attacks.
-- **Data Persistence & Schema**: The database layer is managed through an embedded SQLite database, directly integrated through Python's reliable standard `sqlite3` library. The relational schema is rigorously normalized, featuring dedicated tables for secure user credentials, individual cart states, and historical transaction logs, ensuring data integrity and minimizing redundancy.
+- **Framework**: Powered by Python 3.x utilizing Flask, the system provides a lightweight, highly flexible WSGI web application framework. In production, requests are reliably handled by Waitress, a production-quality WSGI server.
+- **Authentication Strategy & Cryptography**: Authentication relies on industry-standard HTTP-Only secure cookies containing JSON Web Tokens (JWT). We utilize Werkzeug's advanced security modules to implement PBKDF2 with HMAC and SHA256 hashing algorithms, ensuring that user passwords are computationally expensive to crack.
+- **Data Persistence & Schema (ORM)**: The database layer is managed through an embedded SQLite database, seamlessly integrated through SQLAlchemy ORM. The relational schema is rigorously normalized, featuring dedicated tables for secure user credentials, individual cart states, historical transaction logs, employee management, dynamic blog posts, and newsletter subscriptions.
+- **Role-Based Access Control (RBAC)**: The backend securely enforces varying permission levels (User vs. Admin). Authorized administrative personnel have access to comprehensive operational dashboards.
+
+### Real-Time Analytics Microservice (Analytics Service)
+
+A decoupled, dedicated service provides immediate insights into the platform's operational status.
+
+- **Technology**: Built using Python, Flask, and Flask-SocketIO.
+- **Live Telemetry**: Establishes persistent, bi-directional WebSocket connections with administrative clients, streaming real-time data regarding active sessions, sales velocity, and inventory movement.
+- **Isolation**: By decoupling analytics from the core API, heavy real-time data streaming does not impact the latency of critical e-commerce transactions.
 
 ## Core Feature Specifications
 
 ### 1. Secure & Stateless User Authentication
 
-The platform completely abandons traditional, bulky server-side session cookies in favor of a modern, stateless authentication mechanism. Upon successful account registration or login validation, the server cryptographically signs and issues a secure JWT. This token must subsequently be included in the `Authorization: Bearer` header of all protected API requests. The client securely stores this token in the browser's `localStorage`, actively managing session validity, handling expiration gracefully, and enforcing strict access controls for protected interface routes (e.g., initiating the checkout process or performing deep cart synchronization).
+The platform abandons traditional, bulky server-side session stores in favor of a modern, secure cookie-based token mechanism. Upon successful account registration or login validation, the server cryptographically signs a JWT and sets it as an `HttpOnly`, `Secure`, `SameSite=Strict` cookie (`boojee_token`). This entirely prevents client-side JavaScript access (mitigating XSS) while automatically securing all protected API requests (e.g., initiating the checkout process, managing blog posts, or accessing the admin panel).
 
 ### 2. Intelligent Cross-Session Cart Persistence
 
 The e-commerce cart module is engineered for exceptionally high reliability and fault tolerance, catering dynamically to both anonymous guest shoppers and fully authenticated registered users:
 
-- **Guest Users**: For users browsing without an account, all cart operations (additions, removals, quantity adjustments) are synchronized in real-time with the browser's persistent `localStorage`. This architectural decision guarantees that items are safely preserved across accidental page refreshes, tab navigations, and even complete browser restarts, entirely without requiring server-side state or database writes.
-- **Authenticated Users**: The moment a user logs in, their local cart state is securely and seamlessly synchronized with the back-end database. The `/api/cart` endpoints ensure that the user's cart is continuously maintained and updated across entirely different devices and sessions. If a user adds an item on their mobile device, it instantly appears when they log in on their desktop.
+- **Guest Users**: For users browsing without an account, all cart operations (additions, removals, quantity adjustments) are synchronized in real-time with the browser's persistent `localStorage`. 
+- **Authenticated Users**: The moment a user logs in, their local cart state is securely and seamlessly synchronized with the back-end database. The `/api/cart` endpoints ensure that the user's cart is continuously maintained and updated across entirely different devices and sessions. 
 
-### 3. Dynamic Editorial & Journal Content
+### 3. Full Database-Driven Editorial & Journal Content
 
-Beyond commerce, the platform includes a deeply integrated journal and storytelling mechanism designed to build brand loyalty. Articles, coffee tasting notes, and cafe updates can be filtered instantly and dynamically by category. This is achieved using sophisticated front-end data attributes (`data-category`), offering instantaneous, client-side content filtering and rendering, thereby completely eliminating server-side rendering delays and network round-trips.
+Beyond commerce, the platform includes a deeply integrated journal and storytelling mechanism designed to build brand loyalty. The blog system is fully database-driven.
 
-### 4. Interactive Animated Landing Page (Cinematic Entry)
+- **Admin Management**: Authorized administrators can seamlessly publish, edit, and delete rich-text blog posts directly from the Admin Dashboard, uploading cover images and managing metadata dynamically.
+- **Dynamic Frontend**: The Journal/Blog frontend page asynchronously fetches the latest posts from the API, offering instantaneous rendering and a lively content experience. 
 
-First impressions are critical. The application features a captivating, highly immersive entry point (`landing.html`) built with the industry-leading GSAP (GreenSock Animation Platform) and its powerful ScrollTrigger plugin. It utilizes complex, scroll-linked timeline animations to deliver a highly interactive, cinematic introduction to the Boojee Cafe brand, sequentially revealing brand philosophy and imagery before smoothly transitioning users to the main shopping application.
+### 4. Interactive Conversational Onboarding
+
+The platform utilizes a dynamic, multi-step, conversational onboarding flow for new users instead of a traditional stagnant web form. It progressively gathers user context (e.g., favorite coffee type, preferred name, contact details) while immersing the user in the brand's aesthetic.
+
+### 5. Newsletter & Theatrical Notifications
+
+The footer incorporates a meticulously animated "Fresh Drop Alerts" bell, driven by sophisticated CSS keyframes. Users can subscribe to the newsletter, with emails being securely validated and stored in the database via the `/api/newsletter` endpoint.
 
 ## Comprehensive Installation and Deployment Guide
 
 ### System Prerequisites
 
 Ensure your environment meets the following strict requirements before proceeding:
-- Python 3.8 or higher (Ensure Python is added to your system PATH)
-- Git version control system installed
-- A modern web browser for client testing (Chrome, Firefox, Safari, or Edge)
+- Python 3.8 or higher
+- Node.js & npm (optional, if extending frontend build processes)
+- Docker & Docker Compose (for containerized deployment)
+- Git version control system
 
-### Step-by-Step Local Environment Setup
+### Production Deployment (Render.com)
+
+The platform is meticulously configured for a multi-container deployment on Render (or any Docker-compatible PaaS).
+
+1. **Infrastructure as Code**: The repository includes a comprehensive `render.yaml` Blueprint. This Blueprint automatically orchestrates the provisioning of:
+   - A static site deployment for the `/frontend` directory.
+   - A Dockerized web service for the Core Backend API (`/backend`).
+   - A Dockerized web service for the Real-time Analytics Engine (`/analytics_service`).
+   - Persistent Render Disks mounted to the backend to ensure the SQLite database (`cafe.db`) survives container restarts.
+
+2. **One-Click Deployment**: Connect your GitHub repository to your Render dashboard and select the "Blueprint" option. Render will parse the `render.yaml` and autonomously provision the entire microservice architecture.
+
+### Step-by-Step Local Environment Setup (Docker Compose)
+
+The easiest way to run the entire stack locally is utilizing Docker Compose.
 
 1. **Clone the Repository**
-   Begin by cloning the source code to your local machine:
    ```bash
-   git clone https://github.com/Hulk-oss/Boojee-Cafe.git
-   cd Boojee-Cafe
+   git clone https://github.com/Harshil-18-byte/Boojee.git
+   cd Boojee
    ```
 
-2. **Initialize a Virtual Environment**
-   It is highly recommended and considered best practice to isolate project dependencies using a Python virtual environment to avoid conflicts with global system packages:
+2. **Run via Docker Compose**
+   Ensure Docker Desktop is running, then execute:
    ```bash
+   docker-compose up --build
+   ```
+   This will simultaneously spin up:
+   - Frontend static server (Port 8080)
+   - Backend Core API (Port 5000)
+   - Analytics Microservice (Port 5001)
+
+### Step-by-Step Local Environment Setup (Manual Native)
+
+If you prefer to run the services natively outside of Docker:
+
+1. **Backend API Initialization**
+   ```bash
+   cd backend
    python -m venv venv
-   ```
-   Activate the virtual environment:
-   - On macOS/Linux: `source venv/bin/activate`
-   - On Windows: `venv\Scripts\activate`
-
-3. **Install Required Dependencies**
-   With the virtual environment active, carefully install the required Python packages exactly as defined in the dependencies file:
-   ```bash
+   # Windows: venv\Scripts\activate | macOS/Linux: source venv/bin/activate
    pip install -r requirements.txt
-   ```
-
-4. **Initialize the Database and Start the Server**
-   Execute the main application startup script. The system is designed to automatically detect the absence of the SQLite database and will autonomously generate the complete relational schema upon its initial execution.
-   ```bash
    python app.py
    ```
-   *(Alternatively, Windows users can simply double-click the `start_server.bat` file to automate this process).*
+   The backend will run on `http://127.0.0.1:5000`.
 
-5. **Access the Application**
-   The application will boot and become securely accessible via your local development server network loopback at:
-   `http://127.0.0.1:5000`
+2. **Analytics Service Initialization**
+   Open a new terminal session.
+   ```bash
+   cd analytics_service
+   python -m venv venv
+   # Windows: venv\Scripts\activate | macOS/Linux: source venv/bin/activate
+   pip install -r requirements.txt
+   python app.py
+   ```
+   The analytics engine will run on `http://127.0.0.1:5001`.
+
+3. **Frontend Initialization**
+   Serve the static files using any local server.
+   ```bash
+   cd frontend
+   npx serve . -p 8080
+   ```
+   Access the application at `http://127.0.0.1:8080`.
 
 ## Exhaustive API Reference
 
-The back-end exposes a strictly defined RESTful API designed to manage the application state reliably. All authenticated routes strictly require the `Authorization: Bearer <token>` header to be present and structurally valid.
+The back-end exposes a strictly defined RESTful API.
 
 ### Authentication Endpoints
 
-- **Create User Account**
-  - `POST /api/register`
+- **Create User Account**: `POST /api/register`
   - **Payload**: `{ "email": "user@example.com", "password": "highly_secure_password" }`
   - **Behavior**: Validates input, hashes password via PBKDF2, inserts into DB.
-  - **Response**: Returns a HTTP `201 Created` status code upon successful account creation, or HTTP `400/409` for validation/conflict errors.
-
-- **Authenticate User**
-  - `POST /api/login`
+- **Authenticate User**: `POST /api/login`
   - **Payload**: `{ "email": "user@example.com", "password": "highly_secure_password" }`
-  - **Behavior**: Verifies credentials against hashed DB values.
-  - **Response**: Returns a HTTP `200 OK` status code containing the newly minted JWT payload (`{ "token": "<jwt_string>" }`). Returns `401 Unauthorized` upon failure.
+  - **Behavior**: Verifies credentials, issues `HttpOnly` JWT cookie.
 
 ### Cart Management Endpoints
 
-- **Retrieve Cart State**
-  - `GET /api/cart`
-  - **Authorization**: Required (Bearer Token).
-  - **Behavior**: Looks up the user ID embedded in the JWT and retrieves their saved cart JSON from the database.
-  - **Response**: Returns HTTP `200 OK` with the serialized cart state associated with the authenticated user.
+- **Retrieve Cart State**: `GET /api/cart`
+  - **Authorization**: Required (HttpOnly Cookie).
+- **Synchronize Cart State**: `POST /api/cart`
+  - **Authorization**: Required (HttpOnly Cookie).
+  - **Payload**: `{ "cart": { ... } }`
 
-- **Synchronize Cart State**
-  - `POST /api/cart`
-  - **Authorization**: Required (Bearer Token).
-  - **Payload**: `{ "cart": { "Artisan Espresso": { "price": 120, "quantity": 1 } } }`
-  - **Behavior**: Safely overwrites the existing database cart state with the incoming payload from the client.
-  - **Response**: Returns a HTTP `200 OK` status code indicating successful state synchronization.
+### Editorial & Administration Endpoints
 
-### Order Processing Endpoints
-
-- **Finalize Transaction**
-  - `POST /api/checkout`
-  - **Authorization**: Required (Bearer Token).
-  - **Behavior**: Processes the order logically, completely clears the user's database cart to prevent double-billing, and prepares a fulfillment manifest.
-  - **Response**: Returns a HTTP `200 OK` processing confirmation message.
-
-## Security Overview & Hardening
-
-The platform is designed from the ground up with foundational zero-trust security principles in mind. All passwords undergo intensive cryptographic hashing, and state-changing API endpoints rigorously enforce strict JWT token validation and structural integrity checks.
-
-Recent architectural hardening includes, but is not limited to:
-- **Aggressive Rate Limiting**: Implementing strict brute-force and dictionary attack protection on all sensitive authentication routes.
-- **XSS (Cross-Site Scripting) Mitigation**: Enforcing strict HTML escaping, sanitization, and output encoding on both frontend input fields and backend database queries.
-- **Strict Security Headers**: Implementing `Strict-Transport-Security (HSTS)` to force HTTPS, `Content-Security-Policy (CSP)` to prevent unauthorized script execution, `X-Frame-Options` to prevent clickjacking, and `X-Content-Type-Options` to prevent MIME-sniffing.
-
-For highly detailed information regarding our vulnerability reporting processes, security SLAs, and active support windows, please thoroughly review the `SECURITY.md` file located in the root directory of this repository.
+- **Fetch Blog Posts**: `GET /api/blog`
+- **Create Blog Post**: `POST /api/blog` (Admin Only)
+- **Delete Blog Post**: `DELETE /api/blog/<id>` (Admin Only)
+- **Subscribe to Newsletter**: `POST /api/newsletter`
 
 ## Licensing, Copyright, and Usage
 
