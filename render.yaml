@@ -1,9 +1,9 @@
-services:
-  # PostgreSQL Database
-  - type: pgo
-    name: boojee-db
+
+databases:
+  - name: boojee-db
     plan: free
-    
+
+services:
   # Main Flask Web Service
   - type: web
     name: boojee-web
@@ -31,3 +31,4 @@ services:
         fromDatabase:
           name: boojee-db
           property: connectionString
+
