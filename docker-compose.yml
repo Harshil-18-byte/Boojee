@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://user:password@db:5432/boojee
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+
+  analytics:
+    build: ./analytics_service
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://user:password@db:5432/boojee
+    depends_on:
+      - db
+    volumes:
+      - ./analytics_service:/app
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=boojee
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
