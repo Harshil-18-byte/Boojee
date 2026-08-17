@@ -1,112 +1,102 @@
-from flask_sqlalchemy import SQLAlchemy
+from beanie import Document, Indexed
+from pydantic import Field, EmailStr
+from typing import Optional, List, Dict, Annotated
 from datetime import datetime
+from bson import ObjectId
 
-db = SQLAlchemy()
+class User(Document):
+    email: Annotated[EmailStr, Indexed(unique=True)]
+    password: str
+    role: str = "customer"
+    name: Optional[str] = None
+    address: Optional[str] = None
+    phone: Optional[str] = None
+    mfa_secret: Optional[str] = None
+    mfa_enabled: bool = False
 
-class User(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    class Settings:
+        name = "users"
 
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
-    role = db.Column(db.String(20), nullable=False, default='customer')
-    name = db.Column(db.String(100), nullable=True)
-    address = db.Column(db.Text, nullable=True)
-    phone = db.Column(db.String(20), nullable=True)
+class Cart(Document):
+    user_id: str
+    cart_data: str
     
-    orders = db.relationship('Order', backref='user', lazy=True)
-    cart = db.relationship('Cart', backref='user', uselist=False)
+    class Settings:
+        name = "carts"
 
-class Cart(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class RestaurantTable(Document):
+    table_number: Annotated[str, Indexed(unique=True)]
+    status: str = "available"
+    capacity: int = 4
 
-    __tablename__ = 'carts'
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    cart_data = db.Column(db.Text, nullable=False)
+    class Settings:
+        name = "restaurant_tables"
 
-class Order(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class Employee(Document):
+    user_id: str
+    position: Optional[str] = None
 
-    __tablename__ = 'orders'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    items = db.Column(db.Text, nullable=False)
-    total = db.Column(db.Integer, nullable=False)
-    cup_size = db.Column(db.String(20), nullable=False, default='Regular')
-    collection_time = db.Column(db.String(50), nullable=False)
-    customer_name = db.Column(db.String(100), nullable=False)
-    phone = db.Column(db.String(20), nullable=False)
-    status = db.Column(db.String(20), nullable=False, default='confirmed')
-    created_at = db.Column(db.String(50), nullable=False)
-    table_id = db.Column(db.Integer, db.ForeignKey('restaurant_tables.id'), nullable=True)
-    assigned_employee_id = db.Column(db.Integer, db.ForeignKey('employees.id'), nullable=True)
-    payment_status = db.Column(db.String(20), nullable=False, default='pending')
-    payment_method = db.Column(db.String(50), nullable=True)
+    class Settings:
+        name = "employees"
 
-class Product(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class Order(Document):
+    user_id: str
+    items: str
+    total: int
+    cup_size: str = "Regular"
+    collection_time: str
+    customer_name: str
+    phone: str
+    status: str = "confirmed"
+    created_at: str
+    table_id: Optional[str] = None
+    assigned_employee_id: Optional[str] = None
+    payment_status: str = "pending"
+    payment_method: Optional[str] = None
 
-    __tablename__ = 'products'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(100), unique=True, nullable=False)
-    description = db.Column(db.Text)
-    price = db.Column(db.Integer, nullable=False)
-    category = db.Column(db.String(50), nullable=False)
-    image_url = db.Column(db.String(255))
+    class Settings:
+        name = "orders"
 
-class RestaurantTable(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class Product(Document):
+    name: Annotated[str, Indexed(unique=True)]
+    description: Optional[str] = None
+    price: int
+    category: str
+    image_url: Optional[str] = None
 
-    __tablename__ = 'restaurant_tables'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    table_number = db.Column(db.String(10), unique=True, nullable=False)
-    status = db.Column(db.String(20), nullable=False, default='available')
-    capacity = db.Column(db.Integer, nullable=False, default=4)
+    class Settings:
+        name = "products"
 
-class Employee(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class BlogPost(Document):
+    title: str
+    content: str
+    image_url: Optional[str] = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    author_id: str
 
-    __tablename__ = 'employees'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
-    position = db.Column(db.String(100))
-    user = db.relationship('User', backref='employee_profile')
+    class Settings:
+        name = "blog_posts"
 
-class BlogPost(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class NewsletterSubscriber(Document):
+    email: Annotated[EmailStr, Indexed(unique=True)]
+    subscribed_at: datetime = Field(default_factory=datetime.utcnow)
 
-    __tablename__ = 'blog_posts'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(200), nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    image_url = db.Column(db.String(255), nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    author = db.relationship('User')
+    class Settings:
+        name = "newsletter_subscribers"
 
-class NewsletterSubscriber(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class AuditLog(Document):
+    action: str
+    user_id: Optional[str] = None
+    target_id: Optional[str] = None
+    details: Optional[str] = None # JSON string if needed
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    
+    class Settings:
+        name = "audit_logs"
 
-    __tablename__ = 'newsletter_subscribers'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    subscribed_at = db.Column(db.DateTime, default=datetime.utcnow)
+class RevokedToken(Document):
+    jti: Annotated[str, Indexed(unique=True)]
+    created_at: datetime = Field(default_factory=datetime.utcnow)
 
-class RevokedToken(db.Model):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        
-    __tablename__ = 'revoked_tokens'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    jti = db.Column(db.String(120), unique=True, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
+    class Settings:
+        name = "revoked_tokens"

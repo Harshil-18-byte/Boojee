@@ -36,3 +36,10 @@ class CheckoutSchema(Schema):
 
 class NewsletterSchema(Schema):
     email = fields.Email(required=True)
+
+class MFAVerifySchema(Schema):
+    code = fields.String(required=True, validate=validate.Length(min=6, max=6))
+
+class MFALoginSchema(Schema):
+    mfa_token = fields.String(required=True)
+    code = fields.String(required=True, validate=validate.Length(min=6, max=6))
