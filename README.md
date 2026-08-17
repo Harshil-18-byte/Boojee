@@ -311,3 +311,11 @@ To guarantee high availability and strong consensus replication, the platform in
 ### Proprietary Licensing
 Copyright 2026 Boojee Cafe Platform. All rights reserved.
 The source code contained within this repository is strictly proprietary unless otherwise defined by an explicit commercial agreement or an overriding open-source license detailed in the `LICENSE` document. Unauthorized reproduction, modification, or external distribution is explicitly prohibited.
+
+## 13. System Upgrades (v2.0)
+
+The Boojee platform has recently undergone a major architectural upgrade (v2.0) to enhance scalability and security:
+
+*   **MongoDB (Beanie ODM)**: The platform has migrated from relational SQL databases (SQLite/PostgreSQL) to a NoSQL architecture powered by MongoDB and the Beanie asynchronous ODM. This allows for flexible schema design and horizontal scalability.
+*   **Redis & Arq Background Workers**: A distributed Redis caching layer and `arq` asynchronous task queue have been integrated. Heavy computational tasks and email dispatching are now offloaded to background workers, ensuring the Core API Gateway remains highly responsive.
+*   **Enhanced Telemetry & Rate Limiting**: The platform now enforces GCRA-based rate limiting via Redis to prevent brute-force attacks and abuse.

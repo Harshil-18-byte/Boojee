@@ -113,3 +113,21 @@ docker service logs --follow boojee-core-api | grep "Security module initialized
 
 ---
 *This policy remains under continuous review. It is iteratively updated as the architectural threat landscape evolves and new security mitigations are deployed.*
+
+## 5. V2.0 Security Enhancements (MFA, Rate Limiting, Audit Logs)
+
+As part of the v2.0 architectural upgrade, the following security controls have been added:
+
+### 5.1. Multi-Factor Authentication (MFA)
+*   **TOTP Implementation**: The platform now supports Time-Based One-Time Passwords (TOTP) for administrative and high-privilege accounts, utilizing the `pyotp` library. This provides a secondary layer of defense against credential stuffing and phishing attacks.
+*   **Strict Verification**: MFA verification is enforced at the Core API Gateway level before sensitive JWT claims are issued.
+
+### 5.2. Distributed Rate Limiting & Brute Force Protection
+*   **GCRA Algorithm**: Rate limiting is strictly enforced using the Generic Cell Rate Algorithm (GCRA) backed by Redis. This allows for precise, distributed request throttling across all cluster nodes.
+*   **Targeted Throttling**: Critical endpoints (e.g., `/api/login`, `/api/register`) have aggressive rate limits applied to mathematically neutralize automated brute-force attacks and credential stuffing bots.
+
+### 5.3. Administrative Audit Trails
+*   **Immutable Audit Logging**: All sensitive administrative actions and security-related events are now recorded in a dedicated MongoDB `AuditLog` collection. This ensures complete traceability and accountability for highly privileged operations.
+
+### 5.4. NoSQL Data Integrity
+*   **Beanie ODM Validation**: Following the migration from SQL to MongoDB, the platform leverages the Beanie ODM and Pydantic models to strictly enforce data schemas and sanitize all incoming payloads, mitigating NoSQL injection vectors.
