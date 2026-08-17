@@ -116,18 +116,29 @@ docker service logs --follow boojee-core-api | grep "Security module initialized
 
 ## 5. V2.0 Security Enhancements (MFA, Rate Limiting, Audit Logs)
 
-As part of the v2.0 architectural upgrade, the following security controls have been added:
+As part of the v2.0 architectural upgrade, the following highly-specialized security controls have been engineered into the core fabric of the API Gateway to neutralize emerging threat vectors.
 
-### 5.1. Multi-Factor Authentication (MFA)
-*   **TOTP Implementation**: The platform now supports Time-Based One-Time Passwords (TOTP) for administrative and high-privilege accounts, utilizing the `pyotp` library. This provides a secondary layer of defense against credential stuffing and phishing attacks.
-*   **Strict Verification**: MFA verification is enforced at the Core API Gateway level before sensitive JWT claims are issued.
+### 5.1. Multi-Factor Authentication (MFA) Core
+*   **Cryptographic TOTP Implementation**: The platform relies on Time-Based One-Time Passwords (TOTP) governed by RFC 6238. Utilizing the `pyotp` cryptographic library, administrative and high-privilege identities require a dynamically rotating 6-digit code synced against the UTC atomic clock.
+*   **Provisioning Security (QR Code Handshake)**: During MFA provisioning, a uniquely generated base32 160-bit secret is bound to the user's identity. This secret is never transmitted in plaintext post-provisioning, neutralizing Man-In-The-Middle (MITM) surveillance.
+*   **Strict Verification & Token Issuance**: MFA verification is enforced as a blocking gateway. A user may successfully validate their PBKDF2 password, but the system will withhold the primary JWT authentication payload until a valid TOTP challenge is explicitly solved within the 30-second temporal window.
 
 ### 5.2. Distributed Rate Limiting & Brute Force Protection
-*   **GCRA Algorithm**: Rate limiting is strictly enforced using the Generic Cell Rate Algorithm (GCRA) backed by Redis. This allows for precise, distributed request throttling across all cluster nodes.
-*   **Targeted Throttling**: Critical endpoints (e.g., `/api/login`, `/api/register`) have aggressive rate limits applied to mathematically neutralize automated brute-force attacks and credential stuffing bots.
+*   **Redis-Backed Generic Cell Rate Algorithm (GCRA)**: We have completely deprecated simple window sliding limiters. The v2.0 API enforces the mathematically rigorous GCRA (Generic Cell Rate Algorithm) via a highly available Redis cluster (`quart-rate-limiter` integration). This guarantees consistent, globally distributed state synchronization across all microservice instances within sub-millisecond latency.
+*   **Asymmetric Endpoint Throttling**: 
+    *   *High-Risk Vectors* (e.g., `/api/login`, `/api/mfa/verify`): Strictly clamped to a ceiling of 5 requests per 60 seconds. This mathematically neutralizes horizontal and vertical credential stuffing botnets.
+    *   *Standard Vectors* (e.g., `/api/products`): Tuned to 100 requests per 60 seconds to permit seamless user experience while preventing volumetric Layer 7 Application DDoS.
+*   **Penalty Box Architecture**: Excessive threshold breaches automatically flag the offending IP address in the Redis cache, imposing an exponential backoff penalty that effectively shadow-bans the malicious actor at the infrastructure edge.
 
-### 5.3. Administrative Audit Trails
-*   **Immutable Audit Logging**: All sensitive administrative actions and security-related events are now recorded in a dedicated MongoDB `AuditLog` collection. This ensures complete traceability and accountability for highly privileged operations.
+### 5.3. Administrative Audit Trails & Non-Repudiation
+*   **Immutable Write-Once Logging (WORM)**: Every sensitive operational change (e.g., password rotations, administrative privilege escalation, bulk data mutations) is intercepted at the controller level and cryptographically logged to a dedicated `AuditLog` MongoDB collection.
+*   **Metadata Enrichment**: Each audit ledger entry is enriched with immutable forensic telemetry, including: 
+    *   The precise UTC microsecond timestamp.
+    *   The originating verified identity (`user_id`).
+    *   The specific API endpoint invoked.
+    *   A deep-serialized payload of the exact structural changes executed.
+*   **Non-Repudiation Guaranty**: The audit collection is restricted at the MongoDB user-role layer to strictly `INSERT` operations only. `UPDATE` and `DELETE` commands are systematically rejected, ensuring malicious actors cannot cover their tracks even in the event of partial system compromise.
 
-### 5.4. NoSQL Data Integrity
-*   **Beanie ODM Validation**: Following the migration from SQL to MongoDB, the platform leverages the Beanie ODM and Pydantic models to strictly enforce data schemas and sanitize all incoming payloads, mitigating NoSQL injection vectors.
+### 5.4. NoSQL Data Integrity & BSON Injection Defense
+*   **Beanie ODM Abstraction Layer**: Following the migration from the SQL dialect to the MongoDB NoSQL architecture, the platform mitigates NoSQL injection vectors by entirely decoupling raw BSON query generation from user input.
+*   **Pydantic Type-Coercion Protocol**: Every byte of ingress payload data is forced through aggressive Pydantic validation schemas. This ensures inputs perfectly conform to expected types (e.g., strong `UUIDs`, bounded `Integers`, explicitly sanitized `Strings`). Any structurally malformed or maliciously concatenated input (e.g., `$where`, `$ne` operator injection attempts) is instantly trapped and rejected with an `HTTP 422 Unprocessable Entity` response before ever reaching the ODM query builder.
