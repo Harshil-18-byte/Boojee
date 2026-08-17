@@ -1,0 +1,87 @@
+# Core API Reference (v2.0)
+
+This document provides a highly technical, rigorous overview of the Boojee Core REST API. All endpoints are secured behind the Gateway and enforce strict JSON schemas via Pydantic type-coercion.
+
+## 1. Global Request/Response Paradigms
+
+### 1.1. Data Serialization Format
+All ingress (POST/PUT/PATCH) payloads must be transmitted as strictly formatted `application/json`.
+All egress payloads are guaranteed to return `application/json`. XML or Form-Data payloads will be instantly rejected with an HTTP 415 (Unsupported Media Type).
+
+The platform enforces a standardized envelope response format to allow client-side reducers to parse responses predictably:
+```json
+{
+  "status": "success | error | fail",
+  "data": { ... }, // Payload on success, null on failure
+  "message": "Human readable context", // Optional
+  "error_code": "ERR_SPECIFIC_CODE", // Present only on fail/error
+  "metadata": { // Optional telemetry
+      "execution_time_ms": 12.4
+  }
+}
+```
+
+### 1.2. Cryptographic Authentication (Stateless JWT)
+Protected endpoints require a cryptographic JSON Web Token (JWT) passed via the `Authorization` header:
+`Authorization: Bearer <ey...>`
+
+*   **Signature**: Tokens are aggressively validated for signature integrity using HS256 (HMAC with SHA-256). The secret key is never stored in version control.
+*   **Revocation (Redis Blacklist)**: Before processing the payload, the gateway performs an O(1) time-complexity check against the Redis cluster. If the token's unique `jti` (JWT ID) exists in the blacklist, the request is instantly aborted with an HTTP 401, neutralizing stolen session tokens.
+
+### 1.3. Rate Limiting Headers (GCRA)
+Every API response includes critical telemetry regarding your current rate limit penalty bucket. The API utilizes the Generic Cell Rate Algorithm (GCRA) to ensure microsecond-level precision across all distributed nodes.
+
+*   `X-RateLimit-Limit`: The absolute maximum requests allowed in the current temporal window.
+*   `X-RateLimit-Remaining`: The exact number of requests remaining before a ban is issued.
+*   `X-RateLimit-Reset`: The exact UTC Unix Epoch timestamp when the penalty box will completely flush.
+
+Exceeding the threshold triggers an immediate `429 Too Many Requests` response. Continued bombardment post-429 will result in an IP-level shadow ban at the WAF edge.
+
+## 2. Pydantic Error Schemas (HTTP 422 Unprocessable Entity)
+If an incoming request violates the Beanie ODM / Pydantic validation schema (e.g., missing a required field, providing a string instead of an integer, or violating a regex bound), the API short-circuits the BSON query builder. This is our primary defense against NoSQL injection.
+
+The response will detail the exact byte-level failure:
+```json
+{
+  "status": "fail",
+  "error_code": "ERR_VALIDATION",
+  "details": [
+    {
+      "loc": ["body", "password"], 
+      "msg": "String should have at least 12 characters", 
+      "type": "string_too_short"
+    },
+    {
+      "loc": ["body", "email"], 
+      "msg": "value is not a valid email address", 
+      "type": "value_error.email"
+    }
+  ]
+}
+```
+
+## 3. Core Endpoints & Payloads
+
+### 3.1. Authentication & Identity
+*   **`POST /api/register`**
+    *   *Payload*: `{ "email" (str), "password" (str), "full_name" (str) }`
+    *   *Rate Limit*: 5 per 60 seconds / IP
+    *   *Description*: Hashes the password via PBKDF2 (minimum 600,000 iterations), stores the User Document in MongoDB, and triggers an asynchronous welcome email via the Arq task queue. Returns a 201 Created.
+*   **`POST /api/login`**
+    *   *Payload*: `{ "email" (str), "password" (str) }`
+    *   *Rate Limit*: 5 per 60 seconds / IP
+    *   *Description*: Verifies credentials. Returns the primary JWT. If the user has TOTP MFA enabled in their Document, returns an `MFA_REQUIRED` status with a temporary 30-second challenge token instead of the primary JWT.
+*   **`POST /api/mfa/verify`**
+    *   *Payload*: `{ "challenge_token" (str), "totp_code" (str: length 6) }`
+    *   *Rate Limit*: 3 per 60 seconds / IP
+    *   *Description*: Consumes the 6-digit authenticator code and the challenge token. If the TOTP algorithm mathematically verifies the code against the user's secret base32 seed, the primary authorization JWT is issued.
+
+### 3.2. Administrative & Security
+*   **`GET /api/admin/audit-logs`**
+    *   *Auth*: Requires valid JWT containing `role: admin`.
+    *   *Query Params*: `?limit=50&offset=0&sort=-created_at`
+    *   *Description*: Paginates the WORM MongoDB `AuditLog` collection, returning a chronological ledger of all high-privilege system mutations.
+*   **`DELETE /api/admin/revoke-user`**
+    *   *Auth*: Requires valid JWT containing `role: super_admin`.
+    *   *Payload*: `{ "target_user_id" (uuid) }`
+    *   *Description*: Locates all active JWTs issued to the target user and instantly injects their `jti` claims into the distributed Redis blacklist, forcing a global logout across all edge nodes and microservices within milliseconds.
