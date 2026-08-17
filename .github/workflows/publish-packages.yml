@@ -16,6 +16,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write # Required for OIDC and sigstore
+      attestations: write # Required to write attestations to GitHub
 
     steps:
       - name: Checkout repository
@@ -45,6 +47,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build and push Multi-Arch Docker image
+        id: build
         uses: docker/build-push-action@v5
         with:
           context: ./backend
@@ -52,3 +55,12 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          provenance: true
+          sbom: true
+
+      - name: Generate Artifact Attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-core-api
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: true
