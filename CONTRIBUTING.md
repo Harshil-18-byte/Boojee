@@ -91,3 +91,9 @@ Coverage must not drop below 95%. If you add a new route, you must add tests cov
 4. **PR Template**: You must fill out the provided PR template, explicitly detailing the architectural impact, the testing vectors applied, and the specific Jira/Linear issue resolved. Check all boxes.
 5. **Peer Review**: At least two Staff Engineers must approve your PR. You are expected to gracefully handle architectural critiques and refactor your code as requested.
 6. **Squash and Merge**: Once approved, your PR will be squash-merged by a maintainer to preserve a pristine git history.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
