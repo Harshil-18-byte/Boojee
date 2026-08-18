@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Boojee</string>
+    <string name="title_activity_main">Boojee</string>
+    <string name="package_name">com.boojee.app</string>
+    <string name="custom_url_scheme">com.boojee.app</string>
+</resources>
