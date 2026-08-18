@@ -319,3 +319,8 @@ The Boojee platform has recently undergone a major architectural upgrade (v2.0) 
 *   **MongoDB (Beanie ODM)**: The platform has migrated from relational SQL databases (SQLite/PostgreSQL) to a NoSQL architecture powered by MongoDB and the Beanie asynchronous ODM. This allows for flexible schema design and horizontal scalability.
 *   **Redis & Arq Background Workers**: A distributed Redis caching layer and `arq` asynchronous task queue have been integrated. Heavy computational tasks and email dispatching are now offloaded to background workers, ensuring the Core API Gateway remains highly responsive.
 *   **Enhanced Telemetry & Rate Limiting**: The platform now enforces GCRA-based rate limiting via Redis to prevent brute-force attacks and abuse.
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
