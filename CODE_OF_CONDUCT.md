@@ -44,3 +44,9 @@ Upon validation of a violation, the TSC may execute the following escalation pat
 
 ## 5. Scope
 This Code of Conduct applies within all project spaces, including the GitHub repository, Slack/Discord channels, and official mailing lists. It also applies when an individual is representing the project in public spaces, such as speaking at technical conferences, representing the company at a trade show, or interacting on social media regarding the platform.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
