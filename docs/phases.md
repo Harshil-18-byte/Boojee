@@ -34,3 +34,9 @@ The forthcoming phase will shift focus away from foundational stability (which h
 *   **Kubernetes (K8s) Orchestration**: Migration from basic Docker Compose (which lacks robust auto-healing) to a fully declarative Kubernetes cluster. This will feature automatic Horizontal Pod Autoscaling (HPA) based on CPU/Memory metrics, self-healing node replacements, and zero-downtime Canary rolling updates.
 *   **Wasm (WebAssembly) Edge Computing**: Pushing cart synchronization logic and JWT verification directly to Cloudflare/AWS Edge nodes via WebAssembly. This aims to achieve literal zero-latency localized executions by processing requests physically closer to the user before they ever hit the core US-East gateway.
 *   **Zero-Trust Service Mesh**: Implementing Istio or Linkerd to enforce mutual TLS (mTLS) authentication automatically between all internal microservices (e.g., between the Core API and the Arq Workers), assuming that the internal network is hostile.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
