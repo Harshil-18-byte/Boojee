@@ -53,3 +53,9 @@ This represents a monumental paradigm shift for the platform, moving from a sync
 - Baseline JSON Web Token (JWT) stateless session issuing.
 - Frontend rendering architecture utilizing standard HTML/CSS templates.
 - Basic `.env` configuration loader.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
