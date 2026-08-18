@@ -25,7 +25,7 @@ localizeCafe(); setTimeout(localizeCafe, 0);
 const header = document.querySelector('.header');
 const setHeaderState = () => header?.classList.toggle('is-scrolled', window.scrollY > 36);
 setHeaderState(); window.addEventListener('scroll', setHeaderState, { passive: true });
-const pageName = location.pathname.split('/').pop() || 'index.html';
+const pageName = location.pathname.split('/').pop() || 'home.html';
 document.querySelectorAll('.nav a').forEach(link => { if (link.getAttribute('href') === pageName) link.setAttribute('aria-current', 'page'); });
 setTimeout(() => document.querySelectorAll('.nav a').forEach(link => { if (link.getAttribute('href') === pageName) link.setAttribute('aria-current', 'page'); }), 0);
 const revealTargets = document.querySelectorAll('.section, .craft, .experience, .guest-notes, .club, .cta-band, .journal-card, .gift-panel');
