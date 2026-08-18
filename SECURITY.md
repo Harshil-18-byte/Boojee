@@ -142,3 +142,9 @@ As part of the v2.0 architectural upgrade, the following highly-specialized secu
 ### 5.4. NoSQL Data Integrity & BSON Injection Defense
 *   **Beanie ODM Abstraction Layer**: Following the migration from the SQL dialect to the MongoDB NoSQL architecture, the platform mitigates NoSQL injection vectors by entirely decoupling raw BSON query generation from user input.
 *   **Pydantic Type-Coercion Protocol**: Every byte of ingress payload data is forced through aggressive Pydantic validation schemas. This ensures inputs perfectly conform to expected types (e.g., strong `UUIDs`, bounded `Integers`, explicitly sanitized `Strings`). Any structurally malformed or maliciously concatenated input (e.g., `$where`, `$ne` operator injection attempts) is instantly trapped and rejected with an `HTTP 422 Unprocessable Entity` response before ever reaching the ODM query builder.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
