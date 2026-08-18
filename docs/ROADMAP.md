@@ -39,3 +39,9 @@ This phase focuses on enterprise B2B readiness and legal certifications.
 *   **[BACKLOG] SOC 2 Type II Certification**: Formalizing the automated WORM audit trails, disaster recovery runbooks, and employee access controls to achieve a formal SOC 2 Type II audit report.
 *   **[BACKLOG] SAML & OIDC Federation**: Expanding the authentication tier to allow enterprise B2B clients to authenticate via Azure Active Directory (Azure AD), Okta, or Ping Identity using standardized SAML 2.0 or OpenID Connect (OIDC) protocols.
 *   **[BACKLOG] Multi-Tenancy Data Isolation**: Upgrading the MongoDB schema to support strict logical isolation between different enterprise tenants, ensuring cross-tenant data leakage is mathematically impossible at the ODM query level.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
