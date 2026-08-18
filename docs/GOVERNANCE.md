@@ -37,3 +37,9 @@ To prevent the loss of "tribal knowledge" and to permanently document the histor
     *   **Rejected Alternatives**: What else was considered and mathematically proven to be inferior?
 3.  **Debate**: The TSC and Maintainers debate the PR on GitHub.
 4.  **Ratification**: Only upon a supermajority TSC vote is the ADR merged. The merging of an ADR signals the engineering team to commence implementation. Until the ADR is merged, no code should be written.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
