@@ -1,0 +1,33 @@
+{
+  "name": "boojee",
+  "version": "1.0.0",
+  "description": "> An Enterprise-Grade, Cloud-Native E-Commerce & Editorial Ecosystem.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harshil-18-byte/Boojee.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Harshil-18-byte/Boojee/issues"
+  },
+  "homepage": "https://github.com/Harshil-18-byte/Boojee#readme",
+  "dependencies": {
+    "@capacitor/core": "^8.5.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/ios": "^8.5.0"
+  }
+}
