@@ -29,3 +29,9 @@ The v2.0 architecture was designed specifically to pass SOC 2 Security, Availabi
 The frontend presentation layer is strictly tested against the Web Content Accessibility Guidelines (WCAG) 2.1 AA standards, ensuring compliance with the Americans with Disabilities Act (ADA).
 *   **Contrast Ratios**: The dark-mode HSL color palette guarantees a minimum contrast ratio of 4.5:1 for all textual elements against their backgrounds.
 *   **Semantic HTML**: Aggressive use of ARIA attributes, semantic landmarks (`<main>`, `<nav>`, `<aside>`), and entirely keyboard-navigable focus states are enforced by the frontend linter. Mouse navigation is never strictly required to complete a checkout flow.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
