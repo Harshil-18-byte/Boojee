@@ -77,3 +77,9 @@ Animations must feel snappy, physics-based, and intentional. Sloppy or slow anim
         }
     }
     ```
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
