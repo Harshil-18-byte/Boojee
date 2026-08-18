@@ -85,3 +85,9 @@ The response will detail the exact byte-level failure:
     *   *Auth*: Requires valid JWT containing `role: super_admin`.
     *   *Payload*: `{ "target_user_id" (uuid) }`
     *   *Description*: Locates all active JWTs issued to the target user and instantly injects their `jti` claims into the distributed Redis blacklist, forcing a global logout across all edge nodes and microservices within milliseconds.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
