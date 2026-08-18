@@ -46,3 +46,9 @@ Deployments are fully automated via GitHub Actions to eliminate human error duri
 3.  **Static Analysis**: `flake8` and `mypy` scan the repository for syntax errors and typing failures. `bandit` and `trufflehog` scan for known security vulnerabilities and accidentally committed secrets.
 4.  **Container Registry**: The application is built and packaged into a minimal Alpine Linux Docker image and pushed to the GitHub Container Registry (GHCR).
 5.  **Deployment**: Upon successful validation, the GitHub Runner connects to the production Swarm via SSH, pulls the latest tagged image, and triggers a zero-downtime rolling restart of the Quart containers.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
