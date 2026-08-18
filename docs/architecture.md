@@ -66,7 +66,7 @@ graph TD
 *   Redis acts as the central nervous system for ephemeral, high-velocity state.
 *   **GCRA Rate Limiting**: Redis holds the temporal buckets for the Generic Cell Rate Algorithm to strictly throttle incoming client traffic. This is implemented via LUA scripts to ensure absolute atomicity.
 *   **Token Blacklisting**: Revoked or logged-out JWT hashes are stored in Redis with an absolute Time-To-Live (TTL) matching the token's original expiration epoch. A background sweep clears out dead tokens, maintaining low memory footprints.
-*   **Pub/Sub Bus**: The Analytics engine uses Redis Pub/Sub channels to broadcast real-time metrics across all disconnected WebSocket nodes.
+*   **Pub/Sub Bus**: The Analytics engine uses Redis Pub/Sub channels to broadcast real-time telemetry across all disconnected WebSocket nodes.
 
 ### 2.5. Background Task Processing (Arq)
 *   **The Queue**: Heavy computational tasks, such as triggering transactional SMTP emails, generating comprehensive financial reports, executing complex machine learning inferences, or recalculating massive cart vectors, are offloaded to an asynchronous Redis-backed queue powered by `arq`.

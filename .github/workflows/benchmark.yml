@@ -41,5 +41,5 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: performance-metrics
+        name: performance-report
         path: benchmark_report.txt

@@ -190,8 +190,8 @@ Interaction with the Core API Gateway can be executed via standard terminal util
 
 ### Native CLI Interaction
 ```bash
-# Execute structural atomic value increment for metrics
-$ boojee-cli -p 5001 INCR metrics:page_views:homepage --by=1
+# Execute structural atomic value increment
+$ boojee-cli -p 5001 INCR analytics:page_views:homepage --by=1
 (integer) 488102
 
 # Inspect deep key health attributes
@@ -298,7 +298,7 @@ To guarantee high availability and strong consensus replication, the platform in
    flake8 backend/ --max-line-length=88
    eslint frontend/src/ --ext .js
    ```
-3. **Write Unit Metrics**: Run the complete internal test suite to verify code stability before opening a pull request:
+3. **Write Unit Tests**: Run the complete internal test suite to verify code stability before opening a pull request:
    ```bash
    pytest backend/tests/ -n auto
    ```

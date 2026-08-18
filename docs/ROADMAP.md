@@ -18,7 +18,7 @@ This phase focused on completely eradicating the technical debt incurred during 
 This phase shifts focus from internal application architecture to external infrastructure orchestration, monitoring, and global content delivery.
 
 *   **[WIP] Kubernetes Orchestration (K8s)**: Transitioning from local `docker-compose` to a fully declarative Kubernetes deployment utilizing Helm charts. This will provide self-healing pod management and node-level resilience.
-*   **[WIP] Prometheus / Grafana Telemetry**: Implementing deep application-layer metrics via the `/metrics` endpoint to track MongoDB query latency, Redis eviction rates, garbage collection pauses, and Gateway HTTP 5xx ratios in real-time.
+*   **[WIP] Prometheus / Grafana Telemetry**: Implementing deep application-layer telemetry via the `/metrics` endpoint to track MongoDB query latency, Redis eviction rates, garbage collection pauses, and Gateway HTTP 5xx ratios in real-time.
 *   **[PLANNED] Multi-Region CDN Delivery**: Migrating all static asset delivery (React bundles, WebP product images) to a multi-region Cloudflare Enterprise tier to achieve sub-50ms Time-To-First-Byte (TTFB) globally.
 *   **[PLANNED] Wasm Cart Edge Synchronization**: Pushing differential cart synchronization logic directly to Edge Workers via WebAssembly (Wasm). This aims to execute the merge logic physically closer to the user, bypassing the transatlantic/transpacific hop to the core US-East gateway.
 
@@ -28,7 +28,7 @@ This phase shifts focus from internal application architecture to external infra
 This phase introduces machine learning paradigms to dynamically alter the user experience based on historical telemetry.
 
 *   **[RESEARCH] AI-Powered Recommendation Engine**: Integrating a dedicated Vector Database (e.g., Pinecone or Milvus). We will utilize transformer models to convert product descriptions and user purchasing histories into high-dimensional embeddings, allowing for real-time, context-aware product suggestions based on cosine similarity searches.
-*   **[RESEARCH] Dynamic Pricing Algorithms**: Deploying machine learning models to adjust product pricing thresholds in real-time based on inventory velocity, regional demand spikes, and competitor scraping metrics.
+*   **[RESEARCH] Dynamic Pricing Algorithms**: Deploying machine learning models to adjust product pricing thresholds in real-time based on inventory velocity, regional demand spikes, and competitor scraping data.
 *   **[RESEARCH] GraphQL Federation**: Architecting a comprehensive GraphQL aggregation layer (Apollo Federation or Strawberry) to eventually deprecate the rigid REST API endpoints. This enables frontend clients to query exact data shapes, minimizing payload sizes.
 
 ## Q2 2027: Enterprise Compliance & Federation
