@@ -83,3 +83,9 @@ To solve the complex problem of state-merging between anonymous users and authen
 
 ### 3.2. Lockless Event Processing
 Because the Core API uses Python's `asyncio` single-threaded event loop, race conditions regarding shared memory *within* a single gateway instance are theoretically impossible (cooperative multitasking). For cross-cluster concurrency (e.g., two users modifying the same inventory item simultaneously), we rely exclusively on atomic transactions at the MongoDB document layer (using optimistic concurrency control with a `__v` version key) and atomic Redis `INCR` sequences. We strictly avoid distributed locking mechanisms (like Redlock) unless absolutely necessary, to prevent distributed deadlock scenarios.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
