@@ -48,3 +48,9 @@ Your report **MUST** include:
 2.  **Telemetry Logs**: Sanitized gateway logs demonstrating the failure (ensure no PII or JWTs are included).
 3.  **Reproduction Matrix**: A minimal, self-contained script or `curl` command capable of reproducing the issue on a completely fresh, unconfigured deployment.
 4.  **Expected vs Actual**: A clear mathematical or logical explanation of what the system *should* have done, versus what it *actually* did.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
