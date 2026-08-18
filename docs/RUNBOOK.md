@@ -42,3 +42,9 @@ This runbook outlines the exact, deterministic recovery steps for Tier 3 Critica
     git push origin main --force
     ```
 4.  **Incident Report**: File a formal security incident report detailing the exposure duration and the scope of potential data exfiltration.
+
+
+## Mobile App Support (Capacitor)
+
+This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
