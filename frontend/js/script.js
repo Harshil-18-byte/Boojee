@@ -135,7 +135,47 @@ document.querySelector('.desk-checkout').addEventListener('click', async () => {
 });
 let selectedGift = Number(document.querySelector('[data-gift].selected')?.dataset.gift || 500); document.querySelectorAll('[data-gift]').forEach(button => button.addEventListener('click', () => { selectedGift = Number(button.dataset.gift); document.querySelectorAll('[data-gift]').forEach(item => item.classList.toggle('selected', item === button)); })); document.querySelector('#giftForm')?.addEventListener('submit', event => { event.preventDefault(); const name = `Digital Gift Card · ${formatINR(selectedGift)}`; const product = cart.get(name) || {price:selectedGift,quantity:0}; product.quantity += 1; cart.set(name, product); renderCart(); event.currentTarget.reset(); openDesk(); notify('Gift card added to your order.'); });
 document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => { document.querySelectorAll('[data-filter]').forEach(item => item.classList.toggle('selected', item === button)); const filter = button.dataset.filter; document.querySelectorAll('.products article').forEach(card => card.hidden = filter !== 'all' && card.dataset.category !== filter); }));
-document.querySelector('#enquiryForm')?.addEventListener('submit', event => { event.preventDefault(); event.currentTarget.reset(); notify('Thank you. We will be in touch shortly.'); });
+// Enquiry Form on visit.html
+const enquiryForm = document.querySelector('#enquiryForm');
+const enquirySuccess = document.querySelector('#enquirySuccess');
+if (enquiryForm && enquirySuccess) {
+  enquiryForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const name = document.querySelector('#enquiryNameInput')?.value || 'Guest';
+    const email = document.querySelector('#enquiryEmailInput')?.value || 'your email';
+    
+    document.querySelector('#enquiryUserName').textContent = name;
+    document.querySelector('#enquiryUserEmail').textContent = email;
+    
+    enquiryForm.style.display = 'none';
+    enquirySuccess.style.display = 'block';
+    notify('Enquiry sent successfully! We will be in touch shortly.');
+  });
+  
+  document.querySelector('#newEnquiryBtn')?.addEventListener('click', () => {
+    enquiryForm.reset();
+    enquirySuccess.style.display = 'none';
+    enquiryForm.style.display = 'grid';
+  });
+}
+
+// Contact Form on contact.html
+const contactForm = document.querySelector('#contactForm');
+const contactSuccess = document.querySelector('#contactSuccess');
+if (contactForm && contactSuccess) {
+  contactForm.addEventListener('submit', event => {
+    event.preventDefault();
+    contactForm.style.display = 'none';
+    contactSuccess.style.display = 'block';
+    notify('Message sent successfully! We will be in touch soon.');
+  });
+  
+  document.querySelector('#newContactBtn')?.addEventListener('click', () => {
+    contactForm.reset();
+    contactSuccess.style.display = 'none';
+    contactForm.style.display = 'flex';
+  });
+}
 (() => {
   const bell = document.querySelector('[data-bell-toggle]');
   const button = document.querySelector('[data-bell-button]');
