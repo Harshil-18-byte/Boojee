@@ -49,7 +49,7 @@ def decrypt_pii(data: str) -> str:
         # Fallback if the data wasn't encrypted (e.g. legacy data)
         return data
 
-from models import User, Cart, Order, Product, RestaurantTable, Employee, RevokedToken, BlogPost, NewsletterSubscriber, AuditLog
+from models import User, Cart, Order, Product, RestaurantTable, Employee, RevokedToken, BlogPost, NewsletterSubscriber, AuditLog, Enquiry
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_mock_key')
 razorpay_client = razorpay.Client(auth=(os.environ.get('RAZORPAY_KEY_ID', 'rzp_test_mock'), os.environ.get('RAZORPAY_KEY_SECRET', 'mock_secret')))
@@ -113,7 +113,7 @@ async def init_db():
     arq_pool = await create_pool(RedisSettings.from_dsn(REDIS_URL))
     
     client = AsyncIOMotorClient(DB_URL)
-    await init_beanie(database=client.boojee, document_models=[User, Cart, Order, Product, RestaurantTable, Employee, RevokedToken, BlogPost, NewsletterSubscriber, AuditLog])
+    await init_beanie(database=client.boojee, document_models=[User, Cart, Order, Product, RestaurantTable, Employee, RevokedToken, BlogPost, NewsletterSubscriber, AuditLog, Enquiry])
     
     # Initialize mock data
     if await Product.find_all().count() == 0:
@@ -127,7 +127,16 @@ async def init_db():
             Product(name='Mocha', description='Chocolate infused coffee.', price=180, category='coffee', image_url='images/menu-mocha.png'),
             Product(name='Velvet Hot Chocolate', description='Silky hot chocolate.', price=200, category='tea', image_url='images/Cup-of-Hot-Chocolate.png'),
             Product(name='Garden Strawberry Tart', description='Fresh strawberries.', price=250, category='sweet', image_url='images/Strawberry-Tarts.png'),
-            Product(name='Dark Chocolate Cookie', description='Rich and soft.', price=150, category='sweet', image_url='images/Cookies.png')
+            Product(name='Dark Chocolate Cookie', description='Rich and soft.', price=150, category='sweet', image_url='images/Cookies.png'),
+            Product(name='Coal Black — Aura Estate', description='Signature dark roast single estate beans with notes of dark cacao and hazelnut.', price=650, category='coffee', image_url='images/shop/coal-black-roast.png'),
+            Product(name='Experimental Lot #4', description='Anaerobic slow-dry natural single origin micro-lot with red plum and honey notes.', price=780, category='coffee', image_url='images/shop/experimental-lot.png'),
+            Product(name='Airtight Coffee Canister', description='UV-protected matte black stainless steel coffee storage canister.', price=1200, category='merch', image_url='images/shop/coffee-canister.png'),
+            Product(name='Heavy Canvas Barista Apron', description='Heavyweight cotton canvas with reinforced brass hardware and leather straps.', price=1800, category='merch', image_url='images/shop/boojee-apron.png'),
+            Product(name='Ceramic Cup — Amber', description='220ml handthrown reactive glazed ceramic stoneware.', price=850, category='merch', image_url='images/shop/ceramic-cup-amber.png'),
+            Product(name='Ceramic Cup — Slate', description='220ml matte textured artisanal stoneware for flat whites.', price=850, category='merch', image_url='images/shop/ceramic-cup-slate.png'),
+            Product(name='Butter Croissant Box', description='Set of 4 French butter laminated croissants with honeycomb interior.', price=720, category='sweet', image_url='images/shop/artisan-croissant-box.jpg'),
+            Product(name='Pain au Chocolat Set', description='Set of 4 viennoiseries filled with 64% Valrhona dark chocolate.', price=800, category='sweet', image_url='images/shop/pain-au-chocolat-pack.png'),
+            Product(name='Country Sourdough Loaf', description='36-hour slow fermented country sourdough with blistered crust.', price=420, category='bakery', image_url='images/shop/sourdough-loaf.png')
         ])
         
     if await RestaurantTable.find_all().count() == 0:
@@ -762,3 +771,20 @@ if __name__ == '__main__':
     config = hypercorn.config.Config()
     config.bind = ["0.0.0.0:5000"]
     asyncio.run(hypercorn.asyncio.serve(app, config))
+
+
+@app.route('/api/enquiries', methods=['POST'])
+async def create_enquiry():
+    data = await request.get_json()
+    if not data or 'email' not in data or 'message' not in data:
+        return jsonify({'message': 'Email and message are required.'}), 400
+    
+    enquiry = Enquiry(
+        name=data.get('name', 'Guest'),
+        email=data['email'],
+        enquiry_type=data.get('enquiry_type', 'general'),
+        date=data.get('date'),
+        message=data['message']
+    )
+    await enquiry.insert()
+    return jsonify({'message': 'Enquiry received successfully.'}), 201
