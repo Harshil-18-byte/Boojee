@@ -758,3 +758,27 @@ html.dark-mode .footer-bottom-links a:hover {
 }
 
 /* End Toast */
+
+
+/* Authentic Boojee Cafe Brand Logo */
+.brand-logo-img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  vertical-align: middle;
+  display: inline-block;
+}
+.brand-logo-dark {
+  display: none;
+}
+html.dark-mode .brand-logo-light {
+  display: none;
+}
+html.dark-mode .brand-logo-dark {
+  display: inline-block;
+}
+.wordmark {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
