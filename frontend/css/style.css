@@ -762,23 +762,41 @@ html.dark-mode .footer-bottom-links a:hover {
 
 /* Authentic Boojee Cafe Brand Logo */
 .brand-logo-img {
-  height: 36px;
+  height: 38px;
   width: auto;
   object-fit: contain;
   vertical-align: middle;
-  display: inline-block;
+  display: block;
 }
-.brand-logo-dark {
-  display: none;
-}
-html.dark-mode .brand-logo-light {
-  display: none;
-}
-html.dark-mode .brand-logo-dark {
-  display: inline-block;
-}
-.wordmark {
-  display: inline-flex !important;
+.header .wordmark {
+  display: flex !important;
   align-items: center !important;
-  gap: 10px !important;
+  text-decoration: none !important;
+}
+/* On transparent dark heroes, default header uses white logo */
+.header .brand-logo-light {
+  display: none;
+}
+.header .brand-logo-dark {
+  display: block;
+}
+/* On inner headers in light mode or when scrolled */
+.header.inner-header .brand-logo-light,
+.header.is-scrolled .brand-logo-light {
+  display: block;
+}
+.header.inner-header .brand-logo-dark,
+.header.is-scrolled .brand-logo-dark {
+  display: none;
+}
+/* In dark mode, always show crisp white logo */
+html.dark-mode .header .brand-logo-light,
+html.dark-mode .header.inner-header .brand-logo-light,
+html.dark-mode .header.is-scrolled .brand-logo-light {
+  display: none !important;
+}
+html.dark-mode .header .brand-logo-dark,
+html.dark-mode .header.inner-header .brand-logo-dark,
+html.dark-mode .header.is-scrolled .brand-logo-dark {
+  display: block !important;
 }
