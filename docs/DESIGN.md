@@ -59,3 +59,9 @@ The platform utilizes a fluid, CSS Grid and Flexbox-based layout system. Media q
 
 ## Mobile App Support (Capacitor)
 This project has been updated to include native mobile app support for iOS and Android using Capacitor. You can find the native wrappers in the `ios/` and `android/` directories. Use `npx cap open android` or `npx cap open ios` to build and deploy to the respective app stores.
+
+
+## 6. Brand Logo System
+*   **Original Brand Identity**: Authentic Boojee Cafe logomark (`frontend/images/logo/boojee-logo.png`).
+*   **Dynamic Theme Variants**: Light mode displays the pure dark brand mark (`boojee-logo.png` / `boojee-logo-dark.png`), while dark mode automatically swaps to the crisp white vector silhouette (`boojee-logo-white.png`).
+*   **Favicon**: High-density 128px multi-resolution brand icon (`frontend/favicon.png`).
