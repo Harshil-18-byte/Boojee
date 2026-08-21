@@ -1,123 +1,315 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Boojee Cafe — considered coffee, patisserie and warm hospitality." name="description"/>
-<title>Boojee Cafe | Gallery</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css" rel="stylesheet"/>
-
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Gallery | Boojee Cafe</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    .gallery-grid-enhanced {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      max-width: 1240px;
+      margin: 40px auto 80px;
+      padding: 0 max(5vw, 28px);
+    }
+    .gallery-card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gallery-card:hover img {
+      transform: scale(1.06);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      color: #fff;
+    }
+    .gallery-card:hover .gallery-overlay {
+      opacity: 1;
+    }
+    .gallery-overlay span {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #d4d4d4;
+      font-weight: 700;
+    }
+    .gallery-overlay h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin: 4px 0 0;
+      color: #ffffff;
+    }
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .lightbox-modal.open {
+      display: flex;
+    }
+    .lightbox-content {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 30px;
+      right: 35px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 0;
+      font-size: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+  </style>
 </head>
 <body>
-<header class="header inner-header" id="top">
-<a aria-label="Boojee Cafe home" class="wordmark" href="#top">Boojee <span>CAFE</span></a>
-<button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
-<nav aria-label="Main navigation" class="nav" id="nav">
-<a href="menu.html">Menu</a><a href="about.html">Our craft</a><a href="visit.html">Visit</a>
-<a href="shop.html">Shop Now</a><a href="roastery.html">Roastery</a><a href="contact.html">Contact</a><a href="join-our-team.html">Join Our Team</a></nav>
-<button class="order-button" data-order="">Order <span id="cartCount">0</span></button>
-</header>
+  <header class="header inner-header">
+    <a class="wordmark" href="home.html">Boojee <span>CAFE</span></a>
+    <button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="menu.html">Menu</a>
+      <a href="about.html">Our craft</a>
+      <a href="visit.html">Visit</a>
+      <a href="shop.html">Shop Now</a>
+      <a href="roastery.html">Roastery</a>
+      <a href="contact.html">Contact</a>
+      <a href="join-our-team.html">Join Our Team</a>
+    </nav>
+    <button class="order-button" data-order="">Order <span id="cartCount">0</span></button>
+  </header>
+
   <main>
     <section class="page-hero">
-      <p class="kicker">A GLIMPSE INSIDE</p>
-      <h1>Our <em>space.</em></h1>
-      <p>A look at the details, the light, and the daily rituals that define Boojee.</p>
+      <p class="kicker">MOMENTS AT Boojee</p>
+      <h1>Visual <em>Stories.</em></h1>
+      <p>A glimpse into our daily craft, morning pours, freshly baked viennoiserie, and the lively community at Bandra West.</p>
     </section>
 
-    <section class="section" style="padding-top: 0;">
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2px;">
-        <img src="images/Cake-Vitrine.png" alt="Cake vitrine" style="width: 100%; height: 350px; object-fit: cover;">
-        <img src="images/Coffee-and-Pastries.png" alt="Coffee and pastries" style="width: 100%; height: 350px; object-fit: cover;">
-        <img src="images/Cup-of-Hot-Chocolate.png" alt="Hot chocolate" style="width: 100%; height: 350px; object-fit: cover;">
-        <img src="images/Cookies.png" alt="Cookies" style="width: 100%; height: 350px; object-fit: cover;">
-        <img src="images/Strawberry-&amp;-Blueberry-Tarts.png" alt="Tarts" style="width: 100%; height: 350px; object-fit: cover;">
-        <img src="images/Coffee-and-Pastries.png" alt="Coffee" style="width: 100%; height: 350px; object-fit: cover;">
+    <div class="gallery-grid-enhanced">
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-1.jpg')">
+        <img src="images/gallery/gallery-1.jpg" alt="Latte art and espresso pour" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Craft Coffee</span>
+          <h3>Signature Pour</h3>
+        </div>
       </div>
-    </section>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-2.jpg')">
+        <img src="images/gallery/gallery-2.jpg" alt="Artisan croissant on ceramic plate" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Morning Bakes</span>
+          <h3>Flaky Viennoiserie</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-3.jpg')">
+        <img src="images/gallery/gallery-3.jpg" alt="Coffee brewing on bar" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Espresso Bar</span>
+          <h3>Dialing In</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-4.jpg')">
+        <img src="images/gallery/gallery-4.jpg" alt="Seasonal patisserie display" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Patisserie</span>
+          <h3>Small-Batch Tarts</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-5.jpg')">
+        <img src="images/gallery/gallery-5.jpg" alt="Cafe counter and barista workspace" loading="lazy">
+        <div class="gallery-overlay">
+          <span>The Counter</span>
+          <h3>Quiet Rhythm</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-6.jpg')">
+        <img src="images/gallery/gallery-6.jpg" alt="Pour over filter coffee ritual" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Single Origin</span>
+          <h3>Manual Brew</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-7.jpg')">
+        <img src="images/gallery/gallery-7.jpg" alt="Cafe seating and tables" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Atmosphere</span>
+          <h3>Afternoon Light</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-8.jpg')">
+        <img src="images/gallery/gallery-8.jpg" alt="Fresh berries and desserts" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Seasonal Flavours</span>
+          <h3>Garden Berry Tart</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-9.jpg')">
+        <img src="images/gallery/gallery-9.jpg" alt="Coffee beans and roastery gear" loading="lazy">
+        <div class="gallery-overlay">
+          <span>The Roastery</span>
+          <h3>Fresh Batch</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/gallery/gallery-10.jpg')">
+        <img src="images/gallery/gallery-10.jpg" alt="Espresso extraction" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Barista Craft</span>
+          <h3>Golden Crema</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/cafe/cafe-interior.jpg')">
+        <img src="images/cafe/cafe-interior.jpg" alt="Boojee Cafe Bandra interior" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Our Space</span>
+          <h3>Bandra West Cafe</h3>
+        </div>
+      </div>
+      <div class="gallery-card" onclick="openLightbox('images/cafe/espresso-bar.jpg')">
+        <img src="images/cafe/espresso-bar.jpg" alt="Espresso bar setup" loading="lazy">
+        <div class="gallery-overlay">
+          <span>Bar & Roasts</span>
+          <h3>Specialty Station</h3>
+        </div>
+      </div>
+    </div>
   </main>
 
-<section aria-labelledby="bellNotifyTitle" class="bell-notify">
-<div class="bell-copy">
-<p class="kicker">FRESH DROP ALERTS</p>
-<h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
-<p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
-<form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
-<input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
-<button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
-<div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
-</form>
-</div>
-<div class="bell-stage">
-<div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
-<span class="rope"></span>
-<span class="bell-top"></span>
-<span class="bell-base"></span>
-<span class="bell-base bell-base-glow"></span>
-<span class="shadow-l1"></span>
-<span class="shadow-l2"></span>
-<span class="left-glow"></span>
-<span class="left-glow2"></span>
-<span class="r-glow"></span>
-<span class="r-glow2"></span>
-<span class="mid-ring"></span>
-<span class="mid-ring small"></span>
-<span class="glow"></span>
-<span class="glow2"></span>
-<span class="bell-buff-t"></span>
-<span class="bell-buff"></span>
-<span class="bell-btm"></span>
-<span class="bell-btm2"></span>
-<span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
-<span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
-</div>
-<button class="notify-button" data-bell-button="" type="button">Notify Me</button>
-<span aria-hidden="true" class="grain"></span>
-</div>
-</section>
-<footer>
-<div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
-<div>
-<p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
-</div>
-<div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
-<a href="menu.html" style="opacity: 0.8;">Menu</a>
-<a href="about.html" style="opacity: 0.8;">Our Craft</a>
-<a href="visit.html" style="opacity: 0.8;">Visit</a>
-<a href="shop.html" style="opacity: 0.8;">Shop</a>
-<a href="roastery.html" style="opacity: 0.8;">Roastery</a>
-<a href="experiences.html" style="opacity: 0.8;">Experiences</a>
-<a href="journal.html" style="opacity: 0.8;">Journal</a>
-<a href="gallery.html" style="opacity: 0.8;">Gallery</a>
-<a href="contact.html" style="opacity: 0.8;">Contact</a>
-<a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
-<a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
-<a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
-<a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
-<a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
-<a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
-</div>
-</div>
-</footer>
+  <div id="lightbox" class="lightbox-modal" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Close image preview">&times;</button>
+    <img id="lightboxImg" class="lightbox-content" src="" alt="Enlarged gallery view">
+  </div>
 
-<div aria-live="polite" class="toast" id="toast" role="status">Added to your order.</div>
-<script src="js/script.js"></script>
+  <section aria-labelledby="bellNotifyTitle" class="bell-notify">
+    <div class="bell-copy">
+      <p class="kicker">FRESH DROP ALERTS</p>
+      <h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
+      <p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
+        <input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
+        <button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
+        <div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
+      </form>
+    </div>
+    <div class="bell-stage">
+      <div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
+        <span class="rope"></span>
+        <span class="bell-top"></span>
+        <span class="bell-base"></span>
+        <span class="bell-base bell-base-glow"></span>
+        <span class="shadow-l1"></span>
+        <span class="shadow-l2"></span>
+        <span class="left-glow"></span>
+        <span class="left-glow2"></span>
+        <span class="r-glow"></span>
+        <span class="r-glow2"></span>
+        <span class="mid-ring"></span>
+        <span class="mid-ring small"></span>
+        <span class="glow"></span>
+        <span class="glow2"></span>
+        <span class="bell-buff-t"></span>
+        <span class="bell-buff"></span>
+        <span class="bell-btm"></span>
+        <span class="bell-btm2"></span>
+        <span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
+        <span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
+      </div>
+      <button class="notify-button" data-bell-button="" type="button">Notify Me</button>
+      <span aria-hidden="true" class="grain"></span>
+    </div>
+  </section>
 
-<script>
-  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
+  <footer>
+    <div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
+      <div>
+        <p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
+      </div>
+      <div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
+        <a href="menu.html" style="opacity: 0.8;">Menu</a>
+        <a href="about.html" style="opacity: 0.8;">Our Craft</a>
+        <a href="visit.html" style="opacity: 0.8;">Visit</a>
+        <a href="shop.html" style="opacity: 0.8;">Shop</a>
+        <a href="roastery.html" style="opacity: 0.8;">Roastery</a>
+        <a href="experiences.html" style="opacity: 0.8;">Experiences</a>
+        <a href="journal.html" style="opacity: 0.8;">Journal</a>
+        <a href="gallery.html" style="opacity: 0.8;">Gallery</a>
+        <a href="contact.html" style="opacity: 0.8;">Contact</a>
+        <a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
+        <a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
+        <a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
+        <a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
+        <a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
+        <a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
+      </div>
+    </div>
+  </footer>
+
+  <div aria-live="polite" class="toast" id="toast" role="status">Added to your order.</div>
+  <script src="js/script.js"></script>
+  <script>
+    function openLightbox(src) {
+      const modal = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImg');
+      img.src = src;
+      modal.classList.add('open');
+    }
+    function closeLightbox(e) {
+      if (e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('open');
+      }
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
