@@ -46,57 +46,68 @@
     </section>
   </main>
 
-  <footer class="premium-footer">
-    <div class="footer-watermark">Boojee</div>
-    <div class="premium-footer-inner">
-      <div class="footer-brand">
-        <h2>Boojee <span>CAFE</span></h2>
-        <p>Specialty coffee and small-batch patisserie, prepared with quiet care from first light until late afternoon. Established 2016, London.</p>
-      </div>
-      
-      <div class="footer-column">
-        <h4>Visit Us</h4>
-        <div class="footer-nav">
-          <a href="visit.html">Location & Hours</a>
-          <a href="menu.html">Current Menu</a>
-          <a href="about.html">Our Craft</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </div>
-      
-      <div class="footer-column">
-        <h4>Connect</h4>
-        <div class="footer-nav">
-          <a href="#">Instagram</a>
-          <a href="blog.html">Journal</a>
-          <a href="#">Wholesale</a>
-          <a href="careers.html">Careers</a>
-        </div>
-      </div>
-
-      <div class="footer-newsletter">
-        <div>
-          <h3>Subscribe to Boojee</h3>
-          <p>Get the latest updates on new seasonal roasts, events, and cafe news.</p>
-        </div>
-        <div style="position: relative;">
-          <form class="newsletter-form-premium" id="newsletterForm">
-            <input type="email" id="newsletterEmail" placeholder="Enter your email address" required>
-            <button type="submit">Subscribe</button>
-          </form>
-          <p id="newsletterMsg" class="newsletter-msg" style="position: absolute; bottom: -30px; left: 0; font-size: 13px;"></p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="footer-bottom">
-      <div>&copy; 2026 Boojee Cafe. All rights reserved.</div>
-      <div class="footer-bottom-links">
-        <a href="privacy-policy.html" style="color: #fff;">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-      </div>
-    </div>
-  </footer>
+  <section aria-labelledby="bellNotifyTitle" class="bell-notify">
+<div class="bell-copy">
+<p class="kicker">FRESH DROP ALERTS</p>
+<h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
+<p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
+<form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
+<input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
+<button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
+<div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
+</form>
+</div>
+<div class="bell-stage">
+<div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
+<span class="rope"></span>
+<span class="bell-top"></span>
+<span class="bell-base"></span>
+<span class="bell-base bell-base-glow"></span>
+<span class="shadow-l1"></span>
+<span class="shadow-l2"></span>
+<span class="left-glow"></span>
+<span class="left-glow2"></span>
+<span class="r-glow"></span>
+<span class="r-glow2"></span>
+<span class="mid-ring"></span>
+<span class="mid-ring small"></span>
+<span class="glow"></span>
+<span class="glow2"></span>
+<span class="bell-buff-t"></span>
+<span class="bell-buff"></span>
+<span class="bell-btm"></span>
+<span class="bell-btm2"></span>
+<span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
+<span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
+</div>
+<button class="notify-button" data-bell-button="" type="button">Notify Me</button>
+<span aria-hidden="true" class="grain"></span>
+</div>
+</section>
+<footer>
+<div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
+<div>
+<p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
+</div>
+<div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
+<a href="menu.html" style="opacity: 0.8;">Menu</a>
+<a href="about.html" style="opacity: 0.8;">Our Craft</a>
+<a href="visit.html" style="opacity: 0.8;">Visit</a>
+<a href="shop.html" style="opacity: 0.8;">Shop</a>
+<a href="roastery.html" style="opacity: 0.8;">Roastery</a>
+<a href="experiences.html" style="opacity: 0.8;">Experiences</a>
+<a href="journal.html" style="opacity: 0.8;">Journal</a>
+<a href="gallery.html" style="opacity: 0.8;">Gallery</a>
+<a href="contact.html" style="opacity: 0.8;">Contact</a>
+<a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
+<a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
+<a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
+<a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
+<a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
+<a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
+</div>
+</div>
+</footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
