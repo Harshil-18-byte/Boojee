@@ -32,7 +32,30 @@ const revealTargets = document.querySelectorAll('.section, .craft, .experience, 
 if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) { const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold: 0.12 }); revealTargets.forEach(target => { target.classList.add('reveal'); observer.observe(target); }); }
 const navToggle = document.querySelector('.nav-toggle'); const nav = document.querySelector('.nav');
 if (navToggle && nav) { [['experiences.html', 'Experiences'], ['journal.html', 'Journal'], ['gifts.html', 'Gifts']].forEach(([href, label]) => { if (!nav.querySelector(`[href="${href}"]`)) nav.insertAdjacentHTML('beforeend', `<a href="${href}">${label}</a>`); }); nav.querySelector('[href="login.html"]')?.remove(); const isLoggedIn = localStorage.getItem('boojee_logged_in') === 'true'; const role = localStorage.getItem('boojee_role'); const orderButton = document.querySelector('.header .order-button'); document.querySelectorAll('.header .account-button').forEach(el => el.remove()); if (orderButton) { const linkHref = isLoggedIn ? (role === 'admin' ? 'admin.html' : 'profile.html') : 'login.html'; const linkText = isLoggedIn ? (role === 'admin' ? 'Admin Panel' : 'Profile') : 'Log in'; orderButton.insertAdjacentHTML('beforebegin', `<a class="account-button" href="${linkHref}">${linkText}</a>`); } navToggle.addEventListener('click', () => { const open = nav.classList.toggle('open'); navToggle.setAttribute('aria-expanded', String(open)); navToggle.textContent = open ? 'Close' : 'Menu'; }); nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { nav.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); navToggle.textContent = 'Menu'; })); }
-const toast = document.querySelector('#toast'); let timer; const notify = message => { if (!toast) return; toast.textContent = message; toast.classList.add('show'); clearTimeout(timer); timer = setTimeout(() => toast.classList.remove('show'), 2600); };
+let toast = document.querySelector('#toast');
+if (!toast) {
+  toast = document.createElement('div');
+  toast.id = 'toast';
+  toast.className = 'toast';
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  document.body.append(toast);
+}
+let timer;
+const notify = message => {
+  if (!toast) {
+    toast = document.querySelector('#toast') || document.createElement('div');
+    if (!toast.parentNode) {
+      toast.id = 'toast';
+      toast.className = 'toast';
+      document.body.append(toast);
+    }
+  }
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(timer);
+  timer = setTimeout(() => toast.classList.remove('show'), 2800);
+};
 const savedCart = localStorage.getItem('boojee-cart');
 const cart = new Map(savedCart ? JSON.parse(savedCart) : []);
 window.saveCart = () => {
