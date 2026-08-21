@@ -53,8 +53,7 @@ html.dark-mode .section,
 html.dark-mode .gift-panel,
 html.dark-mode .journal-tools,
 html.dark-mode .journal-card,
-html.dark-mode .products article,
-html.dark-mode .reservation,
+html.dark-mode html.dark-mode .reservation,
 html.dark-mode .visit-details,
 html.dark-mode .club,
 html.dark-mode .guest-notes,
@@ -68,8 +67,7 @@ html.dark-mode .craft{
   background:#000000 !important;
   color:#ffffff !important;
 }
-html.dark-mode .products article,
-html.dark-mode .note,
+html.dark-mode html.dark-mode .note,
 html.dark-mode .journal-card,
 html.dark-mode .story-modal-card,
 html.dark-mode .order-desk,
@@ -371,7 +369,6 @@ html.dark-mode .newsletter-form-premium button {
 
 
 /* Universal Box & Frame Visibility across all pages in Light Mode */
-.products article,
 .journal-card,
 .blog-card,
 .step-card,
