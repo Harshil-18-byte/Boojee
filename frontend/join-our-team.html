@@ -27,15 +27,58 @@
       box-shadow: 0 25px 60px rgba(0,0,0,0.5);
     }
     .job-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #fdfdfd;
+      border: 1px solid #e2e2e2;
       border-radius: 8px;
       padding: 30px;
       margin-bottom: 24px;
       transition: border-color 0.3s;
     }
     .job-card:hover {
-      border-color: rgba(255,255,255,0.3);
+      border-color: #000;
+    }
+    .job-card h4 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: #000;
+    }
+    .job-card .job-tag {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #555;
+      font-weight: 700;
+    }
+    .job-card p {
+      margin: 15px 0 20px;
+      color: #2b2b2b;
+      line-height: 1.6;
+    }
+    .careers-email-link {
+      text-decoration: underline;
+      font-weight: bold;
+      color: #000;
+    }
+
+    /* Dark mode overrides */
+    html.dark-mode .job-card {
+      background: #0c0c0c;
+      border-color: #262626;
+    }
+    html.dark-mode .job-card:hover {
+      border-color: rgba(255,255,255,0.4);
+    }
+    html.dark-mode .job-card h4 {
+      color: #ffffff;
+    }
+    html.dark-mode .job-card .job-tag {
+      color: #a3a3a3;
+    }
+    html.dark-mode .job-card p {
+      color: #d4d4d4;
+    }
+    html.dark-mode .careers-email-link {
+      color: #ffffff;
     }
   </style>
 </head>
@@ -75,33 +118,33 @@
       
       <div class="job-card">
         <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;">
-          <h4 style="margin:0; font-size:1.3rem;">Senior Barista & Dial-In Lead</h4>
-          <span style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #a3a3a3; font-weight:700;">Full-Time · Bandra West</span>
+          <h4>Senior Barista & Dial-In Lead</h4>
+          <span class="job-tag">Full-Time · Bandra West</span>
         </div>
-        <p style="margin: 15px 0 20px; color:#d4d4d4;">Experienced in sensory profiling, multi-origin calibration, espresso dial-in, latte art, and fostering great coffee education.</p>
+        <p>Experienced in sensory profiling, multi-origin calibration, espresso dial-in, latte art, and fostering great coffee education.</p>
         <a class="button light" href="mailto:careers@boojeecafe.com?subject=Application:%20Senior%20Barista">Apply for this role</a>
       </div>
 
       <div class="job-card">
         <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;">
-          <h4 style="margin:0; font-size:1.3rem;">Pastry Chef / Viennoiserie Baker</h4>
-          <span style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #a3a3a3; font-weight:700;">Full-Time · Morning Bake</span>
+          <h4>Pastry Chef / Viennoiserie Baker</h4>
+          <span class="job-tag">Full-Time · Morning Bake</span>
         </div>
-        <p style="margin: 15px 0 20px; color:#d4d4d4;">Specializing in laminated doughs, seasonal tarts, and small-batch patisserie from early morning scratch preparation.</p>
+        <p>Specializing in laminated doughs, seasonal tarts, and small-batch patisserie from early morning scratch preparation.</p>
         <a class="button light" href="mailto:careers@boojeecafe.com?subject=Application:%20Pastry%20Chef">Apply for this role</a>
       </div>
 
       <div class="job-card">
         <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;">
-          <h4 style="margin:0; font-size:1.3rem;">Front of House Host</h4>
-          <span style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #a3a3a3; font-weight:700;">Part-Time / Full-Time · Mumbai</span>
+          <h4>Front of House Host</h4>
+          <span class="job-tag">Part-Time / Full-Time · Mumbai</span>
         </div>
-        <p style="margin: 15px 0 20px; color:#d4d4d4;">Warm, attentive hosts who enjoy connecting with neighbourhood regulars and guiding first-time visitors.</p>
+        <p>Warm, attentive hosts who enjoy connecting with neighbourhood regulars and guiding first-time visitors.</p>
         <a class="button light" href="mailto:careers@boojeecafe.com?subject=Application:%20Front%20of%20House">Apply for this role</a>
       </div>
 
       <h3 style="margin-top: 50px;">How to Apply</h3>
-      <p>Send your CV and a few lines about your favourite coffee ritual to <a href="mailto:careers@boojeecafe.com" style="text-decoration:underline; font-weight:bold; color:#fff;">careers@boojeecafe.com</a>. We review all applications and hold in-person trial shifts at our Bandra location.</p>
+      <p>Send your CV and a few lines about your favourite coffee ritual to <a href="mailto:careers@boojeecafe.com" class="careers-email-link">careers@boojeecafe.com</a>. We review all applications and hold in-person trial shifts at our Bandra location.</p>
     </section>
   </main>
 
