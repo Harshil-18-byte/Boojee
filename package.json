@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/Harshil-18-byte/Boojee#readme",
   "dependencies": {
-    "@capacitor/core": "^8.5.0"
+    "@capacitor/core": "^8.5.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0"
   },
   "devDependencies": {
     "@capacitor/android": "^8.5.0",
