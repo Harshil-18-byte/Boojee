@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.2.0] - 2026-08-21
 
 ### Added
+- **Official Brand Logo Ingestion**: Downloaded the authentic Boojee Cafe logo and favicon archive from `boojeecafe.com` and deployed dynamic light/dark logo assets across the navigation header and footer of all 24 pages.
 - **Authentic Media Pipeline**: Downloaded and integrated 38 high-definition assets directly from `boojeecafe.com` including 4K roastery process video, official team portrait, cafe interior photography, and 12-item visual gallery.
 - **Roastery Video Experience**: Embedded HTML5 MP4 video player and six-stage thermodynamic roasting process illustrations (`frontend/roastery.html`).
 - **Interactive Visual Gallery**: Implemented responsive gallery grid with category tags and modal Lightbox viewer (`frontend/gallery.html`).
@@ -25,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [2.0.0] - 2026-08-17
 
 ### Added
+- **Official Brand Logo Ingestion**: Downloaded the authentic Boojee Cafe logo and favicon archive from `boojeecafe.com` and deployed dynamic light/dark logo assets across the navigation header and footer of all 24 pages.
 - **MongoDB NoSQL Integration**: Migrated persistence layer to MongoDB utilizing `Beanie` asynchronous ODM.
 - **Background Worker Fleet**: Integrated `arq` and Redis for background job execution.
 - **Generic Cell Rate Algorithm (GCRA)**: Rate limiting protection via `quart-rate-limiter`.
