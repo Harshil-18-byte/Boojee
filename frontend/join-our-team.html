@@ -1,138 +1,174 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Boojee Cafe — considered coffee, patisserie and warm hospitality." name="description"/>
-<title>Boojee Cafe | Join Our Team</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css" rel="stylesheet"/>
-
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Join Our Team | Boojee Cafe</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    .team-photo-hero {
+      max-width: 1240px;
+      margin: 0 auto 60px;
+      padding: 0 max(5vw, 28px);
+    }
+    .team-photo-hero img {
+      width: 100%;
+      max-height: 540px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+    .job-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 24px;
+      transition: border-color 0.3s;
+    }
+    .job-card:hover {
+      border-color: rgba(255,255,255,0.3);
+    }
+  </style>
 </head>
 <body>
-<header class="header inner-header" id="top">
-<a aria-label="Boojee Cafe home" class="wordmark" href="#top">Boojee <span>CAFE</span></a>
-<button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
-<nav aria-label="Main navigation" class="nav" id="nav">
-<a href="menu.html">Menu</a><a href="about.html">Our craft</a><a href="visit.html">Visit</a>
-<a href="shop.html">Shop Now</a><a href="roastery.html">Roastery</a><a href="contact.html">Contact</a><a href="join-our-team.html">Join Our Team</a></nav>
-<button class="order-button" data-order="">Order <span id="cartCount">0</span></button>
-</header>
+  <header class="header inner-header">
+    <a class="wordmark" href="home.html">Boojee <span>CAFE</span></a>
+    <button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="menu.html">Menu</a>
+      <a href="about.html">Our craft</a>
+      <a href="visit.html">Visit</a>
+      <a href="shop.html">Shop Now</a>
+      <a href="roastery.html">Roastery</a>
+      <a href="contact.html">Contact</a>
+      <a href="join-our-team.html">Join Our Team</a>
+    </nav>
+    <button class="order-button" data-order="">Order <span id="cartCount">0</span></button>
+  </header>
+
   <main>
     <section class="page-hero">
       <p class="kicker">CAREERS AT Boojee</p>
-      <h1>Join our <em>team.</em></h1>
-      <p>We are always looking for warm, dedicated people to join our hospitality family.</p>
+      <h1>Join our <em>Family.</em></h1>
+      <p>We are a close-knit group of coffee professionals, bakers, and hosts dedicated to thoughtful hospitality in Bandra West.</p>
     </section>
 
-    <section class="editorial-content">
-        <h2>A considered approach to hospitality.</h2>
-        <p>At Boojee, we believe that great service is quiet, attentive, and precise. We are looking for individuals who share our passion for specialty coffee, small-batch patisserie, and creating a welcoming environment for every guest.</p>
-        
-        <h3>Current Openings</h3>
-        <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 20px;">
-            <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
-                <h4 style="margin-bottom: 5px;">Senior Barista</h4>
-                <p style="font-size: 0.9em; opacity: 0.8; margin-bottom: 15px;">Full-time · Bandra West, Mumbai</p>
-                <p>We are looking for an experienced barista with a deep understanding of espresso dial-in, milk texturing, and workflow management.</p>
-            </div>
-            <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
-                <h4 style="margin-bottom: 5px;">Front of House Staff</h4>
-                <p style="font-size: 0.9em; opacity: 0.8; margin-bottom: 15px;">Part-time · Bandra West, Mumbai</p>
-                <p>Seeking friendly, perceptive individuals to guide our guests through their experience, from the first greeting to the final clear.</p>
-            </div>
-        </div>
+    <!-- Official Team Photo from boojeecafe.com -->
+    <div class="team-photo-hero">
+      <img src="images/team/boojee-team.jpg" alt="The Boojee Cafe Team">
+    </div>
 
-        <h3 style="margin-top: 40px;">How to Apply</h3>
-        <p>If you see a role that fits your experience, or if you simply want to introduce yourself for future opportunities, we would love to hear from you. Please send your CV and a brief note about why you'd like to join us.</p>
-        
-        <div style="margin-top: 30px;">
-            <a class="button dark" href="mailto:careers@boojeecafe.com">Email your CV</a>
+    <section class="editorial-content">
+      <h2>A considered approach to hospitality.</h2>
+      <p>At Boojee, we believe that great service is quiet, perceptive, and precise. We look for individuals who take pride in the craft of specialty coffee, small-batch baking, and creating welcoming daily moments for every guest who walks through our doors.</p>
+      
+      <h3 style="margin-top: 40px; margin-bottom: 24px;">Current Opportunities</h3>
+      
+      <div class="job-card">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;">
+          <h4 style="margin:0; font-size:1.3rem;">Senior Barista & Dial-In Lead</h4>
+          <span style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #a3a3a3; font-weight:700;">Full-Time · Bandra West</span>
         </div>
+        <p style="margin: 15px 0 20px; color:#d4d4d4;">Experienced in sensory profiling, multi-origin calibration, espresso dial-in, latte art, and fostering great coffee education.</p>
+        <a class="button light" href="mailto:careers@boojeecafe.com?subject=Application:%20Senior%20Barista">Apply for this role</a>
+      </div>
+
+      <div class="job-card">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;">
+          <h4 style="margin:0; font-size:1.3rem;">Pastry Chef / Viennoiserie Baker</h4>
+          <span style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #a3a3a3; font-weight:700;">Full-Time · Morning Bake</span>
+        </div>
+        <p style="margin: 15px 0 20px; color:#d4d4d4;">Specializing in laminated doughs, seasonal tarts, and small-batch patisserie from early morning scratch preparation.</p>
+        <a class="button light" href="mailto:careers@boojeecafe.com?subject=Application:%20Pastry%20Chef">Apply for this role</a>
+      </div>
+
+      <div class="job-card">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:10px;">
+          <h4 style="margin:0; font-size:1.3rem;">Front of House Host</h4>
+          <span style="font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #a3a3a3; font-weight:700;">Part-Time / Full-Time · Mumbai</span>
+        </div>
+        <p style="margin: 15px 0 20px; color:#d4d4d4;">Warm, attentive hosts who enjoy connecting with neighbourhood regulars and guiding first-time visitors.</p>
+        <a class="button light" href="mailto:careers@boojeecafe.com?subject=Application:%20Front%20of%20House">Apply for this role</a>
+      </div>
+
+      <h3 style="margin-top: 50px;">How to Apply</h3>
+      <p>Send your CV and a few lines about your favourite coffee ritual to <a href="mailto:careers@boojeecafe.com" style="text-decoration:underline; font-weight:bold; color:#fff;">careers@boojeecafe.com</a>. We review all applications and hold in-person trial shifts at our Bandra location.</p>
     </section>
   </main>
 
-<section aria-labelledby="bellNotifyTitle" class="bell-notify">
-<div class="bell-copy">
-<p class="kicker">FRESH DROP ALERTS</p>
-<h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
-<p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
-<form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
-<input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
-<button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
-<div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
-</form>
-</div>
-<div class="bell-stage">
-<div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
-<span class="rope"></span>
-<span class="bell-top"></span>
-<span class="bell-base"></span>
-<span class="bell-base bell-base-glow"></span>
-<span class="shadow-l1"></span>
-<span class="shadow-l2"></span>
-<span class="left-glow"></span>
-<span class="left-glow2"></span>
-<span class="r-glow"></span>
-<span class="r-glow2"></span>
-<span class="mid-ring"></span>
-<span class="mid-ring small"></span>
-<span class="glow"></span>
-<span class="glow2"></span>
-<span class="bell-buff-t"></span>
-<span class="bell-buff"></span>
-<span class="bell-btm"></span>
-<span class="bell-btm2"></span>
-<span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
-<span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
-</div>
-<button class="notify-button" data-bell-button="" type="button">Notify Me</button>
-<span aria-hidden="true" class="grain"></span>
-</div>
-</section>
-<footer>
-<div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
-<div>
-<p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
-</div>
-<div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
-<a href="menu.html" style="opacity: 0.8;">Menu</a>
-<a href="about.html" style="opacity: 0.8;">Our Craft</a>
-<a href="visit.html" style="opacity: 0.8;">Visit</a>
-<a href="shop.html" style="opacity: 0.8;">Shop</a>
-<a href="roastery.html" style="opacity: 0.8;">Roastery</a>
-<a href="experiences.html" style="opacity: 0.8;">Experiences</a>
-<a href="journal.html" style="opacity: 0.8;">Journal</a>
-<a href="gallery.html" style="opacity: 0.8;">Gallery</a>
-<a href="contact.html" style="opacity: 0.8;">Contact</a>
-<a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
-<a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
-<a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
-<a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
-<a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
-<a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
-</div>
-</div>
-</footer>
+  <section aria-labelledby="bellNotifyTitle" class="bell-notify">
+    <div class="bell-copy">
+      <p class="kicker">FRESH DROP ALERTS</p>
+      <h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
+      <p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
+        <input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
+        <button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
+        <div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
+      </form>
+    </div>
+    <div class="bell-stage">
+      <div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
+        <span class="rope"></span>
+        <span class="bell-top"></span>
+        <span class="bell-base"></span>
+        <span class="bell-base bell-base-glow"></span>
+        <span class="shadow-l1"></span>
+        <span class="shadow-l2"></span>
+        <span class="left-glow"></span>
+        <span class="left-glow2"></span>
+        <span class="r-glow"></span>
+        <span class="r-glow2"></span>
+        <span class="mid-ring"></span>
+        <span class="mid-ring small"></span>
+        <span class="glow"></span>
+        <span class="glow2"></span>
+        <span class="bell-buff-t"></span>
+        <span class="bell-buff"></span>
+        <span class="bell-btm"></span>
+        <span class="bell-btm2"></span>
+        <span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
+        <span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
+      </div>
+      <button class="notify-button" data-bell-button="" type="button">Notify Me</button>
+      <span aria-hidden="true" class="grain"></span>
+    </div>
+  </section>
 
-<div aria-live="polite" class="toast" id="toast" role="status">Added to your order.</div>
-<script src="js/script.js"></script>
+  <footer>
+    <div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
+      <div>
+        <p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
+      </div>
+      <div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
+        <a href="menu.html" style="opacity: 0.8;">Menu</a>
+        <a href="about.html" style="opacity: 0.8;">Our Craft</a>
+        <a href="visit.html" style="opacity: 0.8;">Visit</a>
+        <a href="shop.html" style="opacity: 0.8;">Shop</a>
+        <a href="roastery.html" style="opacity: 0.8;">Roastery</a>
+        <a href="experiences.html" style="opacity: 0.8;">Experiences</a>
+        <a href="journal.html" style="opacity: 0.8;">Journal</a>
+        <a href="gallery.html" style="opacity: 0.8;">Gallery</a>
+        <a href="contact.html" style="opacity: 0.8;">Contact</a>
+        <a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
+        <a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
+        <a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
+        <a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
+        <a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
+        <a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
+      </div>
+    </div>
+  </footer>
 
-<script>
-  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
+  <div aria-live="polite" class="toast" id="toast" role="status">Added to your order.</div>
+  <script src="js/script.js"></script>
 </body>
 </html>
-
-
-
-
-
