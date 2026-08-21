@@ -117,7 +117,14 @@ setInterval(updateCollectionTimes, 60000);
 const desk = document.querySelector('.order-desk'), backdrop = document.querySelector('.desk-backdrop'), deskItems = document.querySelector('.desk-items'), deskTotal = document.querySelector('.desk-total strong');
 const openDesk = () => { desk.classList.add('open'); backdrop.classList.add('open'); document.body.style.overflow = 'hidden'; };
 const closeDesk = () => { desk.classList.remove('open'); backdrop.classList.remove('open'); document.body.style.overflow = ''; };
-document.querySelectorAll('.order-button,[data-order]').forEach(button => button.addEventListener('click', event => { event.preventDefault(); openDesk(); })); document.querySelector('.desk-close').addEventListener('click', closeDesk); backdrop.addEventListener('click', closeDesk);
+document.querySelectorAll('.order-button,[data-order]').forEach(button => button.addEventListener('click', event => {
+  const href = button.getAttribute('href');
+  if (href && (href.includes('visit.html') || href.includes('#enquiryForm'))) {
+    return; // Allow navigation to gathering enquiry form
+  }
+  event.preventDefault();
+  openDesk();
+})); document.querySelector('.desk-close').addEventListener('click', closeDesk); backdrop.addEventListener('click', closeDesk);
 function renderCart(){ let quantity=0,total=0; deskItems.replaceChildren(); if(!cart.size){deskItems.innerHTML='<p class="desk-empty">Your order is waiting for something delicious.</p>';} cart.forEach((item,name)=>{quantity+=item.quantity;total+=item.price*item.quantity;const row=document.createElement('article');row.className='desk-item';row.innerHTML=`<strong>${window.escapeHTML(name)}</strong><span>${window.escapeHTML(item.quantity)} × ${formatINR(item.price)}</span><button type="button" aria-label="Remove ${window.escapeHTML(name)}">Remove</button>`;row.querySelector('button').addEventListener('click',()=>{cart.delete(name);renderCart();});deskItems.append(row);}); if(count) count.textContent=quantity; deskTotal.textContent=formatINR(total); window.saveCart(); }
 renderCart();
 document.querySelectorAll('[data-add]').forEach(button => button.addEventListener('click', () => { const name=button.dataset.add, product=cart.get(name)||{price:Number(button.dataset.price)||backendProducts[name]||prices[name]||0,quantity:0}; product.quantity+=1;cart.set(name,product);renderCart();notify(`${name} added to your order.`); }));
