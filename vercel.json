@@ -2,62 +2,26 @@
   "version": 2,
   "builds": [
     {
-      "src": "app.py",
+      "src": "backend/app.py",
       "use": "@vercel/python"
     },
     {
-      "src": "**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.js",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.png",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.jpg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.jpeg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.svg",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.ico",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.woff",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.woff2",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**/*.ttf",
+      "src": "frontend/**",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "app.py"
+      "dest": "/backend/app.py"
     },
     {
       "src": "/",
-      "dest": "landing.html"
+      "dest": "/frontend/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
     }
   ]
 }
