@@ -100,3 +100,16 @@ class RevokedToken(Document):
 
     class Settings:
         name = "revoked_tokens"
+
+
+class Enquiry(Document):
+    name: str
+    email: EmailStr
+    enquiry_type: str = "general" # "gathering", "contact", "wholesale"
+    date: Optional[str] = None
+    message: str
+    status: str = "new"
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+    class Settings:
+        name = "enquiries"
