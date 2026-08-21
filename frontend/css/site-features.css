@@ -87,8 +87,8 @@ html.dark-mode .experience-copy > p:not(.kicker) {
   color:#d9cdc2!important;
 }
 html.dark-mode footer{
-  background:#17130f;
-  color:var(--ink);
+  background:#0d0b09;
+  color:#f4eee8;
 }
 html.dark-mode .inner-header{background:var(--paper);color:var(--ink);border-color:var(--line)}
 html.dark-mode .inner-header .nav-toggle,html.dark-mode .inner-header .account-button{color:var(--ink)}
