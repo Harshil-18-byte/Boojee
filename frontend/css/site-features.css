@@ -35,18 +35,18 @@
   transform:translateY(0);
 }
 html.dark-mode{
-  --ink:#f4eee8;
-  --paper:#211d19;
-  --cream:#332b25;
-  --line:#5e5147;
-  --rust:#d99775;
+  --ink:#ffffff;
+  --paper:#000000;
+  --cream:#0c0c0c;
+  --line:#262626;
+  --rust:#e0e0e0;
 }
 html.dark-mode body,
 html.dark-mode .header.is-scrolled,
 html.dark-mode .order-desk,
 html.dark-mode .story-modal-card{
-  background:var(--paper);
-  color:var(--ink);
+  background:#000000 !important;
+  color:#ffffff !important;
 }
 html.dark-mode .page-hero,
 html.dark-mode .section,
@@ -59,22 +59,51 @@ html.dark-mode .visit-details,
 html.dark-mode .club,
 html.dark-mode .guest-notes,
 html.dark-mode .note,
-html.dark-mode .experience{
-  background:var(--paper);
-  color:var(--ink);
+html.dark-mode .experience,
+html.dark-mode .editorial-hero,
+html.dark-mode .editorial-content,
+html.dark-mode .account,
+html.dark-mode .auth-grid,
+html.dark-mode .craft{
+  background:#000000 !important;
+  color:#ffffff !important;
+}
+html.dark-mode .products article,
+html.dark-mode .note,
+html.dark-mode .journal-card,
+html.dark-mode .story-modal-card,
+html.dark-mode .order-desk,
+html.dark-mode .desk-item,
+html.dark-mode .gift-preview,
+html.dark-mode .blog-card{
+  background:#0d0d0d !important;
+  border-color:#262626 !important;
+  color:#ffffff !important;
 }
 html.dark-mode input,
 html.dark-mode textarea,
 html.dark-mode select,
-html.dark-mode .gift-preview,
-html.dark-mode .desk-item,
 html.dark-mode .collection,
 html.dark-mode .visit-status{
-  background:#2b251f;
-  border-color:var(--line);
-  color:var(--ink);
+  background:#141414 !important;
+  border-color:#2a2a2a !important;
+  color:#ffffff !important;
+}
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder{
+  color:#737373 !important;
+}
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode h3,
+html.dark-mode h4,
+html.dark-mode strong,
+html.dark-mode .wordmark,
+html.dark-mode em{
+  color:#ffffff !important;
 }
 html.dark-mode p,
+html.dark-mode .lead,
 html.dark-mode .save-story,
 html.dark-mode .gift-preview p:not(.kicker),
 html.dark-mode .story-modal-card p:last-child,
@@ -83,31 +112,129 @@ html.dark-mode .craft-copy > p:not(.kicker),
 html.dark-mode .catalog-heading p:not(.kicker),
 html.dark-mode .catalog-detail,
 html.dark-mode .club p:not(.kicker),
-html.dark-mode .experience-copy > p:not(.kicker) {
-  color:#d9cdc2!important;
+html.dark-mode .experience-copy > p:not(.kicker),
+html.dark-mode .editorial-content p,
+html.dark-mode .blog-excerpt,
+html.dark-mode .visit-info p:not(.label){
+  color:#d4d4d4 !important;
 }
-html.dark-mode footer{
-  background:#0d0b09;
-  color:#f4eee8;
+html.dark-mode .kicker,
+html.dark-mode .product-type,
+html.dark-mode .label,
+html.dark-mode .blog-meta,
+html.dark-mode .hero-note,
+html.dark-mode cite{
+  color:#a3a3a3 !important;
 }
-html.dark-mode .inner-header{background:var(--paper);color:var(--ink);border-color:var(--line)}
-html.dark-mode .inner-header .nav-toggle,html.dark-mode .inner-header .account-button{color:var(--ink)}
-html.dark-mode .inner-header .order-button,
+html.dark-mode footer,
+html.dark-mode .premium-footer{
+  background:#050505 !important;
+  color:#ffffff !important;
+  border-top:1px solid #262626 !important;
+}
+html.dark-mode footer p,
+html.dark-mode .premium-footer p,
+html.dark-mode .enhanced-footer p,
+html.dark-mode .footer-brand p,
+html.dark-mode .footer-newsletter p{
+  color:#a3a3a3 !important;
+}
+html.dark-mode footer a,
+html.dark-mode .footer-links a,
+html.dark-mode .footer-nav a,
+html.dark-mode .footer-bottom-links a{
+  color:#e5e5e5 !important;
+}
+html.dark-mode footer a:hover,
+html.dark-mode .footer-links a:hover,
+html.dark-mode .footer-nav a:hover,
+html.dark-mode .footer-bottom-links a:hover{
+  color:#ffffff !important;
+}
+html.dark-mode .header,
+html.dark-mode .header.inner-header,
+html.dark-mode .header.is-scrolled{
+  background:rgba(0, 0, 0, 0.96) !important;
+  color:#ffffff !important;
+  border-bottom:1px solid #262626 !important;
+}
+html.dark-mode .header .nav,
+html.dark-mode .header.inner-header .nav{
+  background:#000000 !important;
+}
+html.dark-mode .header .nav a,
+html.dark-mode .header.inner-header .nav a{
+  color:#d4d4d4 !important;
+}
+html.dark-mode .header .nav a:hover,
+html.dark-mode .header .nav a[aria-current="page"]{
+  color:#ffffff !important;
+}
+html.dark-mode .header .account-button,
+html.dark-mode .header.inner-header .account-button{
+  color:#ffffff !important;
+  border-color:#404040 !important;
+}
+html.dark-mode .header .order-button,
+html.dark-mode .header.inner-header .order-button,
 html.dark-mode .order-button,
 html.dark-mode .button.dark,
 html.dark-mode .journal-card a,
 html.dark-mode .catalog-grid button,
-html.dark-mode .desk-close {
-  background:var(--ink)!important;
-  color:var(--paper)!important;
-  border-color:var(--ink)!important;
+html.dark-mode .desk-close,
+html.dark-mode .button:not(.light){
+  background:#ffffff !important;
+  color:#000000 !important;
+  border-color:#ffffff !important;
 }
-html.dark-mode .desk-item button {
-  background:var(--paper);
-  color:var(--ink);
+html.dark-mode .order-button span,
+html.dark-mode .header.inner-header .order-button span{
+  background:#000000 !important;
+  color:#ffffff !important;
 }
-html.dark-mode .cta-band .button.light{background:#fff;color:#201c18;border-color:#fff}
-.account-button{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;white-space:nowrap}
+html.dark-mode .desk-item button{
+  background:#262626 !important;
+  color:#ffffff !important;
+}
+html.dark-mode .menu-jump{
+  background:#080808 !important;
+  border-color:#262626 !important;
+}
+html.dark-mode .menu-jump a{
+  color:#d4d4d4 !important;
+}
+html.dark-mode .menu-jump a:hover{
+  color:#ffffff !important;
+}
+html.dark-mode .catalog-cream{
+  background:#080808 !important;
+}
+html.dark-mode .catalog-grid article{
+  border-color:#262626 !important;
+}
+html.dark-mode .catalog-grid p{
+  color:#d4d4d4 !important;
+}
+html.dark-mode .site-utility button{
+  background:#141414 !important;
+  border-color:#333333 !important;
+  color:#ffffff !important;
+}
+html.dark-mode .site-utility button:hover{
+  background:#ffffff !important;
+  color:#000000 !important;
+}
+html.dark-mode .cta-band{
+  background:#111111 !important;
+  border-top:1px solid #262626;
+  border-bottom:1px solid #262626;
+}
+html.dark-mode .cta-band .button.light{
+  background:#ffffff !important;
+  color:#000000 !important;
+  border-color:#ffffff !important;
+}
+
 @media(max-width:720px){
   .site-utility{
     right:14px;
