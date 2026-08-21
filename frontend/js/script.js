@@ -139,13 +139,23 @@ document.querySelectorAll('[data-filter]').forEach(button => button.addEventList
 const enquiryForm = document.querySelector('#enquiryForm');
 const enquirySuccess = document.querySelector('#enquirySuccess');
 if (enquiryForm && enquirySuccess) {
-  enquiryForm.addEventListener('submit', event => {
+  enquiryForm.addEventListener('submit', async event => {
     event.preventDefault();
     const name = document.querySelector('#enquiryNameInput')?.value || 'Guest';
     const email = document.querySelector('#enquiryEmailInput')?.value || 'your email';
+    const message = enquiryForm.querySelector('textarea')?.value || '';
+    const date = enquiryForm.querySelector('input[type="date"]')?.value || '';
     
     document.querySelector('#enquiryUserName').textContent = name;
     document.querySelector('#enquiryUserEmail').textContent = email;
+    
+    try {
+      fetch('/api/enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message, date, enquiry_type: 'gathering' })
+      });
+    } catch(e) {}
     
     enquiryForm.style.display = 'none';
     enquirySuccess.style.display = 'block';
@@ -163,8 +173,20 @@ if (enquiryForm && enquirySuccess) {
 const contactForm = document.querySelector('#contactForm');
 const contactSuccess = document.querySelector('#contactSuccess');
 if (contactForm && contactSuccess) {
-  contactForm.addEventListener('submit', event => {
+  contactForm.addEventListener('submit', async event => {
     event.preventDefault();
+    const name = document.querySelector('#contactName')?.value || 'Guest';
+    const email = document.querySelector('#contactEmail')?.value || '';
+    const message = document.querySelector('#contactMessage')?.value || '';
+    
+    try {
+      fetch('/api/enquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message, enquiry_type: 'contact' })
+      });
+    } catch(e) {}
+    
     contactForm.style.display = 'none';
     contactSuccess.style.display = 'block';
     notify('Message sent successfully! We will be in touch soon.');
