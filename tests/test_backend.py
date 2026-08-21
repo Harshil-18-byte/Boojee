@@ -3,7 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../backend')))
 from app import app  # type: ignore
-from models import User, RevokedToken, Cart, Order, Product, RestaurantTable, Employee, BlogPost, NewsletterSubscriber, AuditLog  # type: ignore
+from models import User, RevokedToken, Cart, Order, Product, RestaurantTable, Employee, BlogPost, NewsletterSubscriber, AuditLog, Enquiry  # type: ignore
 from werkzeug.security import check_password_hash
 import json
 from mongomock_motor import AsyncMongoMockClient
@@ -27,7 +27,7 @@ async def client():
     
     await init_beanie(
         database=mock_client.boojee_test, 
-        document_models=[User, Cart, Order, Product, RestaurantTable, Employee, RevokedToken, BlogPost, NewsletterSubscriber, AuditLog]
+        document_models=[User, Cart, Order, Product, RestaurantTable, Employee, RevokedToken, BlogPost, NewsletterSubscriber, AuditLog, Enquiry]
     )
     
     class MockRedis:
@@ -119,3 +119,17 @@ async def test_login_and_logout_blacklisting(client):
     assert me_res_blocked.status_code == 401
     data = await me_res_blocked.get_data()
     assert b'Token has been revoked.' in data
+
+
+@pytest.mark.asyncio
+async def test_enquiry_creation(client):
+    response = await client.post('/api/enquiries', json={
+        'name': 'Harshil',
+        'email': 'harshil@example.com',
+        'enquiry_type': 'gathering',
+        'date': '2026-09-15',
+        'message': 'Looking to book a table for a coffee tasting gathering.'
+    }, headers={'Origin': 'http://localhost'})
+    assert response.status_code == 201
+    data = await response.get_json()
+    assert data['message'] == 'Enquiry received successfully.'
