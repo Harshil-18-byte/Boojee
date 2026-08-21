@@ -132,6 +132,7 @@ docker volume inspect boojee_cart_data
 All visual and multimedia assets are organized into dedicated high-performance static pipelines:
 
 *   `frontend/videos/roastery-process.mp4`: Authentic 4K video showing the six-stage thermodynamic roasting curve in action.
+*   `frontend/images/logo/`: Authentic high-resolution Boojee Cafe brand logos (`boojee-logo.png`, `boojee-logo-white.png`, `boojee-logo-dark.png`) and `favicon.png`.
 *   `frontend/images/roastery/`: Process step diagrams (`step-1-green-beans.png` to `step-6-nitrogen-flush.png`) and roastery facility photography.
 *   `frontend/images/gallery/`: High-resolution gallery photography of barista latte art, counter service, and daily bakes.
 *   `frontend/images/team/`: Official Boojee team portrait in Bandra West, Mumbai.
