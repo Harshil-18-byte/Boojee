@@ -1,162 +1,233 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Boojee Cafe — considered coffee, patisserie and warm hospitality." name="description"/>
-<title>Boojee Cafe | Shop Now</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css" rel="stylesheet"/>
-
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Shop Coffee & Merch | Boojee Cafe</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<header class="header inner-header" id="top">
-<a aria-label="Boojee Cafe home" class="wordmark" href="#top">Boojee <span>CAFE</span></a>
-<button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
-<nav aria-label="Main navigation" class="nav" id="nav">
-<a href="menu.html">Menu</a><a href="about.html">Our craft</a><a href="visit.html">Visit</a>
-<a href="shop.html">Shop Now</a><a href="roastery.html">Roastery</a><a href="contact.html">Contact</a><a href="join-our-team.html">Join Our Team</a></nav>
-<button class="order-button" data-order="">Order <span id="cartCount">0</span></button>
-</header>
+  <header class="header inner-header">
+    <a class="wordmark" href="home.html">Boojee <span>CAFE</span></a>
+    <button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="menu.html">Menu</a>
+      <a href="about.html">Our craft</a>
+      <a href="visit.html">Visit</a>
+      <a href="shop.html">Shop Now</a>
+      <a href="roastery.html">Roastery</a>
+      <a href="contact.html">Contact</a>
+      <a href="join-our-team.html">Join Our Team</a>
+    </nav>
+    <button class="order-button" data-order="">Order <span id="cartCount">0</span></button>
+  </header>
+
   <main>
     <section class="page-hero">
-      <p class="kicker">THE Boojee SHOP</p>
-      <h1>Take us <em>home.</em></h1>
-      <p>Freshly roasted coffee, brewing equipment, and signature merchandise for your daily rituals.</p>
+      <p class="kicker">THE Boojee STORE</p>
+      <h1>Shop Beans &amp; <em>Lifestyle.</em></h1>
+      <p>Freshly roasted specialty coffee, bakery boxes, and custom merchandise shipped straight to your doorstep.</p>
     </section>
 
-    <section class="catalog section catalog-cream" id="coffee-beans">
-      <div class="catalog-heading">
-        <p class="kicker">ROASTED COFFEE</p>
-        <h2>Freshly <em>roasted.</em></h2>
-        <p>Sourced with care, roasted in small batches to highlight the unique character of each origin.</p>
+    <!-- Section 1: Fresh Roasted Beans -->
+    <section class="section" style="padding-top: 40px; padding-bottom: 60px;">
+      <div class="section-head">
+        <div>
+          <p class="kicker">WHOLE BEAN &amp; GROUND</p>
+          <h2>Specialty <em>Coffee.</em></h2>
+        </div>
+        <p>Directly sourced and micro-roasted in Mumbai.</p>
       </div>
-      <div class="catalog-grid">
+      <div class="products" style="margin-top: 40px;">
         <article>
-          <h3>House Blend Espresso (250g)</h3>
-          <p>Notes of milk chocolate, hazelnut, and red berries.</p>
-          <button data-add="House Blend Espresso Bag" data-price="14.00">Add <span>£14.00</span></button>
+          <img alt="Coal Black Aura Estate Coffee" src="images/shop/coal-black-roast.png"/>
+          <div>
+            <p class="product-type">SIGNATURE ESPRESSO</p>
+            <h3>Coal Black — Aura Estate</h3>
+            <p>Notes of dark cacao, roasted hazelnut, brown sugar and velvety crema.</p>
+            <button data-add="Coal Black — Aura Estate" data-price="650">Add to order <span>₹650</span></button>
+          </div>
         </article>
+
         <article>
-          <h3>Ethiopia Yirgacheffe Filter (250g)</h3>
-          <p>Washed process. Notes of jasmine, peach, and bergamot.</p>
-          <button data-add="Ethiopia Filter Bag" data-price="16.50">Add <span>£16.50</span></button>
+          <img alt="Experimental Single Origin Lot" src="images/shop/experimental-lot.png"/>
+          <div>
+            <p class="product-type">MICRO-LOT FILTER</p>
+            <h3>Experimental Lot #4</h3>
+            <p>Anaerobic slow-dry natural process with notes of red plum, jasmine and honey.</p>
+            <button data-add="Experimental Lot #4" data-price="780">Add to order <span>₹780</span></button>
+          </div>
         </article>
+
         <article>
-          <h3>Colombia Supremo Decaf (250g)</h3>
-          <p>Sugarcane process. Sweet, clean, and syrupy.</p>
-          <button data-add="Decaf Bag" data-price="15.00">Add <span>£15.00</span></button>
+          <img alt="Stainless Steel Coffee Canister" src="images/shop/coffee-canister.png"/>
+          <div>
+            <p class="product-type">BARISTA GEAR</p>
+            <h3>Airtight Coffee Canister</h3>
+            <p>UV-protected matte black stainless steel with CO2 release valve.</p>
+            <button data-add="Airtight Coffee Canister" data-price="1200">Add to order <span>₹1,200</span></button>
+          </div>
         </article>
       </div>
     </section>
 
-    <section class="catalog section" id="equipment">
-      <div class="catalog-heading">
-        <p class="kicker">BREWING EQUIPMENT</p>
-        <h2>For your <em>morning routine.</em></h2>
-        <p>The tools we trust for making exceptional coffee at home.</p>
+    <!-- Section 2: Official Boojee Merch -->
+    <section class="section" style="padding-top: 40px; padding-bottom: 60px;">
+      <div class="section-head">
+        <div>
+          <p class="kicker">CUSTOM MERCHANDISE</p>
+          <h2>Boojee <em>Lifestyle.</em></h2>
+        </div>
+        <p>Durable everyday essentials designed with our signature aesthetic.</p>
       </div>
-      <div class="catalog-grid">
+      <div class="products" style="margin-top: 40px;">
         <article>
-          <h3>Hario V60 Ceramic Dripper</h3>
-          <p>Size 02, white ceramic. The classic pour-over brewer.</p>
-          <button data-add="Hario V60" data-price="22.00">Add <span>£22.00</span></button>
+          <img alt="Boojee Heavyweight Barista Apron" src="images/shop/boojee-apron.png"/>
+          <div>
+            <p class="product-type">APPAREL</p>
+            <h3>Heavy Canvas Barista Apron</h3>
+            <p>Reinforced brass hardware, genuine leather straps and utility pockets.</p>
+            <button data-add="Heavy Canvas Barista Apron" data-price="1800">Add to order <span>₹1,800</span></button>
+          </div>
         </article>
+
         <article>
-          <h3>V60 Filter Papers</h3>
-          <p>Pack of 100, unbleached filters for size 02.</p>
-          <button data-add="V60 Papers" data-price="6.50">Add <span>£6.50</span></button>
+          <img alt="Handmade Ceramic Cup Amber" src="images/shop/ceramic-cup-amber.png"/>
+          <div>
+            <p class="product-type">CERAMICS</p>
+            <h3>Handthrown Ceramic Cup — Amber</h3>
+            <p>220ml artisanal stoneware with reactive glaze and heat-retaining clay.</p>
+            <button data-add="Ceramic Cup — Amber" data-price="850">Add to order <span>₹850</span></button>
+          </div>
         </article>
+
         <article>
-          <h3>Boojee Canvas Tote</h3>
-          <p>Heavyweight cotton canvas with our signature mark.</p>
-          <button data-add="Canvas Tote" data-price="18.00">Add <span>£18.00</span></button>
+          <img alt="Handmade Ceramic Cup Slate" src="images/shop/ceramic-cup-slate.png"/>
+          <div>
+            <p class="product-type">CERAMICS</p>
+            <h3>Handthrown Ceramic Cup — Slate</h3>
+            <p>220ml matte textured stoneware for cortados and flat whites.</p>
+            <button data-add="Ceramic Cup — Slate" data-price="850">Add to order <span>₹850</span></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 3: Bakery & Patisserie Packs -->
+    <section class="section" style="padding-top: 40px; padding-bottom: 80px;">
+      <div class="section-head">
+        <div>
+          <p class="kicker">FROM THE BAKERY</p>
+          <h2>Bakery <em>Boxes.</em></h2>
+        </div>
+        <p>Small-batch viennoiserie baked fresh every morning.</p>
+      </div>
+      <div class="products" style="margin-top: 40px;">
+        <article>
+          <img alt="Artisan French Croissant Box" src="images/shop/artisan-croissant-box.jpg"/>
+          <div>
+            <p class="product-type">VIENNOISERIE</p>
+            <h3>Butter Croissant Box (Set of 4)</h3>
+            <p>French butter laminated pastry with crisp honeycomb interior.</p>
+            <button data-add="Butter Croissant Box" data-price="720">Add to order <span>₹720</span></button>
+          </div>
+        </article>
+
+        <article>
+          <img alt="Pain au Chocolat Pack" src="images/shop/pain-au-chocolat-pack.png"/>
+          <div>
+            <p class="product-type">VIENNOISERIE</p>
+            <h3>Pain au Chocolat (Set of 4)</h3>
+            <p>Filled with double batons of bittersweet 64% Valrhona dark chocolate.</p>
+            <button data-add="Pain au Chocolat Set" data-price="800">Add to order <span>₹800</span></button>
+          </div>
+        </article>
+
+        <article>
+          <img alt="Artisan Country Sourdough Loaf" src="images/shop/sourdough-loaf.png"/>
+          <div>
+            <p class="product-type">SOURDOUGH</p>
+            <h3>Country Sourdough Loaf</h3>
+            <p>36-hour slow fermented sourdough with blistered crust and soft crumb.</p>
+            <button data-add="Country Sourdough Loaf" data-price="420">Add to order <span>₹420</span></button>
+          </div>
         </article>
       </div>
     </section>
   </main>
 
-<section aria-labelledby="bellNotifyTitle" class="bell-notify">
-<div class="bell-copy">
-<p class="kicker">FRESH DROP ALERTS</p>
-<h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
-<p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
-<form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
-<input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
-<button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
-<div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
-</form>
-</div>
-<div class="bell-stage">
-<div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
-<span class="rope"></span>
-<span class="bell-top"></span>
-<span class="bell-base"></span>
-<span class="bell-base bell-base-glow"></span>
-<span class="shadow-l1"></span>
-<span class="shadow-l2"></span>
-<span class="left-glow"></span>
-<span class="left-glow2"></span>
-<span class="r-glow"></span>
-<span class="r-glow2"></span>
-<span class="mid-ring"></span>
-<span class="mid-ring small"></span>
-<span class="glow"></span>
-<span class="glow2"></span>
-<span class="bell-buff-t"></span>
-<span class="bell-buff"></span>
-<span class="bell-btm"></span>
-<span class="bell-btm2"></span>
-<span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
-<span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
-</div>
-<button class="notify-button" data-bell-button="" type="button">Notify Me</button>
-<span aria-hidden="true" class="grain"></span>
-</div>
-</section>
-<footer>
-<div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
-<div>
-<p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
-</div>
-<div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
-<a href="menu.html" style="opacity: 0.8;">Menu</a>
-<a href="about.html" style="opacity: 0.8;">Our Craft</a>
-<a href="visit.html" style="opacity: 0.8;">Visit</a>
-<a href="shop.html" style="opacity: 0.8;">Shop</a>
-<a href="roastery.html" style="opacity: 0.8;">Roastery</a>
-<a href="experiences.html" style="opacity: 0.8;">Experiences</a>
-<a href="journal.html" style="opacity: 0.8;">Journal</a>
-<a href="gallery.html" style="opacity: 0.8;">Gallery</a>
-<a href="contact.html" style="opacity: 0.8;">Contact</a>
-<a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
-<a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
-<a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
-<a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
-<a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
-<a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
-</div>
-</div>
-</footer>
+  <section aria-labelledby="bellNotifyTitle" class="bell-notify">
+    <div class="bell-copy">
+      <p class="kicker">FRESH DROP ALERTS</p>
+      <h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
+      <p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
+        <input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
+        <button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
+        <div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
+      </form>
+    </div>
+    <div class="bell-stage">
+      <div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
+        <span class="rope"></span>
+        <span class="bell-top"></span>
+        <span class="bell-base"></span>
+        <span class="bell-base bell-base-glow"></span>
+        <span class="shadow-l1"></span>
+        <span class="shadow-l2"></span>
+        <span class="left-glow"></span>
+        <span class="left-glow2"></span>
+        <span class="r-glow"></span>
+        <span class="r-glow2"></span>
+        <span class="mid-ring"></span>
+        <span class="mid-ring small"></span>
+        <span class="glow"></span>
+        <span class="glow2"></span>
+        <span class="bell-buff-t"></span>
+        <span class="bell-buff"></span>
+        <span class="bell-btm"></span>
+        <span class="bell-btm2"></span>
+        <span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
+        <span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
+      </div>
+      <button class="notify-button" data-bell-button="" type="button">Notify Me</button>
+      <span aria-hidden="true" class="grain"></span>
+    </div>
+  </section>
 
-<div aria-live="polite" class="toast" id="toast" role="status">Added to your order.</div>
-<script src="js/script.js"></script>
+  <footer>
+    <div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
+      <div>
+        <p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
+      </div>
+      <div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
+        <a href="menu.html" style="opacity: 0.8;">Menu</a>
+        <a href="about.html" style="opacity: 0.8;">Our Craft</a>
+        <a href="visit.html" style="opacity: 0.8;">Visit</a>
+        <a href="shop.html" style="opacity: 0.8;">Shop</a>
+        <a href="roastery.html" style="opacity: 0.8;">Roastery</a>
+        <a href="experiences.html" style="opacity: 0.8;">Experiences</a>
+        <a href="journal.html" style="opacity: 0.8;">Journal</a>
+        <a href="gallery.html" style="opacity: 0.8;">Gallery</a>
+        <a href="contact.html" style="opacity: 0.8;">Contact</a>
+        <a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
+        <a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
+        <a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
+        <a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
+        <a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
+        <a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
+      </div>
+    </div>
+  </footer>
 
-<script>
-  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
+  <div aria-live="polite" class="toast" id="toast" role="status">Added to your order.</div>
+  <script src="js/script.js"></script>
 </body>
 </html>
-
-
-
-
-
