@@ -368,3 +368,44 @@ html.dark-mode .newsletter-form-premium button {
 }
 
 /* End Button Contrast */
+
+
+/* Universal Box & Frame Visibility across all pages in Light Mode */
+.products article,
+.journal-card,
+.blog-card,
+.step-card,
+.job-card,
+.gallery-card,
+.reservation,
+.visit-details,
+.club,
+.guest-notes,
+.note,
+.gift-panel,
+.experience,
+.auth-grid > div,
+.account-card {
+  border: 1px solid var(--line, #dcdcdc) !important;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+.gallery-card {
+  border: 1px solid #dcdcdc !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.video-wrapper,
+.hero-photo-banner img,
+.team-photo-hero img {
+  border: 1px solid #dcdcdc;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+input:not([type="submit"]):not([type="button"]),
+textarea,
+select {
+  border: 1px solid #c8c8c8 !important;
+  border-radius: 4px;
+}
