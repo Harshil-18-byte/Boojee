@@ -245,3 +245,24 @@ html.dark-mode .cta-band .button.light{
     height:40px;
   }
 }
+
+
+/* Dark Mode Toast & Notification */
+html.dark-mode .toast {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 255, 255, 0.2) !important;
+  font-weight: 700 !important;
+  z-index: 100000 !important;
+}
+
+html.dark-mode .desk-empty {
+  color: #a3a3a3 !important;
+}
+
+html.dark-mode .checkout-note {
+  color: #888888 !important;
+}
+
+/* End Dark Toast */
