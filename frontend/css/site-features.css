@@ -266,3 +266,105 @@ html.dark-mode .checkout-note {
 }
 
 /* End Dark Toast */
+
+
+/* Button & Interactive Elements Dark Mode Contrast */
+html.dark-mode .button.light,
+html.dark-mode .hero-content .button.light,
+html.dark-mode .experience-copy .button.light,
+html.dark-mode .cta-band .button.light,
+html.dark-mode a.button.light,
+html.dark-mode button.button.light {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  font-weight: 700 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.dark-mode .button.light:hover,
+html.dark-mode .hero-content .button.light:hover,
+html.dark-mode .experience-copy .button.light:hover,
+html.dark-mode .cta-band .button.light:hover {
+  background: #e5e5e5 !important;
+  color: #000000 !important;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2) !important;
+}
+
+html.dark-mode .button.dark,
+html.dark-mode .button:not(.light),
+html.dark-mode a.button.dark,
+html.dark-mode .visit .button,
+html.dark-mode .club-form .button,
+html.dark-mode .journal-card a,
+html.dark-mode .catalog-grid button,
+html.dark-mode .desk-close {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  font-weight: 700 !important;
+}
+
+html.dark-mode .button.dark:hover,
+html.dark-mode .button:not(.light):hover,
+html.dark-mode .visit .button:hover,
+html.dark-mode .club-form .button:hover {
+  background: #e5e5e5 !important;
+  color: #000000 !important;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2) !important;
+}
+
+html.dark-mode .order-button,
+html.dark-mode .header .order-button,
+html.dark-mode .header.inner-header .order-button {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  font-weight: 700 !important;
+}
+
+html.dark-mode .order-button span,
+html.dark-mode .header .order-button span,
+html.dark-mode .header.inner-header .order-button span {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+html.dark-mode .products button {
+  color: #ffffff !important;
+  border-top: 1px solid #262626 !important;
+  background: transparent !important;
+}
+
+html.dark-mode .products button:hover {
+  color: #ffffff !important;
+}
+
+html.dark-mode .products button span {
+  color: #ffffff !important;
+}
+
+html.dark-mode .filters button {
+  color: #a3a3a3 !important;
+}
+
+html.dark-mode .filters .selected {
+  color: #ffffff !important;
+  border-bottom: 2px solid #ffffff !important;
+}
+
+html.dark-mode .text-link {
+  color: #ffffff !important;
+  border-bottom: 1px solid #ffffff !important;
+}
+
+html.dark-mode .newsletter-form button,
+html.dark-mode .newsletter-form-premium button {
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+/* End Button Contrast */
