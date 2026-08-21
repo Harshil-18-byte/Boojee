@@ -33,6 +33,56 @@
       object-fit: cover;
       display: block;
     }
+    .roastery-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 36px;
+      max-width: 1240px;
+      margin: 60px auto 100px;
+      padding: 0 max(5vw, 28px);
+    }
+    .step-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .step-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .step-card .step-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #a3a3a3;
+      margin-bottom: 8px;
+    }
+    .step-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin: 0 0 12px;
+      color: #fff;
+    }
+    .step-card p {
+      color: #d4d4d4;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
     .hero-photo-banner {
       max-width: 1240px;
       margin: 40px auto;
@@ -43,125 +93,7 @@
       height: auto;
       display: block;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-    }
-    .roastery-steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-      gap: 40px;
-      max-width: 1240px;
-      margin: 60px auto 100px;
-      padding: 0 max(5vw, 28px);
-    }
-    @media (max-width: 600px) {
-      .roastery-steps-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-    }
-    .step-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      overflow: hidden;
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-    .step-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255,255,255,0.35);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    }
-    .step-img-wrap {
-      width: 100%;
-      min-height: 280px;
-      background: #080808;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
-      overflow: hidden;
-    }
-    .step-card img {
-      width: 100%;
-      max-height: 300px;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .step-card:hover img {
-      transform: scale(1.04);
-    }
-    .step-card .step-num {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      color: #e5e5e5;
-      margin-bottom: 10px;
-      display: block;
-    }
-    .step-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.65rem;
-      margin: 0 0 14px;
-      color: #ffffff;
-      line-height: 1.25;
-    }
-    .step-card p {
-      color: #d4d4d4;
-      font-size: 15px;
-      line-height: 1.7;
-      margin: 0;
-    }
-    /* Lightbox Modal for Process Steps */
-    .step-lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      backdrop-filter: blur(12px);
-      z-index: 999999;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      box-sizing: border-box;
-    }
-    .step-lightbox.active {
-      display: flex;
-    }
-    .step-lightbox-content {
-      max-width: 900px;
-      width: 100%;
-      background: #0c0c0c;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 12px;
-      padding: 30px;
-      text-align: center;
-      position: relative;
-    }
-    .step-lightbox-content img {
-      max-width: 100%;
-      max-height: 60vh;
-      object-fit: contain;
-      margin-bottom: 20px;
-      border-radius: 8px;
-    }
-    .step-lightbox-close {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 28px;
-      cursor: pointer;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
     }
   </style>
 </head>
@@ -214,68 +146,46 @@
       </div>
 
       <div class="roastery-steps-grid">
-        <div class="step-card" data-step-src="images/roastery/step-1-green-beans.png" data-step-title="Stage 01: Estate Sourcing & Grading" data-step-desc="We work exclusively with certified single-origin growers across Chikmagalur, Shevaroys, and Araku Valley, selecting only high-altitude Grade AA beans.">
-          <div class="step-img-wrap">
-            <img src="images/roastery/step-1-green-beans.png" alt="Step 1: Green bean grading">
-          </div>
-          <span class="step-num">STAGE 01 OF 06</span>
+        <div class="step-card">
+          <img src="images/roastery/step-1-green-beans.png" alt="Step 1: Green bean grading">
+          <span class="step-num">STAGE 01</span>
           <h3>Estate Sourcing & Grading</h3>
           <p>We work exclusively with certified single-origin growers across Chikmagalur, Shevaroys, and Araku Valley, selecting only high-altitude Grade AA beans.</p>
         </div>
 
-        <div class="step-card" data-step-src="images/roastery/step-2-roasting-curve.png" data-step-title="Stage 02: Thermodynamic Profiling" data-step-desc="Each harvest is test-roasted through digital infrared sensors to calibrate airflow, drum velocity, and thermal charge temperatures.">
-          <div class="step-img-wrap">
-            <img src="images/roastery/step-2-roasting-curve.png" alt="Step 2: Roasting curve monitoring">
-          </div>
-          <span class="step-num">STAGE 02 OF 06</span>
+        <div class="step-card">
+          <img src="images/roastery/step-2-roasting-curve.png" alt="Step 2: Roasting curve monitoring">
+          <span class="step-num">STAGE 02</span>
           <h3>Thermodynamic Profiling</h3>
           <p>Each harvest is test-roasted through digital infrared sensors to calibrate airflow, drum velocity, and thermal charge temperatures.</p>
         </div>
 
-        <div class="step-card" data-step-src="images/roastery/step-3-first-crack.png" data-step-title="Stage 03: Developing the First Crack" data-step-desc="As sugars caramelize and bean pressure releases, our roaster modulates conductive heat to preserve vibrant fruit acids and delicate aromatics.">
-          <div class="step-img-wrap">
-            <img src="images/roastery/step-3-first-crack.png" alt="Step 3: Developing first crack">
-          </div>
-          <span class="step-num">STAGE 03 OF 06</span>
+        <div class="step-card">
+          <img src="images/roastery/step-3-first-crack.png" alt="Step 3: Developing first crack">
+          <span class="step-num">STAGE 03</span>
           <h3>Developing the First Crack</h3>
           <p>As sugars caramelize and bean pressure releases, our roaster modulates conductive heat to preserve vibrant fruit acids and delicate aromatics.</p>
         </div>
 
-        <div class="step-card" data-step-src="images/roastery/step-4-cooling-tray.png" data-step-title="Stage 04: Rapid Aerated Cooling" data-step-desc="Beans are discharged into an agitated cyclone cooling tray within 180 seconds, locking in nuanced flavour compounds immediately.">
-          <div class="step-img-wrap">
-            <img src="images/roastery/step-4-cooling-tray.png" alt="Step 4: Aerated cooling tray">
-          </div>
-          <span class="step-num">STAGE 04 OF 06</span>
+        <div class="step-card">
+          <img src="images/roastery/step-4-cooling-tray.png" alt="Step 4: Aerated cooling tray">
+          <span class="step-num">STAGE 04</span>
           <h3>Rapid Aerated Cooling</h3>
           <p>Beans are discharged into an agitated cyclone cooling tray within 180 seconds, locking in nuanced flavour compounds immediately.</p>
         </div>
 
-        <div class="step-card" data-step-src="images/roastery/step-5-cupping-lab.png" data-step-title="Stage 05: Q-Grade Cupping Lab" data-step-desc="Every single batch undergoes sensory evaluation for sweetness, body, acidity, and cleanliness before packaging.">
-          <div class="step-img-wrap">
-            <img src="images/roastery/step-5-cupping-lab.png" alt="Step 5: Cupping evaluation">
-          </div>
-          <span class="step-num">STAGE 05 OF 06</span>
+        <div class="step-card">
+          <img src="images/roastery/step-5-cupping-lab.png" alt="Step 5: Cupping evaluation">
+          <span class="step-num">STAGE 05</span>
           <h3>Q-Grade Cupping Lab</h3>
           <p>Every single batch undergoes sensory evaluation for sweetness, body, acidity, and cleanliness before packaging.</p>
         </div>
 
-        <div class="step-card" data-step-src="images/roastery/step-6-nitrogen-flush.png" data-step-title="Stage 06: Nitrogen-Flushed Bags" data-step-desc="Packaged with one-way degassing valves and airtight seals to guarantee cafe-fresh extraction for every cup.">
-          <div class="step-img-wrap">
-            <img src="images/roastery/step-6-nitrogen-flush.png" alt="Step 6: Nitrogen flush packaging">
-          </div>
-          <span class="step-num">STAGE 06 OF 06</span>
+        <div class="step-card">
+          <img src="images/roastery/step-6-nitrogen-flush.png" alt="Step 6: Nitrogen flush packaging">
+          <span class="step-num">STAGE 06</span>
           <h3>Nitrogen-Flushed Bags</h3>
           <p>Packaged with one-way degassing valves and airtight seals to guarantee cafe-fresh extraction for every cup.</p>
-        </div>
-      </div>
-
-      <!-- Lightbox Modal for Process Step Details -->
-      <div id="stepLightbox" class="step-lightbox">
-        <div class="step-lightbox-content">
-          <button id="closeStepLightbox" class="step-lightbox-close" aria-label="Close lightbox">&times;</button>
-          <img id="stepLightboxImg" src="" alt="Process Step Enlarged">
-          <h3 id="stepLightboxTitle" style="font-family:'Playfair Display', serif; font-size:1.8rem; margin:10px 0; color:#fff;"></h3>
-          <p id="stepLightboxDesc" style="color:#d4d4d4; font-size:16px; line-height:1.6; max-width:700px; margin:0 auto;"></p>
         </div>
       </div>
     </section>
