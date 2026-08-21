@@ -1,129 +1,261 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Boojee Cafe — considered coffee, patisserie and warm hospitality." name="description"/>
-<title>Boojee Cafe | Roastery</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
-<link href="css/style.css" rel="stylesheet"/>
-
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>The Roastery | Boojee Cafe</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <style>
+    .video-hero-container {
+      position: relative;
+      max-width: 1240px;
+      margin: 0 auto 80px;
+      padding: 0 max(5vw, 28px);
+    }
+    .video-wrapper {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      background: #000;
+      aspect-ratio: 16/9;
+    }
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .roastery-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 36px;
+      max-width: 1240px;
+      margin: 60px auto 100px;
+      padding: 0 max(5vw, 28px);
+    }
+    .step-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,0.3);
+    }
+    .step-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .step-card .step-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #a3a3a3;
+      margin-bottom: 8px;
+    }
+    .step-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin: 0 0 12px;
+      color: #fff;
+    }
+    .step-card p {
+      color: #d4d4d4;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .hero-photo-banner {
+      max-width: 1240px;
+      margin: 40px auto;
+      padding: 0 max(5vw, 28px);
+    }
+    .hero-photo-banner img {
+      width: 100%;
+      border-radius: 12px;
+      max-height: 480px;
+      object-fit: cover;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+  </style>
 </head>
 <body>
-<header class="header inner-header" id="top">
-<a aria-label="Boojee Cafe home" class="wordmark" href="#top">Boojee <span>CAFE</span></a>
-<button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
-<nav aria-label="Main navigation" class="nav" id="nav">
-<a href="menu.html">Menu</a><a href="about.html">Our craft</a><a href="visit.html">Visit</a>
-<a href="shop.html">Shop Now</a><a href="roastery.html">Roastery</a><a href="contact.html">Contact</a><a href="join-our-team.html">Join Our Team</a></nav>
-<button class="order-button" data-order="">Order <span id="cartCount">0</span></button>
-</header>
+  <header class="header inner-header">
+    <a class="wordmark" href="home.html">Boojee <span>CAFE</span></a>
+    <button aria-controls="nav" aria-expanded="false" class="nav-toggle">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="menu.html">Menu</a>
+      <a href="about.html">Our craft</a>
+      <a href="visit.html">Visit</a>
+      <a href="shop.html">Shop Now</a>
+      <a href="roastery.html">Roastery</a>
+      <a href="contact.html">Contact</a>
+      <a href="join-our-team.html">Join Our Team</a>
+    </nav>
+    <button class="order-button" data-order="">Order <span id="cartCount">0</span></button>
+  </header>
+
   <main>
     <section class="page-hero">
-      <p class="kicker">THE ROASTERY</p>
-      <h1>Sourced with care. <em>Roasted with intent.</em></h1>
-      <p>Our approach to coffee is guided by seasonality, transparency, and a deep respect for the producers.</p>
+      <p class="kicker">THE CRAFT OF COFFEE</p>
+      <h1>The Boojee <em>Roastery.</em></h1>
+      <p>Precision heat, artisanal profiling, and small-batch roasting to unlock the origin character of every single bean.</p>
     </section>
 
-    <section class="editorial-content">
-        <h2>The Pursuit of Quality</h2>
-        <p>At Boojee, roasting is about revealing the inherent characteristics of the coffee, rather than imparting the flavor of the roast itself. We meticulously profile each coffee to find the sweet spot—where acidity, sweetness, and body are in perfect harmony.</p>
-        
-        <img src="images/boojee-cafe-mark.svg" alt="Boojee Roastery" style="width: 100%; max-width: 300px; margin: 40px auto; display: block;">
+    <!-- Official Roasting Video -->
+    <div class="video-hero-container">
+      <div class="video-wrapper">
+        <video autoplay loop muted playsinline controls poster="images/roastery/roastery-hero.jpg">
+          <source src="videos/roastery-process.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
 
-        <h3>Sourcing Philosophy</h3>
-        <p>We work closely with trusted import partners and directly with producers to source coffees that are not only exceptional in the cup, but also ethically and sustainably grown. We pay a premium for quality, ensuring that the farmers are fairly compensated for their hard work.</p>
-        
-        <h3>Small-Batch Roasting</h3>
-        <p>We roast in small batches to maintain tight control over the development of the coffee. Our sensory team cups every roast to ensure consistency and quality before it ever reaches the hopper at the cafe or the shelf in the shop.</p>
-        
-        <div style="margin-top: 50px; text-align: center;">
-            <a class="button dark" href="shop.html">Shop our roasted coffee</a>
+    <!-- Roastery Facility Hero Banner -->
+    <div class="hero-photo-banner">
+      <img src="images/roastery/roastery-hero.jpg" alt="Boojee Roastery Craft Station in action">
+    </div>
+
+    <!-- Official Roasting Steps & Illustrations -->
+    <section class="section" style="padding-top: 40px;">
+      <div class="section-head" style="margin-bottom: 20px;">
+        <div>
+          <p class="kicker">HOW WE ROAST</p>
+          <h2>The Six-Step <em>Roast Method.</em></h2>
         </div>
+        <p>From estate-level green bean grading to nitrogen-sealed micro batches, here is how we ensure clarity in every extraction.</p>
+      </div>
+
+      <div class="roastery-steps-grid">
+        <div class="step-card">
+          <img src="images/roastery/step-1-green-beans.png" alt="Step 1: Green bean grading">
+          <span class="step-num">STAGE 01</span>
+          <h3>Estate Sourcing & Grading</h3>
+          <p>We work exclusively with certified single-origin growers across Chikmagalur, Shevaroys, and Araku Valley, selecting only high-altitude Grade AA beans.</p>
+        </div>
+
+        <div class="step-card">
+          <img src="images/roastery/step-2-roasting-curve.png" alt="Step 2: Roasting curve monitoring">
+          <span class="step-num">STAGE 02</span>
+          <h3>Thermodynamic Profiling</h3>
+          <p>Each harvest is test-roasted through digital infrared sensors to calibrate airflow, drum velocity, and thermal charge temperatures.</p>
+        </div>
+
+        <div class="step-card">
+          <img src="images/roastery/step-3-first-crack.png" alt="Step 3: Developing first crack">
+          <span class="step-num">STAGE 03</span>
+          <h3>Developing the First Crack</h3>
+          <p>As sugars caramelize and bean pressure releases, our roaster modulates conductive heat to preserve vibrant fruit acids and delicate aromatics.</p>
+        </div>
+
+        <div class="step-card">
+          <img src="images/roastery/step-4-cooling-tray.png" alt="Step 4: Aerated cooling tray">
+          <span class="step-num">STAGE 04</span>
+          <h3>Rapid Aerated Cooling</h3>
+          <p>Beans are discharged into an agitated cyclone cooling tray within 180 seconds, locking in nuanced flavour compounds immediately.</p>
+        </div>
+
+        <div class="step-card">
+          <img src="images/roastery/step-5-cupping-lab.png" alt="Step 5: Cupping evaluation">
+          <span class="step-num">STAGE 05</span>
+          <h3>Q-Grade Cupping Lab</h3>
+          <p>Every single batch undergoes sensory evaluation for sweetness, body, acidity, and cleanliness before packaging.</p>
+        </div>
+
+        <div class="step-card">
+          <img src="images/roastery/step-6-nitrogen-flush.png" alt="Step 6: Nitrogen flush packaging">
+          <span class="step-num">STAGE 06</span>
+          <h3>Nitrogen-Flushed Bags</h3>
+          <p>Packaged with one-way degassing valves and airtight seals to guarantee cafe-fresh extraction for every cup.</p>
+        </div>
+      </div>
     </section>
   </main>
 
-<section aria-labelledby="bellNotifyTitle" class="bell-notify">
-<div class="bell-copy">
-<p class="kicker">FRESH DROP ALERTS</p>
-<h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
-<p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
-<form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
-<input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
-<button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
-<div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
-</form>
-</div>
-<div class="bell-stage">
-<div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
-<span class="rope"></span>
-<span class="bell-top"></span>
-<span class="bell-base"></span>
-<span class="bell-base bell-base-glow"></span>
-<span class="shadow-l1"></span>
-<span class="shadow-l2"></span>
-<span class="left-glow"></span>
-<span class="left-glow2"></span>
-<span class="r-glow"></span>
-<span class="r-glow2"></span>
-<span class="mid-ring"></span>
-<span class="mid-ring small"></span>
-<span class="glow"></span>
-<span class="glow2"></span>
-<span class="bell-buff-t"></span>
-<span class="bell-buff"></span>
-<span class="bell-btm"></span>
-<span class="bell-btm2"></span>
-<span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
-<span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
-</div>
-<button class="notify-button" data-bell-button="" type="button">Notify Me</button>
-<span aria-hidden="true" class="grain"></span>
-</div>
-</section>
-<footer>
-<div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
-<div>
-<p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
-</div>
-<div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
-<a href="menu.html" style="opacity: 0.8;">Menu</a>
-<a href="about.html" style="opacity: 0.8;">Our Craft</a>
-<a href="visit.html" style="opacity: 0.8;">Visit</a>
-<a href="shop.html" style="opacity: 0.8;">Shop</a>
-<a href="roastery.html" style="opacity: 0.8;">Roastery</a>
-<a href="experiences.html" style="opacity: 0.8;">Experiences</a>
-<a href="journal.html" style="opacity: 0.8;">Journal</a>
-<a href="gallery.html" style="opacity: 0.8;">Gallery</a>
-<a href="contact.html" style="opacity: 0.8;">Contact</a>
-<a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
-<a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
-<a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
-<a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
-<a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
-<a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
-</div>
-</div>
-</footer>
+  <section aria-labelledby="bellNotifyTitle" class="bell-notify">
+    <div class="bell-copy">
+      <p class="kicker">FRESH DROP ALERTS</p>
+      <h2 id="bellNotifyTitle">Subscribe to Boojee</h2>
+      <p>Turn on cafe alerts for small-batch pastries, seasonal drinks and counter specials. And get our newsletter.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); const msg=this.querySelector('.newsletter-msg'); fetch('/api/newsletter', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({email: this.querySelector('input').value})}).then(r=>r.json()).then(d=>{msg.textContent=d.message; msg.style.color=d.message.includes('Successfully')?'#4caf50':'#f44336'; if(d.message.includes('Successfully')) this.reset();}).catch(()=>msg.textContent='Error');" style="margin-top: 25px; display: flex; gap: 10px; max-width: 400px;">
+        <input placeholder="Enter your email" required="" style="flex:1; padding: 12px; background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px;" type="email"/>
+        <button style="padding: 0 20px; background: #fff; color: #000; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; border-radius: 4px; cursor:pointer;" type="submit">Subscribe</button>
+        <div class="newsletter-msg" style="position: absolute; margin-top: 50px; font-size: 13px;"></div>
+      </form>
+    </div>
+    <div class="bell-stage">
+      <div aria-label="Turn cafe notifications on" aria-pressed="false" class="bell-container off" data-bell-toggle="">
+        <span class="rope"></span>
+        <span class="bell-top"></span>
+        <span class="bell-base"></span>
+        <span class="bell-base bell-base-glow"></span>
+        <span class="shadow-l1"></span>
+        <span class="shadow-l2"></span>
+        <span class="left-glow"></span>
+        <span class="left-glow2"></span>
+        <span class="r-glow"></span>
+        <span class="r-glow2"></span>
+        <span class="mid-ring"></span>
+        <span class="mid-ring small"></span>
+        <span class="glow"></span>
+        <span class="glow2"></span>
+        <span class="bell-buff-t"></span>
+        <span class="bell-buff"></span>
+        <span class="bell-btm"></span>
+        <span class="bell-btm2"></span>
+        <span class="bell-ring-container"><span class="bell-ring"></span><span class="bell-rays"></span></span>
+        <span class="volumetric"><span class="vl"></span><span class="vr"></span></span>
+      </div>
+      <button class="notify-button" data-bell-button="" type="button">Notify Me</button>
+      <span aria-hidden="true" class="grain"></span>
+    </div>
+  </section>
 
-<div aria-live="polite" class="toast" id="toast" role="status">Added to your order.</div>
-<script src="js/script.js"></script>
+  <footer>
+    <div class="enhanced-footer" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1240px; margin: 0 auto; gap: 20px; width: 100%;">
+      <div>
+        <p style="margin:0; color:#cfc4b6; font-size: 13px;">© 2026 Boojee Cafe. All rights reserved.</p>
+      </div>
+      <div class="footer-links" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 13px;">
+        <a href="menu.html" style="opacity: 0.8;">Menu</a>
+        <a href="about.html" style="opacity: 0.8;">Our Craft</a>
+        <a href="visit.html" style="opacity: 0.8;">Visit</a>
+        <a href="shop.html" style="opacity: 0.8;">Shop</a>
+        <a href="roastery.html" style="opacity: 0.8;">Roastery</a>
+        <a href="experiences.html" style="opacity: 0.8;">Experiences</a>
+        <a href="journal.html" style="opacity: 0.8;">Journal</a>
+        <a href="gallery.html" style="opacity: 0.8;">Gallery</a>
+        <a href="contact.html" style="opacity: 0.8;">Contact</a>
+        <a href="join-our-team.html" style="opacity: 0.8;">Join Our Team</a>
+        <a href="privacy-policy.html" style="opacity: 0.8;">Privacy Policy</a>
+        <a href="terms.html" style="opacity: 0.8;">Terms of Service</a>
+        <a href="refund-policy.html" style="opacity: 0.8;">Refund Policy</a>
+        <a href="shipping-policy.html" style="opacity: 0.8;">Shipping Policy</a>
+        <a href="contact-information.html" style="opacity: 0.8;">Contact Info</a>
+      </div>
+    </div>
+  </footer>
 
-<script>
-  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
+  <div aria-live="polite" class="toast" id="toast" role="status">Added to your order.</div>
+  <script src="js/script.js"></script>
 </body>
 </html>
-
-
-
-
-
