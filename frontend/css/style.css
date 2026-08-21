@@ -698,9 +698,9 @@ footer a:hover,
 /* Dark Mode Footer Adjustments */
 html.dark-mode footer,
 html.dark-mode .premium-footer {
-  background: #0d0b09 !important;
-  color: #f4eee8 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background: #050505 !important;
+  color: #ffffff !important;
+  border-top: 1px solid #262626 !important;
 }
 
 html.dark-mode footer p,
@@ -708,14 +708,14 @@ html.dark-mode .premium-footer p,
 html.dark-mode .enhanced-footer p,
 html.dark-mode .footer-brand p,
 html.dark-mode .footer-newsletter p {
-  color: #d9cdc2 !important;
+  color: #a3a3a3 !important;
 }
 
 html.dark-mode footer a,
 html.dark-mode .footer-links a,
 html.dark-mode .footer-nav a,
 html.dark-mode .footer-bottom-links a {
-  color: #f4eee8 !important;
+  color: #e5e5e5 !important;
   opacity: 0.85 !important;
 }
 
@@ -726,5 +726,4 @@ html.dark-mode .footer-bottom-links a:hover {
   opacity: 1 !important;
   color: #ffffff !important;
 }
-
 /* End Footer */
